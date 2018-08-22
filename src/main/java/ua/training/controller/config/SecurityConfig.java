@@ -1,0 +1,39 @@
+package ua.training.controller.config;
+
+import java.util.*;
+
+public class SecurityConfig {
+    public static String ROLE_USER = "USER";
+    public static String ROLE_ADMIN = "ADMIN";
+    //public static String ROLE_GUEST = "GUEST";
+
+    private static final Map<String, List<String>> roleAccessConfig = new HashMap<>();
+
+    static {
+        init();
+    }
+
+    private static void init() {
+        List<String> userPatterns = new ArrayList<>();
+        userPatterns.add("/user");
+
+        roleAccessConfig.put(ROLE_USER, userPatterns);
+
+        List<String> adminPatterns = new ArrayList<>();
+        adminPatterns.add("/user");
+        adminPatterns.add("/admin");
+
+        roleAccessConfig.put(ROLE_ADMIN, adminPatterns);
+
+      /*  List<String> guestPatterns = new ArrayList<>();
+        guestPatterns.add("/login");
+
+        roleAccessConfig.put(ROLE_GUEST, guestPatterns);*/
+    }
+
+    public static Set<String> getAllAppRoles() { return roleAccessConfig.keySet(); }
+
+    public static List<String> getUrlPatternsForRole(String role) { return roleAccessConfig.get(role); }
+
+
+}

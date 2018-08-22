@@ -1,9 +1,11 @@
-package ua.training.filter;
+package ua.training.controller.filter;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 
+@WebFilter("/*")
 public class EncodingFilter implements Filter {
 
 
