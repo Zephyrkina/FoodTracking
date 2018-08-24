@@ -6,6 +6,16 @@ public enum CommandEnum {
             this.command = new Login();
         }
     },
+    SHOWALLUSERSCOMMAND {
+        {
+            this.command = new ShowAllUsersCommand();
+        }
+    },
+    ADDOWNFOOD {
+        {
+            this.command = new AddOwnFood();
+        }
+    },
     LOGOUT{
         {
             this.command = new Logout();

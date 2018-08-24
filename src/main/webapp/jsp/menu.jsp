@@ -6,6 +6,12 @@
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language: pageContext.request.locale}" scope="session"/>
 <fmt:setLocale value="${language}" scope="session" />
 
+
+
+
+
+
+
 <form>
     <select id="language" name="language" onchange="submit()">
         <option value="en_US" ${language == 'en_US' ? 'selected' : ''}>English</option>
@@ -14,17 +20,35 @@
 </form>
 <br>
 
-<fmt:bundle basename="pagecontent">
-
-    <fmt:message key="label.welcome"/> <hr/>
-    <fmt:message key="footer.copyright"/> <hr/>
-    <fmt:message key="footer.date"/>
-
-</fmt:bundle>
+<%--
+<fmt:bundle basename="pagecontent" />
+--%>
 
 
+<%--<div class="mb-4">
+    <form>
+        <input name="language" type="image" value="en_US"
+        ${language=='en_US' ? 'selected' : '' } src = "http://icons.iconarchive.com/icons/custom-icon-design/all-country-flag/128/United-States-Flag-icon.png" style="height: 30px; width: 30px;">
+        <input name="language" type="image" value="uk_UA"
+        ${language=='uk_UA' ? 'selected' : '' } src = "http://icons.iconarchive.com/icons/custom-icon-design/all-country-flag/128/Ukraine-Flag-icon.png" style="height: 30px; width: 30px;">
+    </form>
+</div>
+<br>--%>
+
+
+<%--
+
+    <fmt:message key="label.welcome" bundle="${rb}"/> <hr/>
+    <fmt:message key="footer.copyright" bundle="${rb}"/> <hr/>
+    <fmt:message key="footer.date" bundle="${rb}"/>
+--%>
+
+
+
+
+<%--
 <br>
-<br>
+<br>--%>
 
 <a href="${pageContext.request.contextPath}/jsp/user/user_page.jsp">
     User page
@@ -45,3 +69,5 @@
 
 
 <span style="color:red">[ ${sessionScope.role} ]</span>
+
+<br>

@@ -1,13 +1,13 @@
 package ua.training.controller.servlet.command;
 
-import ua.training.model.dao.implement.UserDao;
 import ua.training.model.entity.User;
+import ua.training.model.service.LoginService;
+import ua.training.model.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Login implements Command{
     @Override
@@ -16,34 +16,28 @@ public class Login implements Command{
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        AtomicReference<UserDao> dao = (AtomicReference<UserDao>) request.getServletContext().getAttribute("dao");
+       // AtomicReference<UserDao1> dao = (AtomicReference<UserDao1>) request.getServletContext().getAttribute("dao");
 
         String page;
 
         //аутентификация запускается один раз для текущей сессии
 
-        if (dao.get().userIsExist(login, password)) {
-            if (request.getServletContext().getAttribute(login) != null) {
+        if (new LoginService().userExists(login, password)) {
+            if (request.getServletContext().getAttribute(login) != null && request.isRequestedSessionIdValid()) {
                 ((HttpSession) request.getServletContext().getAttribute(login)).invalidate();
             }
-            User.ROLE role = dao.get().getRoleByLoginPassword(login, password);
+            User.ROLE role = new LoginService().getRoleByLoginPassword(login, password);
 
             request.getSession().setAttribute("login", login);
-
-            request.getServletContext().setAttribute(login, request.getSession());
             request.getSession().setAttribute("role", role);
+            request.getServletContext().setAttribute(login, request.getSession());
+
 
             page = moveToPage(request, response, role);
 
         } else {
              page = moveToPage(request, response, User.ROLE.GUEST);
         }
-
-
-       /* JDBCDaoFactory jdbcDaoFactory = new JDBCDaoFactory();
-        JDBCCarDao jdbcCarDao = jdbcDaoFactory.createCarDao();
-        jdbcCarDao.findAll();
-*/
 
         return page;
 

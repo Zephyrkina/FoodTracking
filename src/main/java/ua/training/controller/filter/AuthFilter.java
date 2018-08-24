@@ -32,6 +32,8 @@ public class AuthFilter implements Filter {
             filterChain.doFilter(request, response);
         }
 
+        //TODO try to remove double if
+
         if (isSecurityPage(request)) {
             if (login == null) {
                 response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
