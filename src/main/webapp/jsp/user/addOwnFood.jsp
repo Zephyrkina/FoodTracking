@@ -15,11 +15,27 @@
 
 <form action="${pageContext.request.contextPath}/app/addOwnFood" method="post">
     <label>Input your type of food</label>
-    <input type="text" name="ownFoodName" required>
-    <input type="number" name="ownFoodCalories" required>
-    <input type="number"  name="ownFoodCarbs" required>
-    <input type="number" name="ownFoodFats" required>
-    <input type="number" name="ownFoodProteins" required>
+    <br>
+    <input type="text" name="own_food_name" value="${own_food_name}" required>
+    <br>
+    ${wrong_own_food_name}
+    <br>
+    <input type="number" name="own_food_calories" value="${own_food_calories}" required>
+    <br>
+    ${wrong_own_food_calories}
+    <br>
+    <input type="number" name="own_food_carbs" value="${own_food_carbs}" required>
+    <br>
+    ${wrong_own_food_carbs}
+    <br>
+    <input type="number" name="own_food_fats"  value="${own_food_fats}" required>
+    <br>
+    ${wrong_food_fats}
+    <br>
+    <input type="number" name="own_food_proteins" value="${own_food_proteins}" required>
+    <br> ${wrong_own_food_proteins}
+    <br>
+
 
     <input class="button" type="submit" value="Add">
 </form>
