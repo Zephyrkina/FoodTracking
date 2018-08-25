@@ -16,6 +16,11 @@ public enum CommandEnum {
             this.command = new AddOwnFood();
         }
     },
+    FINDFOODBYNAME {
+        {
+            this.command = new FindFoodByName();
+        }
+    },
     LOGOUT{
         {
             this.command = new Logout();
