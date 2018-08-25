@@ -10,7 +10,7 @@ public class FoodMapper implements ObjectMapper<Food> {
     @Override
     public Food extractFromResultSet(ResultSet resultSet) throws SQLException {
         Food food = new Food();
-        food.setId(resultSet.getInt("food_id"));
+        food.setId(resultSet.getInt("id"));
         food.setName(resultSet.getString("name_en"));
         food.setCalories(resultSet.getInt("calories"));
         food.setCarbohydrates(resultSet.getInt("carbs"));

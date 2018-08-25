@@ -1,5 +1,6 @@
 package ua.training.model.dao.implement;
 
+import ua.training.model.ItemNotFoundException;
 import ua.training.model.dao.FoodDao;
 import ua.training.model.dao.mapper.FoodMapper;
 import ua.training.model.entity.Food;
@@ -140,8 +141,11 @@ public class JDBCFoodDao implements FoodDao {
 
             resultSet = preparedStatement.executeQuery();
 
-            resultSet.next();
-            food = foodMapper.extractFromResultSet(resultSet);
+            if (resultSet.next()){
+                food = foodMapper.extractFromResultSet(resultSet);
+            } else {
+                throw new ItemNotFoundException();
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
