@@ -1,5 +1,6 @@
 package ua.training.controller.servlet.command;
 
+import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.entity.Food;
 import ua.training.model.service.UserService;
 import ua.training.model.service.resourse.manager.ErrorMessageManager;
@@ -20,12 +21,14 @@ public class AddOwnFood implements Command{
 
         //TODO breaks when input letters in int fields
 
+        InputDataUtils inputDataUtils = new InputDataUtils();
 
-        String name = readCorrectData(request, "own_food_name", regexManager.getProperty("name"));
-        int calories = Integer.parseInt(readCorrectData(request, "own_food_calories", regexManager.getProperty("int.numbers")));
-        int carbs = Integer.parseInt(readCorrectData(request, "own_food_carbs", regexManager.getProperty("int.numbers")));
-        int fats = Integer.parseInt(readCorrectData(request, "own_food_fats", regexManager.getProperty("int.numbers")));
-        int proteins = Integer.parseInt(readCorrectData(request, "own_food_proteins", regexManager.getProperty("int.numbers")));
+
+        String name = inputDataUtils.readCorrectData(request, "own_food_name", regexManager.getProperty("name"));
+        int calories = Integer.parseInt(inputDataUtils.readCorrectData(request, "own_food_calories", regexManager.getProperty("int.numbers")));
+        int carbs = Integer.parseInt(inputDataUtils.readCorrectData(request, "own_food_carbs", regexManager.getProperty("int.numbers")));
+        int fats = Integer.parseInt(inputDataUtils.readCorrectData(request, "own_food_fats", regexManager.getProperty("int.numbers")));
+        int proteins = Integer.parseInt(inputDataUtils.readCorrectData(request, "own_food_proteins", regexManager.getProperty("int.numbers")));
 
         Enumeration<String> requestAttributeNames = request.getAttributeNames();
 
@@ -45,7 +48,7 @@ public class AddOwnFood implements Command{
     }
 
 
-    private String readCorrectData(HttpServletRequest request, String parameter, String regex) {
+    /*private String readCorrectData(HttpServletRequest request, String parameter, String regex) {
         String inputData = request.getParameter(parameter).toLowerCase();
         request.setAttribute(parameter, inputData);
         if (! inputData.matches(regex)) {
@@ -59,6 +62,6 @@ public class AddOwnFood implements Command{
         str = str.replaceAll("_",".");
         return str;
 
-    }
+    }*/
 
 }
