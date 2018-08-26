@@ -18,6 +18,8 @@ public class Login implements Command{
 
        // AtomicReference<UserDao1> dao = (AtomicReference<UserDao1>) request.getServletContext().getAttribute("dao");
 
+        //TODO check login and password separately
+
         String page;
 
         //аутентификация запускается один раз для текущей сессии
@@ -29,7 +31,7 @@ public class Login implements Command{
             User.ROLE role = new LoginService().getRoleByLoginPassword(login, password);
 
             request.getSession().setAttribute("login", login);
-            request.getSession().setAttribute("role", role);
+            request.getSession().setAttribute("role", role.toString());
             request.getServletContext().setAttribute(login, request.getSession());
 
 

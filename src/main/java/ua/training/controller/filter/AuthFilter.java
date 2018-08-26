@@ -1,6 +1,7 @@
 package ua.training.controller.filter;
 
 import ua.training.controller.config.SecurityConfig;
+import ua.training.model.entity.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -27,21 +28,21 @@ public class AuthFilter implements Filter {
 
         System.out.println("session  in do filter: " + request.getSession().getId());
         String login = (String) request.getSession().getAttribute("login");
+        String role =  (String) request.getSession().getAttribute("role");
 
-        if (servletPath.equals("/login")){
-            filterChain.doFilter(request, response);
+        if (role == null) {
+            request.getSession().setAttribute("role", User.ROLE.GUEST.toString());
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
+            dispatcher.forward(request, response);
+            return;
         }
 
         //TODO try to remove double if
 
         if (isSecurityPage(request)) {
-            if (login == null) {
-                response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
-            } else {
-                boolean hasPermission = hasPermission(request);
-                if (!hasPermission) {
-                    request.getServletContext().getRequestDispatcher("/jsp/error.jsp").forward(request, response);
-                }
+            boolean hasPermission = hasPermission(request);
+            if (!hasPermission) {
+                request.getServletContext().getRequestDispatcher("/jsp/error.jsp").forward(request, response);
             }
         }
 
