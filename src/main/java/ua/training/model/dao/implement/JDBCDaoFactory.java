@@ -1,8 +1,10 @@
 package ua.training.model.dao.implement;
 
+import ua.training.model.dao.DailyRecordDao;
 import ua.training.model.dao.DaoFactory;
 import ua.training.model.dao.FoodDao;
 import ua.training.model.dao.UserDao;
+import ua.training.model.entity.DailyRecord;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -24,6 +26,8 @@ public class JDBCDaoFactory extends DaoFactory{
     public FoodDao createFoodDao() {
         return new JDBCFoodDao(dataSource);
     }
+
+    public DailyRecordDao createDailyRecordDao() { return new JDBCDailyRecordDao(dataSource); }
     /*
     @Override
     public StudentDao createStudentDao() {
