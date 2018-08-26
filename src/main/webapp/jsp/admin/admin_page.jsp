@@ -29,6 +29,12 @@
         <div class="col-lg-2"> ${user.password}</div>
         <div class="col-lg-2">${user.role}</div>
         <div class="col-lg-2">${user.email}</div>
+<%--
+
+        <div class="col-lg-1"><input type="number" placeholder="gramms" name="food_quantity"></div>
+        <div class="col-lg-1" style="margin-left:70px;"><input type="submit" value="Add"></div>
+--%>
+
 
     </div>
 </c:forEach>

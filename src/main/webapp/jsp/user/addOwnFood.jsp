@@ -13,10 +13,16 @@
 <body>
 
 
+<%--
+add regexes
+--%>
+
+
 <form action="${pageContext.request.contextPath}/app/addOwnFood" method="post">
     <label>Input your type of food</label>
     <br>
     <input type="text" name="own_food_name" value="${own_food_name}" required>
+
     <br>
     ${wrong_own_food_name}
     <br>

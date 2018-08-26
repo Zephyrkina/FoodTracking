@@ -10,6 +10,9 @@ public class Food {
 
     //TODO overrride hash and equals??
 
+
+    //TODO add popular food statistics
+
     public Food() {
     }
 

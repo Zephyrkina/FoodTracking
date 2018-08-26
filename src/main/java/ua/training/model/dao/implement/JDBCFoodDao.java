@@ -1,6 +1,6 @@
 package ua.training.model.dao.implement;
 
-import ua.training.model.ItemNotFoundException;
+import ua.training.model.exception.ItemNotFoundException;
 import ua.training.model.dao.FoodDao;
 import ua.training.model.dao.mapper.FoodMapper;
 import ua.training.model.entity.Food;

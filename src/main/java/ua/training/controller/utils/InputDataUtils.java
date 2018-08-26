@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public class InputDataUtils {
 
-    public String readCorrectData(HttpServletRequest request, String parameter, String regex) {
-        String inputData = request.getParameter(parameter).toLowerCase();
+    public static String readCorrectData(HttpServletRequest request, String parameter, String regex) {
+        String inputData = request.getParameter(parameter);
         request.setAttribute(parameter, inputData);
         if (! inputData.matches(regex)) {
             request.setAttribute("wrong_"+parameter, new ErrorMessageManager().getProperty("wrong." + parseString(parameter)));
@@ -16,7 +16,7 @@ public class InputDataUtils {
         return inputData;
     }
 
-    private String parseString(String str){
+    private static String parseString(String str){
         str = str.replaceAll("_",".");
         return str;
 

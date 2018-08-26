@@ -1,7 +1,7 @@
 package ua.training.controller.servlet.command;
 
 import ua.training.controller.utils.InputDataUtils;
-import ua.training.model.ItemNotFoundException;
+import ua.training.model.exception.ItemNotFoundException;
 import ua.training.model.entity.Food;
 import ua.training.model.service.UserService;
 import ua.training.model.service.resourse.manager.RegexManager;
@@ -9,6 +9,8 @@ import ua.training.model.service.resourse.manager.RegexManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FindFoodByName implements Command{
     @Override
@@ -27,8 +29,10 @@ public class FindFoodByName implements Command{
             return "/jsp/user/user_page.jsp";
         }
 
-
-        request.setAttribute("food", food);
+        List<Food> foods = new ArrayList<>();
+        foods.add(food);
+        //request.setAttribute("food", food);
+        request.setAttribute("foods", foods);
         return "/jsp/user/user_page.jsp";
 
     }
