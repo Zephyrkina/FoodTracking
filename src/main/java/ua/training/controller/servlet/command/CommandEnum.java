@@ -21,6 +21,11 @@ public enum CommandEnum {
             this.command = new FindFoodByName();
         }
     },
+    ADDFOODTORECORD {
+        {
+            this.command = new AddFoodToDailyRecord();
+        }
+    },
     LOGOUT{
         {
             this.command = new Logout();
