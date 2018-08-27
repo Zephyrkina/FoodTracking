@@ -21,7 +21,10 @@ public class FoodMapper implements ObjectMapper<Food> {
     }
 
     @Override
-    public Food makeUnique(Map<Integer, Food> cache, Food entity) {
-        return null;
+    public Food makeUnique(Map<Integer, Food> cache, Food food) {
+        cache.putIfAbsent(food.getId(), food);
+        return cache.get(food.getId());
+
     }
+
 }

@@ -33,10 +33,10 @@ public class UserService {
 
     public void addFoodToDailyRecord(int foodId, int quantity, LocalDate date, int userId) {
         int dailyRecordId = 0;
-        if(! dailyRecordDao.recordExists(date, userId)){
-            dailyRecordId = dailyRecordDao.create(new DailyRecord(date, userId));
+        if(! dailyRecordDao.recordExists(userId)){
+             dailyRecordDao.create(new DailyRecord(date, userId));
         }
-
+        dailyRecordId = dailyRecordDao.getRecordIdByUserId(userId);
         dailyRecordDao.addFoodToRecord(dailyRecordId, foodId, quantity);
 
     }
@@ -55,6 +55,13 @@ public class UserService {
 
     public int getUserIdByLogin(String login) {
         return userDao.getUserIdByLogin(login);
+    }
+
+    public void saveRecordToFoodDiary(int userId) {
+        if(dailyRecordDao.recordExists(userId)) {
+            int dailyRecordId = dailyRecordDao.getRecordIdByUserId(userId);
+            dailyRecordDao.saveRecordToFoodDiary(userId, dailyRecordId);
+        }
     }
 
 

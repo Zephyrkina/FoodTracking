@@ -1,15 +1,19 @@
 package ua.training.model.entity;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DailyRecord {
     int id;
     LocalDate date;
     int userId;
     int totalCalories;
-    List<Food> foodList = new ArrayList<>();
+    //List<Food> foodList = new ArrayList<>();
+    Map<Food, Integer> consumedFood = new HashMap<>();
 
 
     public DailyRecord() {
@@ -52,11 +56,19 @@ public class DailyRecord {
         this.totalCalories = totalCalories;
     }
 
-    public List<Food> getFoodList() {
+    public Map<Food, Integer> getConsumedFood() {
+        return consumedFood;
+    }
+
+    public void setConsumedFood(Map<Food, Integer> consumedFood) {
+        this.consumedFood = consumedFood;
+    }
+
+    /* public List<Food> getFoodList() {
         return foodList;
     }
 
     public void setFoodList(List<Food> foodList) {
         this.foodList = foodList;
-    }
+    }*/
 }

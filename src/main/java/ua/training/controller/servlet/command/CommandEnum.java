@@ -21,9 +21,14 @@ public enum CommandEnum {
             this.command = new FindFoodByName();
         }
     },
-    ADDFOODTORECORD {
+    ADDFOODTODAILYRECORD {
         {
             this.command = new AddFoodToDailyRecord();
+        }
+    },
+    SAVERECORDTODIARY {
+        {
+            this.command = new SaveRecordToDiary();
         }
     },
     LOGOUT{

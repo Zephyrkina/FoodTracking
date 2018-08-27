@@ -28,7 +28,7 @@
     <p>${errorMessage}</p>
     <p>
     <c:forEach items="${requestScope.foods}" var="food" >
-    <form method="post" action="${pageContext.request.contextPath}/app/addFoodToRecord">
+    <form method="post" action="${pageContext.request.contextPath}/app/addFoodToDailyRecord">
         <div class="row">
             <div class="col-lg-2">${food.id}</div>
             <div class="col-lg-2">${food.name}</div>
@@ -56,7 +56,9 @@
 
     <br>
     <a href="${pageContext.request.contextPath}/jsp/user/addOwnFood.jsp">Add own food</a>
+    <br>
 
+    <a href="${pageContext.request.contextPath}/app/saveRecordToDiary">Finish today's record</a>
     <br>
     <br>
     <a href="${pageContext.request.contextPath}/app/logout">Log out</a>

@@ -2,10 +2,10 @@ package ua.training.model.dao;
 
 import ua.training.model.entity.DailyRecord;
 
-import java.time.LocalDate;
-
 public interface DailyRecordDao extends GenericDao<DailyRecord> {
 
-    boolean recordExists(LocalDate date, int userId);
+    boolean recordExists(int userId);
     int addFoodToRecord(int dailyRecordId, int foodId, int quantity);
+    int getRecordIdByUserId(int userId);
+    boolean saveRecordToFoodDiary(int userId, int dailyRecordId);
 }
