@@ -26,7 +26,7 @@ public class User {
     public User() {
     }
 
-    //TODO remove this constructor
+  /*  //TODO remove this constructor
     public User(int id, String login, String password, ROLE role) {
         this.id = id;
         this.login = login;
@@ -37,6 +37,20 @@ public class User {
     public User(int id, String login, String password, String email, String name, ROLE role, int age,
                 int height, double weight, LIFE_ACTIVITY activity, int calorieNorm) {
         this.id = id;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.role = role;
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
+        this.activity = activity;
+        this.calorieNorm = calorieNorm;
+    }*/
+
+    public User(String login, String password, String email, String name, ROLE role, int age, int height,
+                double weight, LIFE_ACTIVITY activity, int calorieNorm) {
         this.login = login;
         this.password = password;
         this.email = email;

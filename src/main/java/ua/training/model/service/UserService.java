@@ -27,9 +27,8 @@ public class UserService {
 
     }
 
-    public int calculateCalorieNorm(User user) {
-        int calorieNorm = (int) (88.36 + (13.4 * user.getWeight()) + (4.8 * user.getHeight()) - (5.7 * user.getAge()));
-        return calorieNorm;
+    public int calculateCalorieNorm(int age, int height, double weight) {
+        return (int) (88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age));
     }
 
     public void addFoodToDailyRecord(int foodId, int quantity, LocalDate date, int userId) {
@@ -69,6 +68,10 @@ public class UserService {
             int dailyRecordId = dailyRecordDao.getRecordIdByUserId(userId);
             dailyRecordDao.saveRecordToFoodDiary(userId, dailyRecordId);
         }
+    }
+
+    public void createUser(User user){
+        userDao.create(user);
     }
 
 

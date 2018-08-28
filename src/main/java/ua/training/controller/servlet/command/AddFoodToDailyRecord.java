@@ -18,10 +18,11 @@ public class AddFoodToDailyRecord implements Command {
         RegexManager regexManager = new RegexManager();
 
         UserService userService = new UserService();
+        InputDataUtils inputDataUtils = new InputDataUtils();
 
         int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));
-        int foodId = Integer.parseInt(InputDataUtils.readCorrectData(request, "food_id", regexManager.getProperty("int.numbers")));
-        int quantity = Integer.parseInt(InputDataUtils.readCorrectData(request, "food_quantity", regexManager.getProperty("int.numbers")));
+        int foodId = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_id", regexManager.getProperty("int.numbers")));
+        int quantity = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_quantity", regexManager.getProperty("int.numbers")));
         LocalDate date = LocalDate.now();
         System.out.println(date);
 
