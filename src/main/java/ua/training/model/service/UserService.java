@@ -74,5 +74,10 @@ public class UserService {
         userDao.create(user);
     }
 
+    public void checkUniqueLoginEmail(String login, String email){
+        userDao.checkUniqueLoginEmail(login, email);
+
+    }
+
 
 }

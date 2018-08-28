@@ -28,6 +28,7 @@
         <input type="text" name="user_login" value="${user_login}" placeholder="Login" required>
         <br>
         ${wrong_user_login}
+        ${notUniqueLogin}
         <br>
         <input type="password" name="user_password" value="${user_password}" placeholder="Password" required>
         <br>
@@ -40,6 +41,7 @@
         <input type="text" name="user_email" value="${user_email}" placeholder="E-mail" required>
         <br>
         ${wrong_user_email}
+        ${notUniqueEmail}
         <br>
         <input type="number" name="user_age" value="${user_age}" placeholder="Age" required>
         <br>
