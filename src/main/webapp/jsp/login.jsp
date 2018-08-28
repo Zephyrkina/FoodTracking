@@ -26,13 +26,14 @@
     <form method="post" action="${pageContext.request.contextPath}/app/login">
 
         <fmt:message key="page.login"/><br>
-        <input type="text" name="login"><br/>
+        <input type="text" name="input_login" value="${requestScope.input_login}"><br/>
+            ${requestScope.userNotFound}
+            ${wrong_input_login}
+        <br>
         <fmt:message key="page.password"/><br>
-        <input type="password" name="password">
+        <input type="password" name="input_password">
         <br/>
-            ${errorLoginPassMessage}
-        <br/>
-            ${wrongAction}
+            ${wrong_input_password}
         <br/>
             ${nullPage}
         <br/>

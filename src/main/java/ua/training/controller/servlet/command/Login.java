@@ -1,59 +1,66 @@
 package ua.training.controller.servlet.command;
 
+import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.entity.User;
+import ua.training.model.exception.ItemNotFoundException;
 import ua.training.model.service.LoginService;
 import ua.training.model.service.UserService;
+import ua.training.model.service.resourse.manager.RegexManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Enumeration;
 
 public class Login implements Command{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
+        InputDataUtils inputDataUtils = new InputDataUtils();
+        RegexManager regexManager = new RegexManager();
 
-       // AtomicReference<UserDao1> dao = (AtomicReference<UserDao1>) request.getServletContext().getAttribute("dao");
+        String login = inputDataUtils.readCorrectData(request, "input_login", regexManager.getProperty("login"));
+        String password = inputDataUtils.readCorrectData(request,"input_password", regexManager.getProperty("password"));
 
-        //TODO check login and password separately
+        UserService userService = new UserService();
 
-        String page;
+        try {
+            userService.checkLoginExists(login);
+        } catch(ItemNotFoundException e) {
+            request.setAttribute("userNotFound", "User with login \"" + login + "\" doesn't exist");
+            return "/jsp/login.jsp";
+        }
 
-        //аутентификация запускается один раз для текущей сессии
+        try {
+            userService.checkPasswordCorrect(password);
+        } catch(ItemNotFoundException e) {
+            request.setAttribute("wrong_input_password", "Wrong password");
+            return "/jsp/login.jsp";
 
-        if (new LoginService().userExists(login, password)) {
-            if (request.getServletContext().getAttribute(login) != null && request.isRequestedSessionIdValid()) {
-                ((HttpSession) request.getServletContext().getAttribute(login)).invalidate();
+        }
+
+        Enumeration<String> requestAttributeNames = request.getAttributeNames();
+
+        while(requestAttributeNames.hasMoreElements()){
+            String attrName = requestAttributeNames.nextElement();
+            if (attrName.contains("wrong")){
+                return "/jsp/login.jsp";
             }
-            User.ROLE role = new LoginService().getRoleByLoginPassword(login, password);
-
-            request.getSession().setAttribute("login", login);
-            request.getSession().setAttribute("role", role.toString());
-            request.getServletContext().setAttribute(login, request.getSession());
-
-
-            page = moveToPage(request, response, role);
-
-        } else {
-             page = moveToPage(request, response, User.ROLE.GUEST);
         }
 
-        return page;
-
-    }
-
-    private String moveToPage(HttpServletRequest request, HttpServletResponse response, User.ROLE role) throws IOException {
-        if (role.equals(User.ROLE.ADMIN)){
-            return  "redirect:/jsp/admin/admin_page.jsp";
-
-        } else if (role.equals(User.ROLE.USER)){
-            return "redirect:/jsp/user/user_page.jsp";
-
-        } else {
-            return "redirect:/jsp/index.jsp";
+        if (request.getServletContext().getAttribute(login) != null && request.isRequestedSessionIdValid()) {
+            ((HttpSession) request.getServletContext().getAttribute(login)).invalidate();
         }
+        String role = userService.getRoleByLoginPassword(login, password).toString();
+
+        request.getSession().setAttribute("login", login);
+        request.getSession().setAttribute("role", role);
+        request.getServletContext().setAttribute(login, request.getSession());
+        System.out.println(role);
+
+        return "redirect:/jsp/" + role.toLowerCase() +"/"+ role.toLowerCase() +"_page.jsp";
+
+
     }
 }

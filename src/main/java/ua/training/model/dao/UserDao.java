@@ -7,4 +7,7 @@ public interface UserDao extends GenericDao<User>{
     User.ROLE getRoleByLoginPassword(String login, String password);
     int getUserIdByLogin(String login);
     void checkUniqueLoginEmail(String login, String email);
+    void checkLoginExists(String login);
+    void checkPasswordCorrect(String password);
+
 }

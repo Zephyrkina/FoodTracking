@@ -20,14 +20,13 @@
 
     <br>
     <form action="${pageContext.request.contextPath}/app/findFoodByName" method="post">
-        <label>Input food name for search</label>
+        <p>Input food name for search</p>
         <input type="text" name="search_food_name">
         <input class="button" type="submit" value="Search">
     </form>
 
-    <br>
-
     <p>${errorMessage}</p>
+    <p>${wrong_search_food_name}</p>
     <p>
     <c:forEach items="${requestScope.foods}" var="food" >
     <form method="post" action="${pageContext.request.contextPath}/app/addFoodToDailyRecord">
@@ -60,6 +59,8 @@
     <br>
 
     <a href="${pageContext.request.contextPath}/app/saveRecordToDiary">Finish today's record</a>
+    <br>
+    <br>
     <br>
     <br>
     <a href="${pageContext.request.contextPath}/app/logout">Log out</a>

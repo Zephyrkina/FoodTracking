@@ -27,6 +27,14 @@ public class UserService {
 
     }
 
+    public boolean userExists(String login, String password) {
+        return userDao.userExists(login, password);
+    }
+
+    public User.ROLE getRoleByLoginPassword(String login, String password) {
+        return userDao.getRoleByLoginPassword(login, password);
+    }
+
     public int calculateCalorieNorm(int age, int height, double weight) {
         return (int) (88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age));
     }
@@ -77,6 +85,14 @@ public class UserService {
     public void checkUniqueLoginEmail(String login, String email){
         userDao.checkUniqueLoginEmail(login, email);
 
+    }
+
+    public void checkLoginExists(String login) {
+        userDao.checkLoginExists(login);
+    }
+
+    public void checkPasswordCorrect(String password) {
+        userDao.checkPasswordCorrect(password);
     }
 
 

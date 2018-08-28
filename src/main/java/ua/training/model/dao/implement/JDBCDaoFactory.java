@@ -13,11 +13,6 @@ import java.sql.SQLException;
 public class JDBCDaoFactory extends DaoFactory{
 
     private DataSource dataSource = ConnectionPoolHolder.getDataSource();
-
-    /*public JDBCCarDao createCarDao() {
-        return new JDBCCarDao(dataSource);
-    }*/
-
     
     public UserDao createUserDao() {
         return new JDBCUserDao(getConnection());
@@ -28,11 +23,6 @@ public class JDBCDaoFactory extends DaoFactory{
     }
 
     public DailyRecordDao createDailyRecordDao() { return new JDBCDailyRecordDao(getConnection()); }
-    /*
-    @Override
-    public StudentDao createStudentDao() {
-        return new JDBCStudentDao(getConnection());
-    }*/
 
     private Connection getConnection(){
         try {

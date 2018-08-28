@@ -14,11 +14,4 @@ public class LoginService {
         userDao = daoFactory.createUserDao();
     }
 
-    public boolean userExists(String login, String password) {
-        return userDao.userExists(login, password);
-    }
-
-    public User.ROLE getRoleByLoginPassword(String login, String password) {
-        return userDao.getRoleByLoginPassword(login, password);
-    }
 }

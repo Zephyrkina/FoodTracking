@@ -3,6 +3,7 @@ package ua.training.model.dao.implement;
 import ua.training.model.dao.UserDao;
 import ua.training.model.dao.mapper.UserMapper;
 import ua.training.model.entity.User;
+import ua.training.model.exception.ItemNotFoundException;
 import ua.training.model.exception.NotUniqueEmailException;
 import ua.training.model.exception.NotUniqueLoginException;
 
@@ -240,6 +241,44 @@ public class JDBCUserDao implements UserDao {
                 e.printStackTrace();
             }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void checkLoginExists(String userLogin) {
+        String sql1 = "select * from `user` where login = ?";
+
+        try (PreparedStatement preparedStatement1 = connection.prepareStatement(sql1))
+        {
+            preparedStatement1.setString(1, userLogin);
+            try ( ResultSet resultSet = preparedStatement1.executeQuery()) {
+                if(! resultSet.next()){
+                    throw new ItemNotFoundException();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void checkPasswordCorrect(String userPassword) {
+        String sql1 = "select * from `user` where password = ?";
+
+        try (PreparedStatement preparedStatement1 = connection.prepareStatement(sql1))
+        {
+            preparedStatement1.setString(1, userPassword);
+            try ( ResultSet resultSet = preparedStatement1.executeQuery()) {
+                if(! resultSet.next()){
+                    throw new ItemNotFoundException();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
