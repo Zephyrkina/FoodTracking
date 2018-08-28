@@ -31,6 +31,11 @@ public enum CommandEnum {
             this.command = new SaveRecordToDiary();
         }
     },
+    REGISTRATION {
+        {
+            this.command = new Registration();
+        }
+    },
     LOGOUT{
         {
             this.command = new Logout();

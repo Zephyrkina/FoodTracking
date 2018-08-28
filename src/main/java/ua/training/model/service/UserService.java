@@ -7,6 +7,7 @@ import ua.training.model.dao.UserDao;
 import ua.training.model.entity.DailyRecord;
 import ua.training.model.entity.Food;
 import ua.training.model.entity.User;
+import ua.training.model.exception.ExceededCalorieNormException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -38,6 +39,12 @@ public class UserService {
         }
         dailyRecordId = dailyRecordDao.getRecordIdByUserId(userId);
         dailyRecordDao.addFoodToRecord(dailyRecordId, foodId, quantity);
+        int consumedCalories = dailyRecordDao.countCalories(dailyRecordId, userId);
+        int calorieNorm = userDao.findById(userId).getCalorieNorm();
+        if(consumedCalories > calorieNorm){
+            throw new ExceededCalorieNormException();
+        }
+
 
     }
 

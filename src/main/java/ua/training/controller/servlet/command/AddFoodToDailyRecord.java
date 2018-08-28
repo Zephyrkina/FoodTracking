@@ -25,7 +25,11 @@ public class AddFoodToDailyRecord implements Command {
         LocalDate date = LocalDate.now();
         System.out.println(date);
 
-        userService.addFoodToDailyRecord(foodId, quantity, date, userId);
+        try {
+            userService.addFoodToDailyRecord(foodId, quantity, date, userId);
+        } catch (RuntimeException e) {
+            request.setAttribute("calorieNormExceeded", "You have exceed daily calorie norm!");
+        }
 
         return "/jsp/user/user_page.jsp";
     }

@@ -183,7 +183,52 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
         }
 
 
-        return false;
+        return true;
+    }
+
+    @Override
+    public int countCalories(int dailyRecordId, int userId) {
+        String sql1 = "SELECT * FROM daily_record " +
+                "RIGHT JOIN daily_record_has_food ON daily_record.id = daily_record_has_food.daily_record_id " +
+                " left join food on  food.id = daily_record_has_food.food_id where daily_record.user_id = ?";
+
+        String sql2 = "update daily_record set total_calories = ? where id = ?";
+
+        int total_calories = 0;
+
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement getAllStatement = connection.prepareStatement(sql1);
+                 PreparedStatement updateCaloriesStatement = connection.prepareStatement(sql2)){
+
+                connection.setAutoCommit(false);
+
+                getAllStatement.setInt(1, userId);
+                ResultSet resultSet = getAllStatement.executeQuery();
+
+                while(resultSet.next()) {
+                    int quantity = resultSet.getInt("quantity");
+                    int calories = resultSet.getInt("calories");
+
+                    total_calories = total_calories + (int)((double)quantity * (double)calories * 0.01);
+
+                }
+                updateCaloriesStatement.setInt(1, total_calories);
+                updateCaloriesStatement.setInt(2, dailyRecordId);
+
+                updateCaloriesStatement.executeUpdate();
+
+
+                connection.commit();
+
+            } catch (SQLException e) {
+                connection.rollback();
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return total_calories;
+
     }
 
     @Override
