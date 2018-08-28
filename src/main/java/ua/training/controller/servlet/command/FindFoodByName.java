@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 public class FindFoodByName implements Command{
@@ -19,6 +20,15 @@ public class FindFoodByName implements Command{
         InputDataUtils inputDataUtils = new InputDataUtils();
 
         String foodName = inputDataUtils.readCorrectData(request,"search_food_name", regexManager.getProperty("name"));
+
+        Enumeration<String> requestAttributeNames = request.getAttributeNames();
+
+        while(requestAttributeNames.hasMoreElements()){
+            String attrName = requestAttributeNames.nextElement();
+            if (attrName.contains("wrong")){
+                return "/jsp/user/user_page.jsp";
+            }
+        }
 
         Food food;
 
