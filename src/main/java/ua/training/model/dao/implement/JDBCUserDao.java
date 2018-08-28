@@ -232,7 +232,7 @@ public class JDBCUserDao implements UserDao {
                 e.printStackTrace();
             }
 
-            try ( ResultSet resultSet = preparedStatement1.executeQuery()) {
+            try ( ResultSet resultSet = preparedStatement2.executeQuery()) {
                 if(resultSet.next()){
                     throw new NotUniqueEmailException();
                 }
@@ -285,9 +285,12 @@ public class JDBCUserDao implements UserDao {
     }
 
     @Override
-    public void close() throws Exception {
-
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-
 
 }

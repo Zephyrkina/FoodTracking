@@ -13,26 +13,20 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class UserService {
-    private UserDao userDao;
-    private FoodDao foodDao;
-    private DailyRecordDao dailyRecordDao;
+    DaoFactory daoFactory = DaoFactory.getInstance();
 
-    //нужно ли писать отдельное дао под таблицу н к н
-
-    public UserService() {
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        userDao = daoFactory.createUserDao();
-        foodDao = daoFactory.createFoodDao();
-        dailyRecordDao = daoFactory.createDailyRecordDao();
-
-    }
 
     public boolean userExists(String login, String password) {
-        return userDao.userExists(login, password);
+        try (UserDao userDao = daoFactory.createUserDao()) {
+
+            return userDao.userExists(login, password);
+        }
     }
 
     public User.ROLE getRoleByLoginPassword(String login, String password) {
-        return userDao.getRoleByLoginPassword(login, password);
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            return userDao.getRoleByLoginPassword(login, password);
+        }
     }
 
     public int calculateCalorieNorm(int age, int height, double weight) {
@@ -40,59 +34,93 @@ public class UserService {
     }
 
     public void addFoodToDailyRecord(int foodId, int quantity, LocalDate date, int userId) {
-        int dailyRecordId = 0;
-        if(! dailyRecordDao.recordExists(userId)){
-             dailyRecordDao.create(new DailyRecord(date, userId));
-        }
-        dailyRecordId = dailyRecordDao.getRecordIdByUserId(userId);
-        dailyRecordDao.addFoodToRecord(dailyRecordId, foodId, quantity);
-        int consumedCalories = dailyRecordDao.countCalories(dailyRecordId, userId);
-        int calorieNorm = userDao.findById(userId).getCalorieNorm();
-        if(consumedCalories > calorieNorm){
-            throw new ExceededCalorieNormException();
-        }
+        int consumedCalories = 0;
+        try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()){
 
+            int dailyRecordId = 0;
+            if (!dailyRecordDao.recordExists(userId)) {
+                dailyRecordDao.create(new DailyRecord(date, userId));
+            }
+            dailyRecordId = dailyRecordDao.getRecordIdByUserId(userId);
+            dailyRecordDao.addFoodToRecord(dailyRecordId, foodId, quantity);
+            consumedCalories = dailyRecordDao.countCalories(dailyRecordId, userId);
+
+        }
+        try (UserDao userDao = daoFactory.createUserDao()) {
+
+
+            int calorieNorm = userDao.findById(userId).getCalorieNorm();
+            if (consumedCalories > calorieNorm) {
+                throw new ExceededCalorieNormException();
+            }
+        }
 
     }
 
     public int addOwnFoodToDB(Food food, int userId) {
-        return foodDao.createUsersFood(food, userId);
+        try (FoodDao foodDao = daoFactory.createFoodDao()) {
+            return foodDao.createUsersFood(food, userId);
+        }
     }
 
     public Food findFoodByName(String foodName) {
-        return foodDao.findByName(foodName);
+        try (FoodDao foodDao = daoFactory.createFoodDao()) {
+            return foodDao.findByName(foodName);
+        }
     }
 
     public List<Food> showAllFood() {
-        return foodDao.findAll();
+        try (FoodDao foodDao = daoFactory.createFoodDao()) {
+            return foodDao.findAll();
+        }
     }
 
     public int getUserIdByLogin(String login) {
-        return userDao.getUserIdByLogin(login);
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            return userDao.getUserIdByLogin(login);
+
+        }
+
     }
 
     public void saveRecordToFoodDiary(int userId) {
-        if(dailyRecordDao.recordExists(userId)) {
-            int dailyRecordId = dailyRecordDao.getRecordIdByUserId(userId);
-            dailyRecordDao.saveRecordToFoodDiary(userId, dailyRecordId);
+        try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
+            if (dailyRecordDao.recordExists(userId)) {
+                int dailyRecordId = dailyRecordDao.getRecordIdByUserId(userId);
+                dailyRecordDao.saveRecordToFoodDiary(userId, dailyRecordId);
+            }
         }
     }
 
     public void createUser(User user){
-        userDao.create(user);
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            userDao.create(user);
+
+        }
     }
 
     public void checkUniqueLoginEmail(String login, String email){
-        userDao.checkUniqueLoginEmail(login, email);
+
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            userDao.checkUniqueLoginEmail(login, email);
+
+        }
 
     }
 
     public void checkLoginExists(String login) {
-        userDao.checkLoginExists(login);
-    }
+
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            userDao.checkLoginExists(login);
+        }
+
+        }
 
     public void checkPasswordCorrect(String password) {
-        userDao.checkPasswordCorrect(password);
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            userDao.checkPasswordCorrect(password);
+
+        }
     }
 
 

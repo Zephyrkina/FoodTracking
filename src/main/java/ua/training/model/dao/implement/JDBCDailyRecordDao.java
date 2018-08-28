@@ -296,7 +296,11 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
     }
 
     @Override
-    public void close() throws Exception {
-
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
