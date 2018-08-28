@@ -14,6 +14,8 @@
 <br>
 <h1>Hello, ${sessionScope.login}</h1>
 
+    <p>${requestScope.calorieNormExceeded}</p>
+
 
 
     <br>
@@ -53,9 +55,8 @@
 
     <p>${cantFindFoodMessage}</p>
 
-
-    <br>
     <a href="${pageContext.request.contextPath}/jsp/user/addOwnFood.jsp">Add own food</a>
+    <br>
     <br>
 
     <a href="${pageContext.request.contextPath}/app/saveRecordToDiary">Finish today's record</a>

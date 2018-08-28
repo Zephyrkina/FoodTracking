@@ -42,7 +42,9 @@
 
     </form>
     <br/>
-    <a href="${pageContext.request.contextPath}/app/logout">На головну</a>
+        <a href="${pageContext.request.contextPath}/jsp/registration.jsp"><fmt:message key="registration.page"/></a>
+        <br>
+    <a href="${pageContext.request.contextPath}/app/logout"><fmt:message key="logout"/></a>
     </fmt:bundle>
 </div>
 </body>

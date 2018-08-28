@@ -9,9 +9,11 @@
 <html>
 <head>
     <title>Add own food</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 </head>
 <body>
-
+<div class="container">
 
 <%--
 add regexes
@@ -45,6 +47,6 @@ add regexes
 
     <input class="button" type="submit" value="Add">
 </form>
-
+</div>
 </body>
 </html>
