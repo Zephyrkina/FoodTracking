@@ -20,14 +20,14 @@ public class JDBCDaoFactory extends DaoFactory{
 
     
     public UserDao createUserDao() {
-        return new JDBCUserDao(dataSource);
+        return new JDBCUserDao(getConnection());
     }
 
     public FoodDao createFoodDao() {
-        return new JDBCFoodDao(dataSource);
+        return new JDBCFoodDao(getConnection());
     }
 
-    public DailyRecordDao createDailyRecordDao() { return new JDBCDailyRecordDao(dataSource); }
+    public DailyRecordDao createDailyRecordDao() { return new JDBCDailyRecordDao(getConnection()); }
     /*
     @Override
     public StudentDao createStudentDao() {

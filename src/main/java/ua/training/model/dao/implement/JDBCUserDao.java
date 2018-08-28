@@ -3,6 +3,8 @@ package ua.training.model.dao.implement;
 import ua.training.model.dao.UserDao;
 import ua.training.model.dao.mapper.UserMapper;
 import ua.training.model.entity.User;
+import ua.training.model.exception.NotUniqueEmailException;
+import ua.training.model.exception.NotUniqueLoginException;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -13,14 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCUserDao implements UserDao {
-    private DataSource dataSource;
+    private Connection connection;
 
     //TODO remove close() ?
 
     //TODO add resultset in try-with-res
 
-    public JDBCUserDao(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public JDBCUserDao(Connection connection) {
+        this.connection = connection;
     }
 
     @Override
@@ -29,8 +31,7 @@ public class JDBCUserDao implements UserDao {
                 " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         int result = 0;
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setString(1, entity.getLogin());
             preparedStatement.setString(2, entity.getPassword());
             preparedStatement.setString(3, entity.getEmail());
@@ -58,8 +59,7 @@ public class JDBCUserDao implements UserDao {
         User user = null;
         UserMapper userMapper = new UserMapper();
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setInt(1, userId);
 
             resultSet = preparedStatement.executeQuery();
@@ -80,8 +80,7 @@ public class JDBCUserDao implements UserDao {
         List<User> users = new ArrayList<>();
         UserMapper userMapper = new UserMapper();
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
             resultSet = preparedStatement.executeQuery();
 
@@ -100,8 +99,7 @@ public class JDBCUserDao implements UserDao {
         String sql = "delete from `user` where id = ?";
         int result = 0;
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setInt(1, userId);
 
             result = preparedStatement.executeUpdate();
@@ -118,8 +116,7 @@ public class JDBCUserDao implements UserDao {
                 "height = ?, weight = ?, activity = ?, calorie_norm = ? where id = ?";
         int result = 0;
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setString(1, entity.getLogin());
             preparedStatement.setString(2, entity.getPassword());
             preparedStatement.setString(3, entity.getEmail());
@@ -147,8 +144,7 @@ public class JDBCUserDao implements UserDao {
         List<User> users = new ArrayList<>();
         UserMapper userMapper = new UserMapper();
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
             preparedStatement.setString(1, userLogin);
             preparedStatement.setString(2, userPassword);
@@ -173,8 +169,7 @@ public class JDBCUserDao implements UserDao {
         String sql = "select role from `user` where login = ? and password = ?";
         User.ROLE role = null;
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
             preparedStatement.setString(1, userLogin);
             preparedStatement.setString(2, userPassword);
@@ -199,8 +194,7 @@ public class JDBCUserDao implements UserDao {
 
         int userId = 0;
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
             preparedStatement.setString(1, userLogin);
 
@@ -215,6 +209,40 @@ public class JDBCUserDao implements UserDao {
             e.printStackTrace();
         }
         return userId;
+    }
+
+    //TODO  try to remove many try
+    @Override
+    public void checkUniqueLoginEmail(String userLogin, String email) {
+        String sql1 = "select * from `user` where login = ?";
+        String sql2 = "select * from `user` where email = ?";
+
+        try (PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
+             PreparedStatement preparedStatement2 = connection.prepareStatement(sql2)){
+
+            preparedStatement1.setString(1, userLogin);
+
+            try ( ResultSet resultSet = preparedStatement1.executeQuery()) {
+                if( resultSet.next()){
+                    throw new NotUniqueLoginException();
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try ( ResultSet resultSet = preparedStatement1.executeQuery()) {
+                if(resultSet.next()){
+                    throw new NotUniqueEmailException();
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

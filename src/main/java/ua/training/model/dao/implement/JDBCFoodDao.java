@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCFoodDao implements FoodDao {
-    private DataSource dataSource;
+    private Connection connection;
 
     //TODO remove close() ?
 
 
-    public JDBCFoodDao(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public JDBCFoodDao(Connection connection) {
+        this.connection = connection;
     }
 
     @Override
@@ -29,8 +29,7 @@ public class JDBCFoodDao implements FoodDao {
                 " values (?, ?, ?, ?, ?, ?)";
         int result = 0;
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setInt(2, entity.getCalories());
             preparedStatement.setInt(3, entity.getCarbohydrates());
@@ -53,7 +52,7 @@ public class JDBCFoodDao implements FoodDao {
         Food food = null;
         FoodMapper foodMapper = new FoodMapper();
 
-        try (Connection connection = dataSource.getConnection();
+        try (
              PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setInt(1, foodId);
 
@@ -75,8 +74,7 @@ public class JDBCFoodDao implements FoodDao {
         List<Food> foods = new ArrayList<>();
         FoodMapper foodMapper = new FoodMapper();
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
             resultSet = preparedStatement.executeQuery();
 
@@ -95,8 +93,7 @@ public class JDBCFoodDao implements FoodDao {
         String sql = "delete from food where food_id = ?";
         int result = 0;
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setInt(1, foodId);
 
             result = preparedStatement.executeUpdate();
@@ -112,8 +109,7 @@ public class JDBCFoodDao implements FoodDao {
         String sql = "update food set name_en = ?, calories = ?, carbs = ?, fats = ?, proteins = ? where food_id = ?";
         int result = 0;
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setInt(2, entity.getCalories());
             preparedStatement.setInt(3, entity.getCarbohydrates());
@@ -135,8 +131,7 @@ public class JDBCFoodDao implements FoodDao {
         Food food = null;
         FoodMapper foodMapper = new FoodMapper();
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setString(1, foodName);
 
             resultSet = preparedStatement.executeQuery();
@@ -159,8 +154,7 @@ public class JDBCFoodDao implements FoodDao {
                 " values (?, ?, ?, ?, ?, ?, ?)";
         int result = 0;
 
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setInt(2, entity.getCalories());
             preparedStatement.setInt(3, entity.getCarbohydrates());
