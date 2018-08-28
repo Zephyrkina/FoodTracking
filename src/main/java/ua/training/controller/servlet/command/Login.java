@@ -52,14 +52,16 @@ public class Login implements Command{
         if (request.getServletContext().getAttribute(login) != null && request.isRequestedSessionIdValid()) {
             ((HttpSession) request.getServletContext().getAttribute(login)).invalidate();
         }
-        String role = userService.getRoleByLoginPassword(login, password).toString();
+        User.ROLE role = userService.getRoleByLoginPassword(login, password);
+        //String role = userService.getRoleByLoginPassword(login, password).toString();
 
         request.getSession().setAttribute("login", login);
-        request.getSession().setAttribute("role", role);
+        request.getSession().setAttribute("role", role.toString());
         request.getServletContext().setAttribute(login, request.getSession());
         System.out.println(role);
+        String roleString = role.toString().toLowerCase();
 
-        return "redirect:/jsp/" + role.toLowerCase() +"/"+ role.toLowerCase() +"_page.jsp";
+        return "redirect:/jsp/" + roleString +"/"+ roleString +"_page.jsp";
 
 
     }
