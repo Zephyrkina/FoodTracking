@@ -47,11 +47,10 @@ public class UserService {
 
         }
         try (UserDao userDao = daoFactory.createUserDao()) {
-
-
             int calorieNorm = userDao.findById(userId).getCalorieNorm();
-            if (consumedCalories > calorieNorm) {
-                throw new ExceededCalorieNormException();
+            int calorieExceeded = consumedCalories - calorieNorm;
+            if (calorieExceeded > 0) {
+                throw new ExceededCalorieNormException("Calorie norm was exceeded on " + calorieExceeded + " calories");
             }
         }
 
@@ -120,6 +119,11 @@ public class UserService {
         try (UserDao userDao = daoFactory.createUserDao()) {
             userDao.checkPasswordCorrect(password);
 
+        }
+    }
+    public List<Food> showTodaysFoodList(int userId, LocalDate date) {
+        try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
+            return dailyRecordDao.showTodaysFoodList(userId, date);
         }
     }
 

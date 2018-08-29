@@ -58,6 +58,25 @@
     <br>
     <br>
 
+    <a href="${pageContext.request.contextPath}/app/showTodaysFoodList">Show today's meals</a>
+    <br>
+    <br>
+    <p>${requestScope.foodListIsEmpty}</p>
+
+    <c:forEach items="${requestScope.foodList}" var="food" >
+        <div class="row">
+            <div class="col-lg-2">${food.id}</div>
+            <div class="col-lg-2">${food.name}</div>
+            <div class="col-lg-2"> ${food.calories}</div>
+            <div class="col-lg-2">${food.fats}</div>
+            <div class="col-lg-2">${food.proteins}</div>
+            <div class="col-lg-2">${food.carbohydrates}</div>
+
+        </div>
+    </c:forEach>
+
+    <br>
+
     <a href="${pageContext.request.contextPath}/app/saveRecordToDiary">Finish today's record</a>
     <br>
     <br>

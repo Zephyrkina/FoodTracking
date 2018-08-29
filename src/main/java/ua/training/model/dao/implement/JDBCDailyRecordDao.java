@@ -5,10 +5,12 @@ import ua.training.model.dao.mapper.DailyRecordMapper;
 import ua.training.model.dao.mapper.FoodMapper;
 import ua.training.model.entity.DailyRecord;
 import ua.training.model.entity.Food;
+import ua.training.model.exception.FoodListIsEmptyException;
 import ua.training.model.exception.ItemNotFoundException;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,10 +18,6 @@ import java.util.Map;
 
 public class JDBCDailyRecordDao implements DailyRecordDao {
     private Connection connection;
-
-    //TODO remove close() ?
-
-    //TODO autocount total calories after food adding
 
     //TODO add mapper
 
@@ -52,13 +50,15 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
 
     @Override
     public int addFoodToRecord(int dailyRecordId, int foodId, int userQuantity) {
-        String sql = "insert into daily_record_has_food (daily_record_id, food_id, quantity)  values (?, ?, ?)";
+        String sql = "insert into daily_record_has_food (daily_record_id, food_id, quantity)  values (?, ?, ?)  ON DUPLICATE key UPDATE quantity = quantity + ?";
         int result = 0;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setInt(1, dailyRecordId);
             preparedStatement.setInt(2, foodId);
             preparedStatement.setInt(3, userQuantity);
+            preparedStatement.setInt(4, userQuantity);
+
 
             result =  preparedStatement.executeUpdate();
 
@@ -229,6 +229,40 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
 
         return total_calories;
 
+    }
+
+    @Override
+    public List<Food> showTodaysFoodList(int userId, LocalDate userDate) {
+        String sql1 = "SELECT * FROM daily_record " +
+                "RIGHT JOIN daily_record_has_food ON daily_record.id = daily_record_has_food.daily_record_id " +
+                " left join food on  food.id = daily_record_has_food.food_id where daily_record.user_id = ? and daily_record.date = ? ";
+
+
+        List<Food> foodList = new ArrayList<>();
+        FoodMapper foodMapper = new FoodMapper();
+
+
+        try (PreparedStatement getAllStatement = connection.prepareStatement(sql1)){
+
+            getAllStatement.setInt(1, userId);
+            getAllStatement.setDate(2, Date.valueOf(userDate));
+
+            ResultSet resultSet = getAllStatement.executeQuery();
+
+            if( !resultSet.next()){
+                throw new FoodListIsEmptyException("Today's food list is empty.");
+            }
+
+            while(resultSet.next()) {
+                Food food = foodMapper.extractFromResultSet(resultSet);
+                foodList.add(food);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return foodList;
     }
 
     @Override

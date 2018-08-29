@@ -12,7 +12,6 @@ public class DailyRecord {
     LocalDate date;
     int userId;
     int totalCalories;
-    //List<Food> foodList = new ArrayList<>();
     Map<Food, Integer> consumedFood = new HashMap<>();
 
 
@@ -64,11 +63,4 @@ public class DailyRecord {
         this.consumedFood = consumedFood;
     }
 
-    /* public List<Food> getFoodList() {
-        return foodList;
-    }
-
-    public void setFoodList(List<Food> foodList) {
-        this.foodList = foodList;
-    }*/
 }

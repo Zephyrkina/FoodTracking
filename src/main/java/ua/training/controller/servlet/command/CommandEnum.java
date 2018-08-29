@@ -31,6 +31,11 @@ public enum CommandEnum {
             this.command = new SaveRecordToDiary();
         }
     },
+    SHOWTODAYSFOODLIST {
+        {
+            this.command = new ShowTodaysFoodList();
+        }
+    },
     REGISTRATION {
         {
             this.command = new Registration();
