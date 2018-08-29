@@ -30,7 +30,7 @@ public class AddFoodToDailyRecord implements Command {
         try {
             userService.addFoodToDailyRecord(foodId, quantity, date, userId);
         } catch (ExceededCalorieNormException e) {
-            request.setAttribute("calorieNormExceeded", e.getMessage());
+            request.getSession().setAttribute("calorieNormExceeded", e.getMessage());
         }
 
         return "/jsp/user/user_page.jsp";

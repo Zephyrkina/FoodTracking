@@ -24,6 +24,8 @@ public class AuthFilter implements Filter {
         final HttpServletRequest request = (HttpServletRequest) servletRequest;
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        //TODO check if "app/*" passess
+
         String servletPath = request.getServletPath();
 
         System.out.println("session  in do filter: " + request.getSession().getId());

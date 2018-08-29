@@ -2,6 +2,7 @@ package ua.training.controller.servlet.command;
 
 import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.entity.User;
+import ua.training.model.exception.ExceededCalorieNormException;
 import ua.training.model.exception.ItemNotFoundException;
 import ua.training.model.service.LoginService;
 import ua.training.model.service.UserService;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Enumeration;
 
 public class Login implements Command{
@@ -60,6 +62,13 @@ public class Login implements Command{
         request.getServletContext().setAttribute(login, request.getSession());
         System.out.println(role);
         String roleString = role.toString().toLowerCase();
+
+        int userId = userService.getUserIdByLogin(login);
+        try {
+            userService.getTotalCalories(userId, LocalDate.now());
+        } catch (ExceededCalorieNormException e) {
+            request.getSession().setAttribute("calorieNormExceeded", e.getMessage());
+        }
 
         return "redirect:/jsp/" + roleString +"/"+ roleString +"_page.jsp";
 

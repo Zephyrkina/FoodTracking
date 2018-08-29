@@ -172,6 +172,60 @@ public class JDBCFoodDao implements FoodDao {
     }
 
     @Override
+    public List<Food> findAllFood(int currentPage, int recordsPerPage) {
+        String sql = "select * from food limit ?, ?";
+        int start = currentPage * recordsPerPage - recordsPerPage;
+        List<Food> foods = new ArrayList<>();
+        FoodMapper foodMapper = new FoodMapper();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+
+            preparedStatement.setInt(1, start);
+            preparedStatement.setInt(2, recordsPerPage);
+
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                int rowsCount = 0;
+
+                while (resultSet.next()) {
+                    rowsCount++;
+                    Food food = foodMapper.extractFromResultSet(resultSet);
+                    foods.add(food);
+                }
+                if(rowsCount == 0){
+                    throw new ItemNotFoundException();
+                }
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return foods;
+    }
+
+    @Override
+    public int numberOfRows() {
+
+        String sql = "SELECT count(id) FROM food";
+        int numOfRows = 0;
+        //TODO change prepared statement to usual statement
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                resultSet.next();
+                numOfRows = resultSet.getInt("count(id)");
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return numOfRows;
+    }
+
+    @Override
     public void close() {
         try {
             connection.close();

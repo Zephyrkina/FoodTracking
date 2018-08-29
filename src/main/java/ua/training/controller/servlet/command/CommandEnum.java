@@ -11,6 +11,11 @@ public enum CommandEnum {
             this.command = new ShowAllUsersCommand();
         }
     },
+    SHOWALLFOOD {
+        {
+            this.command = new ShowAllFood();
+        }
+    },
     ADDOWNFOOD {
         {
             this.command = new AddOwnFood();
@@ -26,9 +31,9 @@ public enum CommandEnum {
             this.command = new AddFoodToDailyRecord();
         }
     },
-    SAVERECORDTODIARY {
+    SAVEPREVIOUSRECORDS {
         {
-            this.command = new SaveRecordToDiary();
+            this.command = new SavePreviousRecords();
         }
     },
     SHOWTODAYSFOODLIST {

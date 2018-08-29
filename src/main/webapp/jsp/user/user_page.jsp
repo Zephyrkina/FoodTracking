@@ -14,7 +14,7 @@
 <br>
 <h1>Hello, ${sessionScope.login}</h1>
 
-    <p>${requestScope.calorieNormExceeded}</p>
+    <p style="color: red;">${sessionScope.calorieNormExceeded}</p>
 
 
 
@@ -77,12 +77,17 @@
 
     <br>
 
-    <a href="${pageContext.request.contextPath}/app/saveRecordToDiary">Finish today's record</a>
+    <a href="${pageContext.request.contextPath}/app/savePreviousRecords">Finish all previous records</a>
     <br>
     <br>
     <br>
     <br>
     <a href="${pageContext.request.contextPath}/app/logout">Log out</a>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+
 </body>
 </html>

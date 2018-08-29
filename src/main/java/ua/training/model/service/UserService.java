@@ -82,11 +82,11 @@ public class UserService {
 
     }
 
-    public void saveRecordToFoodDiary(int userId) {
+    public void savePreviousRecords(int userId) {
         try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
             if (dailyRecordDao.recordExists(userId)) {
                 int dailyRecordId = dailyRecordDao.getRecordIdByUserId(userId);
-                dailyRecordDao.saveRecordToFoodDiary(userId, dailyRecordId);
+                dailyRecordDao.savePreviousRecords(userId, dailyRecordId);
             }
         }
     }
@@ -127,5 +127,32 @@ public class UserService {
         }
     }
 
+    public List<Food> findAllFood(int currentPage, int recordsPerPage) {
+        try (FoodDao foodDao = daoFactory.createFoodDao()) {
+            return foodDao.findAllFood(currentPage, recordsPerPage);
+        }
+    }
+
+    public int getNumberOfRows() {
+        try (FoodDao foodDao = daoFactory.createFoodDao()) {
+            return foodDao.numberOfRows();
+
+        }
+    }
+
+    public void getTotalCalories(int userId, LocalDate date) {
+        int total_calories;
+        int calorieNorm;
+        try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
+            total_calories = dailyRecordDao.getTotalCalories(userId, date);
+        }
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            calorieNorm = userDao.findById(userId).getCalorieNorm();
+        }
+        int calorieExceeded = total_calories - calorieNorm;
+        if (calorieExceeded > 0) {
+            throw new ExceededCalorieNormException("Calorie norm was exceeded on " + calorieExceeded + " calories");
+        }
+    }
 
 }

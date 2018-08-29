@@ -91,12 +91,19 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
     }
 
     @Override
-    public boolean saveRecordToFoodDiary(int userId, int dailyRecordId) {
+    public boolean savePreviousRecords(int userId, int dailyRecordId) {
 
 
         Map<Integer, DailyRecord> dailyRecordMap = new HashMap<>();
         DailyRecord dailyRecord = null;
 
+       /* List<DailyRecord> dailyRecordList = new ArrayList<>();
+
+
+        String sql1 = "SELECT * FROM daily_record " +
+                "RIGHT JOIN daily_record_has_food ON daily_record.id = daily_record_has_food.daily_record_id " +
+                " left join food on  food.id = daily_record_has_food.food_id where daily_record.user_id = ? and not daily_record.id = ?";
+*/
 
         String sql1 = "SELECT * FROM daily_record " +
                 "RIGHT JOIN daily_record_has_food ON daily_record.id = daily_record_has_food.daily_record_id " +
@@ -266,6 +273,25 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
     }
 
     @Override
+    public int getTotalCalories(int userId, LocalDate date) {
+        String sql1 = "SELECT total_calories FROM daily_record  where user_id = ? and date = ?";
+
+        int total_calories = 0;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql1)){
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setDate(2, Date.valueOf(date));
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    total_calories = resultSet.getInt("total_calories");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return total_calories;
+    }
+
+    @Override
     public int create(DailyRecord entity) {
         String sql = "insert into daily_record (date, user_id)  values (?, ?)";
         int result = 0;
@@ -318,6 +344,8 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
         }*/
         return null;
     }
+
+
 
     @Override
     public int delete(int id) {

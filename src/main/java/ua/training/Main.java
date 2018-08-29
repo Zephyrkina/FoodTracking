@@ -2,14 +2,7 @@ package ua.training;
 
 import ua.training.model.dao.DailyRecordDao;
 import ua.training.model.dao.DaoFactory;
-import ua.training.model.dao.FoodDao;
-import ua.training.model.dao.UserDao;
 import ua.training.model.dao.implement.JDBCDaoFactory;
-import ua.training.model.entity.Food;
-import ua.training.model.entity.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -47,7 +40,7 @@ public class Main {
 
         DaoFactory daoFactory = DaoFactory.getInstance();
         DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao();
-        dailyRecordDao.saveRecordToFoodDiary(3,7);
+        dailyRecordDao.savePreviousRecords(3,7);
 
 
     }
