@@ -14,6 +14,9 @@ public class DailyRecordBuilder {
     int totalCalories;
     Map<Food, Integer> consumedFood = new HashMap<>();
 
+    public DailyRecordBuilder() {
+    }
+
     public DailyRecordBuilder setId(int id) {
         this.id = id;
         return this;

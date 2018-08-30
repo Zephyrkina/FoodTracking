@@ -10,6 +10,9 @@ public class FoodBuilder {
     private int fats;
     private int proteins;
 
+    public FoodBuilder() {
+    }
+
     public FoodBuilder setId(int id) {
         this.id = id;
         return this;

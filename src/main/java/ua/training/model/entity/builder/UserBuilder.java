@@ -15,6 +15,9 @@ public class UserBuilder {
     private User.LIFE_ACTIVITY activity;
     private int calorieNorm;
 
+    public UserBuilder() {
+    }
+
     public UserBuilder setId(int id) {
         this.id = id;
         return this;
