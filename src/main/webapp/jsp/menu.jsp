@@ -59,7 +59,7 @@
 </a>
 
 ||
-<a href="${pageContext.request.contextPath}/app/login">
+<a href="${pageContext.request.contextPath}/jsp/login.jsp">
     Login
 </a>
 ||
