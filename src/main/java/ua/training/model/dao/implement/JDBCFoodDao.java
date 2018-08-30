@@ -5,11 +5,7 @@ import ua.training.model.dao.FoodDao;
 import ua.training.model.dao.mapper.FoodMapper;
 import ua.training.model.entity.Food;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -182,21 +178,11 @@ public class JDBCFoodDao implements FoodDao {
 
             preparedStatement.setInt(1, start);
             preparedStatement.setInt(2, recordsPerPage);
-
-
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-
-                //int rowsCount = 0;
-
                 while (resultSet.next()) {
-                    //rowsCount++;
                     Food food = foodMapper.extractFromResultSet(resultSet);
                     foods.add(food);
                 }
-                /*if(rowsCount == 0){
-                    throw new ItemNotFoundException();
-                }*/
-
             }
 
         } catch (SQLException e) {
@@ -210,14 +196,11 @@ public class JDBCFoodDao implements FoodDao {
 
         String sql = "SELECT count(id) FROM food";
         int numOfRows = 0;
-        //TODO change prepared statement to usual statement
+        try (Statement statement = connection.createStatement()){
 
-        try (PreparedStatement statement = connection.prepareStatement(sql)){
-
-            try (ResultSet resultSet = statement.executeQuery()) {
+            try (ResultSet resultSet = statement.executeQuery(sql)) {
                 resultSet.next();
                 numOfRows = resultSet.getInt("count(id)");
-
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

@@ -19,10 +19,8 @@ public class AddFoodToDailyRecord implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         RegexManager regexManager = new RegexManager();
-
         UserService userService = new UserService();
         DailyRecordService dailyRecordService = new DailyRecordService();
-
         InputDataUtils inputDataUtils = new InputDataUtils();
 
         int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));

@@ -17,7 +17,7 @@ public class ShowTodaysFoodList implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         UserService userService = new UserService();
         DailyRecordService dailyRecordService = new DailyRecordService();
-        
+
         int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));
         LocalDate date = LocalDate.now();
 

@@ -7,7 +7,6 @@ import ua.training.model.exception.ItemNotFoundException;
 import ua.training.model.exception.NotUniqueEmailException;
 import ua.training.model.exception.NotUniqueLoginException;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

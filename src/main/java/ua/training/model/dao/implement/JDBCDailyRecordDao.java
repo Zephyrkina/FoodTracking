@@ -34,9 +34,7 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
         ResultSet resultSet;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-
             preparedStatement.setInt(1, userId);
-
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -50,7 +48,8 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
 
     @Override
     public int addFoodToRecord(int dailyRecordId, int foodId, int userQuantity) {
-        String sql = "insert into daily_record_has_food (daily_record_id, food_id, quantity)  values (?, ?, ?)  ON DUPLICATE key UPDATE quantity = quantity + ?";
+        String sql = "insert into daily_record_has_food (daily_record_id, food_id, quantity)  values (?, ?, ?)  " +
+                "ON DUPLICATE key UPDATE quantity = quantity + ?";
         int result = 0;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -58,8 +57,6 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
             preparedStatement.setInt(2, foodId);
             preparedStatement.setInt(3, userQuantity);
             preparedStatement.setInt(4, userQuantity);
-
-
             result =  preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -74,7 +71,6 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
         int record_id = 0;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-
             preparedStatement.setInt(1, userId);
 
             try ( ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -196,11 +192,8 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
         String sql1 = "SELECT * FROM daily_record " +
                 "RIGHT JOIN daily_record_has_food ON daily_record.id = daily_record_has_food.daily_record_id " +
                 " left join food on  food.id = daily_record_has_food.food_id where daily_record.user_id = ?";
-
         String sql2 = "update daily_record set total_calories = ? where id = ?";
-
         int total_calories = 0;
-
 
         try (PreparedStatement getAllStatement = connection.prepareStatement(sql1);
              PreparedStatement updateCaloriesStatement = connection.prepareStatement(sql2)){
@@ -219,9 +212,7 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
             }
             updateCaloriesStatement.setInt(1, total_calories);
             updateCaloriesStatement.setInt(2, dailyRecordId);
-
             updateCaloriesStatement.executeUpdate();
-
 
             connection.commit();
 
@@ -244,13 +235,10 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
                 "RIGHT JOIN daily_record_has_food ON daily_record.id = daily_record_has_food.daily_record_id " +
                 " left join food on  food.id = daily_record_has_food.food_id where daily_record.user_id = ? and daily_record.date = ? ";
 
-
         List<Food> foodList = new ArrayList<>();
         FoodMapper foodMapper = new FoodMapper();
 
-
         try (PreparedStatement getAllStatement = connection.prepareStatement(sql1)){
-
             getAllStatement.setInt(1, userId);
             getAllStatement.setDate(2, Date.valueOf(userDate));
 
@@ -259,6 +247,7 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
             if( !resultSet.next()){
                 throw new FoodListIsEmptyException("Today's food list is empty.");
             }
+            resultSet.previous();
 
             while(resultSet.next()) {
                 Food food = foodMapper.extractFromResultSet(resultSet);
@@ -315,37 +304,8 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
 
     @Override
     public List<DailyRecord> findAll() {
-        /*String sql = "select * from `user`";
-        ResultSet resultSet;
-        //List<User> users = new ArrayList<>();
-       // UserMapper userMapper = new UserMapper();
-
-        for(String string : params) {
-            sql = sql + "where " + string + " = ? ";
-            if (params.)
-
-        }
-
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-
-            resultSet = preparedStatement.executeQuery();
-
-            for(String string : params) {
-
-            }
-
-            while (resultSet.next()) {
-                User user = userMapper.extractFromResultSet(resultSet);
-                users.add(user);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
         return null;
     }
-
-
 
     @Override
     public int delete(int id) {
