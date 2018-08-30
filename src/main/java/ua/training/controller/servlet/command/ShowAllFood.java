@@ -17,22 +17,25 @@ public class ShowAllFood implements Command {
 
         UserService userService = new UserService();
         List<Food> foodList;
-        try {
-             foodList = userService.findAllFood(currentPage, recordsPerPage);
 
-        } catch (ItemNotFoundException e) {
-            --currentPage;
-            return "redirect:/app/showAllFood?recordsPerPage="+recordsPerPage+"&currentPage="+currentPage;
-
-        }
-        request.setAttribute("foodList", foodList);
 
         int rows = userService.getNumberOfRows();
         int amountOfPages = rows / recordsPerPage;
         if (rows % recordsPerPage > 0) {
             amountOfPages++;
         }
+        if (currentPage > amountOfPages) {
+            currentPage = amountOfPages;
+        }
+       // try {
+            foodList = userService.findAllFood(currentPage, recordsPerPage);
+/*
+        } catch (ItemNotFoundException e) {
+            --currentPage;
+            return "redirect:/app/showAllFood?recordsPerPage="+recordsPerPage+"&currentPage="+currentPage;
 
+        }*/
+        request.setAttribute("foodList", foodList);
         request.setAttribute("noOfPages", amountOfPages);
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("recordsPerPage", recordsPerPage);

@@ -186,16 +186,16 @@ public class JDBCFoodDao implements FoodDao {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
 
-                int rowsCount = 0;
+                //int rowsCount = 0;
 
                 while (resultSet.next()) {
-                    rowsCount++;
+                    //rowsCount++;
                     Food food = foodMapper.extractFromResultSet(resultSet);
                     foods.add(food);
                 }
-                if(rowsCount == 0){
+                /*if(rowsCount == 0){
                     throw new ItemNotFoundException();
-                }
+                }*/
 
             }
 
