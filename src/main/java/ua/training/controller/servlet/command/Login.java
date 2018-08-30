@@ -1,9 +1,11 @@
 package ua.training.controller.servlet.command;
 
 import ua.training.controller.utils.InputDataUtils;
+import ua.training.model.entity.DailyRecord;
 import ua.training.model.entity.User;
 import ua.training.model.exception.ExceededCalorieNormException;
 import ua.training.model.exception.ItemNotFoundException;
+import ua.training.model.service.DailyRecordService;
 import ua.training.model.service.UserService;
 import ua.training.model.service.resourse.manager.RegexManager;
 
@@ -25,6 +27,7 @@ public class Login implements Command{
         String password = inputDataUtils.readCorrectData(request,"input_password", regexManager.getProperty("password"));
 
         UserService userService = new UserService();
+        DailyRecordService dailyRecordService = new DailyRecordService();
 
         try {
             userService.checkLoginExists(login);
@@ -64,7 +67,7 @@ public class Login implements Command{
 
         int userId = userService.getUserIdByLogin(login);
         try {
-            userService.getTotalCalories(userId, LocalDate.now());
+            dailyRecordService.getTotalCalories(userId, LocalDate.now());
         } catch (ExceededCalorieNormException e) {
             request.getSession().setAttribute("calorieNormExceeded", e.getMessage());
         }

@@ -14,6 +14,7 @@ public class ConnectionPoolHolder {
                     BasicDataSource ds = new BasicDataSource();
                     ds.setDriverClassName("com.mysql.jdbc.Driver");
                     ds.setUrl("jdbc:mysql://localhost:3306/food_db?autoReconnect=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC");
+                    //ds.setUrl("jdbc:mysql://localhost:3306/food_db?autoReconnect=true&useSSL=false");
                     ds.setUsername("root");
                     ds.setPassword("");
                     ds.setMinIdle(5);
