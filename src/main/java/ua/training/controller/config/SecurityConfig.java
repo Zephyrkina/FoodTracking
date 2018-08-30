@@ -1,13 +1,14 @@
 package ua.training.controller.config;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SecurityConfig {
     public static String ROLE_USER = "USER";
     public static String ROLE_ADMIN = "ADMIN";
     //public static String ROLE_GUEST = "GUEST";
 
-    private static final Map<String, List<String>> roleAccessConfig = new HashMap<>();
+    private static final Map<String, List<String>> roleAccessConfig = new ConcurrentHashMap<>();
 
     static {
         init();

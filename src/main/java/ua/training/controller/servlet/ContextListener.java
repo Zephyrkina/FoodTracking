@@ -10,9 +10,6 @@ import java.util.concurrent.atomic.AtomicReference;
 @WebListener
 public class ContextListener implements ServletContextListener {
 
-    private AtomicReference<User> dao;
-
-
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
 
@@ -20,6 +17,5 @@ public class ContextListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        dao = null;
     }
 }
