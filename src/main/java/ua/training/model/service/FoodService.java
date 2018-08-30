@@ -3,6 +3,8 @@ package ua.training.model.service;
 import ua.training.model.dao.DaoFactory;
 import ua.training.model.dao.FoodDao;
 import ua.training.model.entity.Food;
+import ua.training.model.exception.ItemAlreadyExists;
+import ua.training.model.exception.ItemNotFoundException;
 
 import java.util.List;
 
@@ -12,7 +14,13 @@ public class FoodService {
 
     public int addOwnFoodToDB(Food food, int userId) {
         try (FoodDao foodDao = daoFactory.createFoodDao()) {
-            return foodDao.createUsersFood(food, userId);
+            try {
+                foodDao.findByName(food.getName());
+                throw new ItemAlreadyExists("Food with such name already exists!");
+            }catch (ItemNotFoundException e) {
+                return foodDao.createUsersFood(food, userId);
+            }
+
         }
     }
 

@@ -27,6 +27,7 @@ add regexes
 
     <br>
     ${wrong_own_food_name}
+    ${requestScope.foodAlreadyExists}
     <br>
     <input type="number" name="own_food_calories" value="${own_food_calories}" required>
     <br>

@@ -3,6 +3,7 @@ package ua.training.controller.servlet.command;
 import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.entity.Food;
 import ua.training.model.entity.builder.FoodBuilder;
+import ua.training.model.exception.ItemAlreadyExists;
 import ua.training.model.service.DailyRecordService;
 import ua.training.model.service.FoodService;
 import ua.training.model.service.UserService;
@@ -53,7 +54,13 @@ public class AddOwnFood implements Command{
                 .build();
 
         int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));
-        foodService.addOwnFoodToDB(food, userId);
+
+        try {
+            foodService.addOwnFoodToDB(food, userId);
+        } catch (ItemAlreadyExists e) {
+            request.setAttribute("foodAlreadyExists", e.getMessage());
+            return "/jsp/user/addOwnFood.jsp";
+        }
 
         return "redirect:/jsp/user/user_page.jsp";
     }

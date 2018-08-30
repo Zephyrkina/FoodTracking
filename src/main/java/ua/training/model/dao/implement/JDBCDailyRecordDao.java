@@ -125,6 +125,7 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
             DailyRecordMapper dailyRecordMapper = new DailyRecordMapper();
             FoodMapper foodMapper = new FoodMapper();
 
+//-----------------------first query----------------------------------------------------------
 
             getAllStatement.setInt(1, userId);
             ResultSet resultSet = getAllStatement.executeQuery();
@@ -137,6 +138,7 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
                 dailyRecord.getConsumedFood().put(food, quantity);
 
             }
+//-----------------------second query----------------------------------------------------------
 
             createFoodDiaryDayRecordStatement.setDate(1, Date.valueOf(dailyRecord.getDate()));
             createFoodDiaryDayRecordStatement.setInt(2, dailyRecord.getTotalCalories());
@@ -144,7 +146,10 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
 
             createFoodDiaryDayRecordStatement.executeUpdate();
 
+//-----------------------third query----------------------------------------------------------
+
             resultSet = getIdStatement.executeQuery();
+
 
             int newDiaryId = 0;
 
@@ -154,6 +159,7 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
             } else {
                 throw new RuntimeException("problems with id");
             }
+//-----------------------fourth query----------------------------------------------------------
 
             for(Map.Entry<Food, Integer> foodQuantityMap : dailyRecord.getConsumedFood().entrySet()) {
                 createPermanentRecordStatement.setString(1, foodQuantityMap.getKey().getName());
@@ -168,6 +174,9 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
             }
 
             createPermanentRecordStatement.executeBatch();
+
+//-----------------------fifth query----------------------------------------------------------
+
 
             deleteTemporaryRecordStatement.setInt(1, dailyRecordId);
             deleteTemporaryRecordStatement.executeUpdate();
