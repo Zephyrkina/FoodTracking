@@ -3,6 +3,7 @@ package ua.training.controller.servlet.command;
 import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.exception.ItemNotFoundException;
 import ua.training.model.entity.Food;
+import ua.training.model.service.FoodService;
 import ua.training.model.service.UserService;
 import ua.training.model.service.resourse.manager.RegexManager;
 
@@ -19,6 +20,7 @@ public class FindFoodByName implements Command{
         RegexManager regexManager = new RegexManager();
         InputDataUtils inputDataUtils = new InputDataUtils();
 
+
         String foodName = inputDataUtils.readCorrectData(request,"search_food_name", regexManager.getProperty("name"));
 
         Enumeration<String> requestAttributeNames = request.getAttributeNames();
@@ -33,7 +35,7 @@ public class FindFoodByName implements Command{
         Food food;
 
         try {
-            food = new UserService().findFoodByName(foodName);
+            food = new FoodService().findFoodByName(foodName);
         } catch(ItemNotFoundException itfe) {
             request.setAttribute("cantFindFoodMessage", "there is no food in db. Try to create your own");
             return "/jsp/user/user_page.jsp";

@@ -10,6 +10,7 @@ import ua.training.model.entity.User;
 import ua.training.model.exception.ExceededCalorieNormException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
@@ -18,7 +19,6 @@ public class UserService {
 
     public boolean userExists(String login, String password) {
         try (UserDao userDao = daoFactory.createUserDao()) {
-
             return userDao.userExists(login, password);
         }
     }
@@ -33,46 +33,7 @@ public class UserService {
         return (int) (88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age));
     }
 
-    public void addFoodToDailyRecord(int foodId, int quantity, LocalDate date, int userId) {
-        int consumedCalories = 0;
-        try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()){
 
-            int dailyRecordId = 0;
-            if (!dailyRecordDao.recordExists(userId)) {
-                dailyRecordDao.create(new DailyRecord(date, userId));
-            }
-            dailyRecordId = dailyRecordDao.getRecordIdByUserId(userId);
-            dailyRecordDao.addFoodToRecord(dailyRecordId, foodId, quantity);
-            consumedCalories = dailyRecordDao.countCalories(dailyRecordId, userId);
-
-        }
-        try (UserDao userDao = daoFactory.createUserDao()) {
-            int calorieNorm = userDao.findById(userId).getCalorieNorm();
-            int calorieExceeded = consumedCalories - calorieNorm;
-            if (calorieExceeded > 0) {
-                throw new ExceededCalorieNormException("Calorie norm was exceeded on " + calorieExceeded + " calories");
-            }
-        }
-
-    }
-
-    public int addOwnFoodToDB(Food food, int userId) {
-        try (FoodDao foodDao = daoFactory.createFoodDao()) {
-            return foodDao.createUsersFood(food, userId);
-        }
-    }
-
-    public Food findFoodByName(String foodName) {
-        try (FoodDao foodDao = daoFactory.createFoodDao()) {
-            return foodDao.findByName(foodName);
-        }
-    }
-
-    public List<Food> showAllFood() {
-        try (FoodDao foodDao = daoFactory.createFoodDao()) {
-            return foodDao.findAll();
-        }
-    }
 
     public int getUserIdByLogin(String login) {
         try (UserDao userDao = daoFactory.createUserDao()) {
@@ -80,15 +41,6 @@ public class UserService {
 
         }
 
-    }
-
-    public void savePreviousRecords(int userId) {
-        try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
-            if (dailyRecordDao.recordExists(userId)) {
-                int dailyRecordId = dailyRecordDao.getRecordIdByUserId(userId);
-                dailyRecordDao.savePreviousRecords(userId, dailyRecordId);
-            }
-        }
     }
 
     public void createUser(User user){
@@ -121,24 +73,6 @@ public class UserService {
 
         }
     }
-    public List<Food> showTodaysFoodList(int userId, LocalDate date) {
-        try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
-            return dailyRecordDao.showTodaysFoodList(userId, date);
-        }
-    }
-
-    public List<Food> findAllFood(int currentPage, int recordsPerPage) {
-        try (FoodDao foodDao = daoFactory.createFoodDao()) {
-            return foodDao.findAllFood(currentPage, recordsPerPage);
-        }
-    }
-
-    public int getNumberOfRows() {
-        try (FoodDao foodDao = daoFactory.createFoodDao()) {
-            return foodDao.numberOfRows();
-
-        }
-    }
 
     public void getTotalCalories(int userId, LocalDate date) {
         int total_calories;
@@ -153,6 +87,16 @@ public class UserService {
         if (calorieExceeded > 0) {
             throw new ExceededCalorieNormException("Calorie norm was exceeded on " + calorieExceeded + " calories");
         }
+    }
+
+    public List<User> findAllUsers() {
+        List<User> users = new ArrayList<>();
+        try (UserDao dao = daoFactory.createUserDao()) {
+            users =  dao.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
 }

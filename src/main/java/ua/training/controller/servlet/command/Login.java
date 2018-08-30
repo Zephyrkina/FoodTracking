@@ -4,7 +4,6 @@ import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.entity.User;
 import ua.training.model.exception.ExceededCalorieNormException;
 import ua.training.model.exception.ItemNotFoundException;
-import ua.training.model.service.LoginService;
 import ua.training.model.service.UserService;
 import ua.training.model.service.resourse.manager.RegexManager;
 

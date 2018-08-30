@@ -3,6 +3,8 @@ package ua.training.controller.servlet.command;
 import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.entity.Food;
 import ua.training.model.entity.builder.FoodBuilder;
+import ua.training.model.service.DailyRecordService;
+import ua.training.model.service.FoodService;
 import ua.training.model.service.UserService;
 import ua.training.model.service.resourse.manager.ErrorMessageManager;
 import ua.training.model.service.resourse.manager.RegexManager;
@@ -23,6 +25,8 @@ public class AddOwnFood implements Command{
         //TODO breaks when input letters in int fields
 
         InputDataUtils inputDataUtils = new InputDataUtils();
+        UserService userService = new UserService();
+        FoodService foodService = new FoodService();
 
 
         String name = inputDataUtils.readCorrectData(request, "own_food_name", regexManager.getProperty("name"));
@@ -48,9 +52,8 @@ public class AddOwnFood implements Command{
                 .setProteins(proteins)
                 .build();
 
-        UserService userService = new UserService();
         int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));
-        userService.addOwnFoodToDB(food, userId);
+        foodService.addOwnFoodToDB(food, userId);
 
         return "redirect:/jsp/user/user_page.jsp";
     }

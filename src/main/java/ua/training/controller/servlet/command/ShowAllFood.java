@@ -2,6 +2,8 @@ package ua.training.controller.servlet.command;
 
 import ua.training.model.entity.Food;
 import ua.training.model.exception.ItemNotFoundException;
+import ua.training.model.service.DailyRecordService;
+import ua.training.model.service.FoodService;
 import ua.training.model.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +17,11 @@ public class ShowAllFood implements Command {
         int currentPage = Integer.valueOf(request.getParameter("currentPage"));
         int recordsPerPage = Integer.valueOf(request.getParameter("recordsPerPage"));
 
-        UserService userService = new UserService();
+        FoodService foodService = new FoodService();
         List<Food> foodList;
 
 
-        int rows = userService.getNumberOfRows();
+        int rows = foodService.getNumberOfRows();
         int amountOfPages = rows / recordsPerPage;
         if (rows % recordsPerPage > 0) {
             amountOfPages++;
@@ -27,7 +29,7 @@ public class ShowAllFood implements Command {
         if (currentPage > amountOfPages) {
             currentPage = amountOfPages;
         }
-        foodList = userService.findAllFood(currentPage, recordsPerPage);
+        foodList = foodService.findAllFood(currentPage, recordsPerPage);
 
         request.setAttribute("foodList", foodList);
         request.setAttribute("noOfPages", amountOfPages);

@@ -3,6 +3,8 @@ package ua.training.controller.servlet.command;
 import com.sun.javafx.scene.input.InputEventUtils;
 import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.exception.ExceededCalorieNormException;
+import ua.training.model.service.DailyRecordService;
+import ua.training.model.service.FoodService;
 import ua.training.model.service.UserService;
 import ua.training.model.service.resourse.manager.RegexManager;
 
@@ -19,6 +21,8 @@ public class AddFoodToDailyRecord implements Command {
         RegexManager regexManager = new RegexManager();
 
         UserService userService = new UserService();
+        DailyRecordService dailyRecordService = new DailyRecordService();
+
         InputDataUtils inputDataUtils = new InputDataUtils();
 
         int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));
@@ -28,7 +32,7 @@ public class AddFoodToDailyRecord implements Command {
         System.out.println(date);
 
         try {
-            userService.addFoodToDailyRecord(foodId, quantity, date, userId);
+            dailyRecordService.addFoodToDailyRecord(foodId, quantity, date, userId);
         } catch (ExceededCalorieNormException e) {
             request.getSession().setAttribute("calorieNormExceeded", e.getMessage());
         }
