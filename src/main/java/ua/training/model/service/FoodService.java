@@ -41,4 +41,18 @@ public class FoodService {
         }
     }
 
+    public void deleteFoodById(int foodId) {
+        try (FoodDao foodDao = daoFactory.createFoodDao()) {
+            foodDao.delete(foodId);
+
+        }
+    }
+
+    public void editFood(Food food) {
+        try (FoodDao foodDao = daoFactory.createFoodDao()) {
+            foodDao.update(food);
+
+        }
+    }
+
 }

@@ -14,12 +14,12 @@ public class DailyRecordService {
     DaoFactory daoFactory = DaoFactory.getInstance();
 
     public void savePreviousRecords(int userId) {
-        try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
-            if (dailyRecordDao.recordExists(userId)) {
-                int dailyRecordId = dailyRecordDao.getRecordIdByUserId(userId);
+       /* try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
+            if (dailyRecordDao.todaysDailyRecordExists(userId, )) {
+                int dailyRecordId = dailyRecordDao.getRecordIdByUserIdAndDate(userId);
                 dailyRecordDao.savePreviousRecords(userId, dailyRecordId);
             }
-        }
+        }*/
     }
 
     public List<Food> showTodaysFoodList(int userId, LocalDate date) {
@@ -30,13 +30,15 @@ public class DailyRecordService {
 
     public void addFoodToDailyRecord(int foodId, int quantity, LocalDate date, int userId) {
         int consumedCalories = 0;
-        try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()){
+        int dailyRecordId = 0;
 
-            int dailyRecordId = 0;
-            if (!dailyRecordDao.recordExists(userId)) {
+        try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()){
+            if (!dailyRecordDao.todaysDailyRecordExists(userId, date)) {
                 dailyRecordDao.create(new DailyRecord(date, userId));
+                System.out.println("crating new food");
             }
-            dailyRecordId = dailyRecordDao.getRecordIdByUserId(userId);
+            dailyRecordId = dailyRecordDao.getRecordIdByUserIdAndDate(userId, date);
+            System.out.println("dailyRecordId: " + dailyRecordId);
             dailyRecordDao.addFoodToRecord(dailyRecordId, foodId, quantity);
             consumedCalories = dailyRecordDao.countCalories(dailyRecordId, userId);
 
@@ -49,6 +51,22 @@ public class DailyRecordService {
             }
         }
 
+    }
+
+    public void getTotalCalories(int userId, LocalDate date) {
+        int total_calories;
+        int calorieNorm;
+        try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
+            total_calories = dailyRecordDao.getTotalCalories(userId, date);
+        }
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            calorieNorm = userDao.findById(userId).getCalorieNorm();
+        }
+        System.out.println("int get total calories + date: " + date);
+        int calorieExceeded = total_calories - calorieNorm;
+        if (calorieExceeded > 0) {
+            throw new ExceededCalorieNormException("Calorie norm was exceeded on " + calorieExceeded + " calories");
+        }
     }
 
 

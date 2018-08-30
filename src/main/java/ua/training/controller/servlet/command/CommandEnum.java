@@ -26,6 +26,16 @@ public enum CommandEnum {
             this.command = new FindFoodByName();
         }
     },
+    EDITFOOD {
+        {
+            this.command = new EditFood();
+        }
+    },
+    DELETEFOOD {
+        {
+            this.command = new DeleteFood();
+        }
+    },
     ADDFOODTODAILYRECORD {
         {
             this.command = new AddFoodToDailyRecord();

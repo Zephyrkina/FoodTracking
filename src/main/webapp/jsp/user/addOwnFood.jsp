@@ -38,12 +38,15 @@ add regexes
     <br>
     <input type="number" name="own_food_fats"  value="${own_food_fats}" required>
     <br>
-    ${wrong_food_fats}
+    ${wrong_own_food_fats}
     <br>
     <input type="number" name="own_food_proteins" value="${own_food_proteins}" required>
     <br> ${wrong_own_food_proteins}
     <br>
 
+    <input type="hidden" name="current_page" value="${current_page}">
+    <input type="hidden" name="no_of_pages" value="${no_of_pages}">
+    <input type="hidden" name="records_per_page" value="${records_per_page}">
 
     <input class="button" type="submit" value="Add">
 </form>

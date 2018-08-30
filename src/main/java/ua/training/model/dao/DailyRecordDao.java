@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface DailyRecordDao extends GenericDao<DailyRecord> {
 
-    boolean recordExists(int userId);
+    boolean todaysDailyRecordExists(int userId, LocalDate date);
     int addFoodToRecord(int dailyRecordId, int foodId, int quantity);
-    int getRecordIdByUserId(int userId);
+    int getRecordIdByUserIdAndDate(int userId, LocalDate date);
     boolean savePreviousRecords(int userId, int dailyRecordId);
     int countCalories(int dailyRecordId, int userId);
     List<Food> showTodaysFoodList(int userId, LocalDate date);

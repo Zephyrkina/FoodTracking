@@ -58,6 +58,8 @@
             <th>Carbohydrates</th>
             <th>Fats</th>
             <th>Proteins</th>
+            <th>Edit</th>
+            <th>Delete</th>
 
         </tr>
 
@@ -69,6 +71,29 @@
                 <td>${food.carbohydrates}</td>
                 <td>${food.fats}</td>
                 <td>${food.proteins}</td>
+
+                <form method="post" action="${pageContext.request.contextPath}/jsp/admin/editFood.jsp">
+
+                    <input type="hidden" name="food_id" value="${food.id}">
+                    <input type="hidden" name="food_name" value="${food.name}">
+                    <input type="hidden" name="food_calories" value="${food.calories}">
+                    <input type="hidden" name="food_carbs" value="${food.carbohydrates}">
+                    <input type="hidden" name="food_fats" value="${food.fats}">
+                    <input type="hidden" name="food_proteins" value="${food.proteins}">
+
+                    <input type="hidden" name="current_page" value="${currentPage}">
+                    <input type="hidden" name="no_of_pages" value="${noOfPages}">
+                    <input type="hidden" name="records_per_page" value="${recordsPerPage}">
+
+                <td><input type="submit" value="Edit"></td>
+                </form>
+                <form method="post" action="${pageContext.request.contextPath}/app/deleteFood">
+                    <input type="hidden" name="food_id" value="${food.id}">
+                    <input type="hidden" name="current_page" value="${currentPage}">
+                    <input type="hidden" name="no_of_pages" value="${noOfPages}">
+                    <input type="hidden" name="records_per_page" value="${recordsPerPage}">
+                    <td><input type="submit" value="Delete"></td>
+                </form>
             </tr>
         </c:forEach>
     </table>

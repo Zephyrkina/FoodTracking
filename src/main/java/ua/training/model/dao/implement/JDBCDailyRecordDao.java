@@ -6,9 +6,7 @@ import ua.training.model.dao.mapper.FoodMapper;
 import ua.training.model.entity.DailyRecord;
 import ua.training.model.entity.Food;
 import ua.training.model.exception.FoodListIsEmptyException;
-import ua.training.model.exception.ItemNotFoundException;
 
-import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,12 +27,14 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
     }
 
     @Override
-    public boolean recordExists(int userId) {
-        String sql = "select * from daily_record where user_id = ?";
+    public boolean todaysDailyRecordExists(int userId, LocalDate date) {
+        String sql = "select * from daily_record where user_id = ? and date = ?";
         ResultSet resultSet;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setInt(1, userId);
+            preparedStatement.setDate(2, Date.valueOf(date));
+
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -66,12 +66,13 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
     }
 
     @Override
-    public int getRecordIdByUserId(int userId) {
-        String sql = "select id from daily_record where  user_id = ?";
+    public int getRecordIdByUserIdAndDate(int userId, LocalDate date) {
+        String sql = "select id from daily_record where  user_id = ? and date = ? ";
         int record_id = 0;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setInt(1, userId);
+            preparedStatement.setDate(2, Date.valueOf(date));
 
             try ( ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
@@ -208,7 +209,6 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
                 int calories = resultSet.getInt("calories");
 
                 total_calories = total_calories + (int)((double)quantity * (double)calories * 0.01);
-
             }
             updateCaloriesStatement.setInt(1, total_calories);
             updateCaloriesStatement.setInt(2, dailyRecordId);

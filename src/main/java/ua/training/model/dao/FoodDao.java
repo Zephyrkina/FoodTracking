@@ -11,4 +11,5 @@ public interface FoodDao extends GenericDao<Food> {
     int numberOfRows();
 
 
+
 }

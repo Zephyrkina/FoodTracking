@@ -86,7 +86,7 @@ public class JDBCFoodDao implements FoodDao {
 
     @Override
     public int delete(int foodId) {
-        String sql = "delete from food where food_id = ?";
+        String sql = "delete from food where id = ?";
         int result = 0;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -102,7 +102,7 @@ public class JDBCFoodDao implements FoodDao {
 
     @Override
     public int update(Food entity) {
-        String sql = "update food set name_en = ?, calories = ?, carbs = ?, fats = ?, proteins = ? where food_id = ?";
+        String sql = "update food set name_en = ?, calories = ?, carbs = ?, fats = ?, proteins = ? where id = ?";
         int result = 0;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -207,6 +207,7 @@ public class JDBCFoodDao implements FoodDao {
         }
         return numOfRows;
     }
+
 
     @Override
     public void close() {
