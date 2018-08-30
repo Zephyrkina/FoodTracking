@@ -1,6 +1,7 @@
 package ua.training.model.dao.mapper;
 
 import ua.training.model.entity.DailyRecord;
+import ua.training.model.entity.builder.DailyRecordBuilder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,12 +12,12 @@ public class DailyRecordMapper implements ObjectMapper<DailyRecord> {
 
     @Override
     public DailyRecord extractFromResultSet(ResultSet resultSet) throws SQLException {
-        DailyRecord dailyRecord = new DailyRecord();
-        dailyRecord.setId(resultSet.getInt("id"));
-        dailyRecord.setDate(resultSet.getDate("date").toLocalDate());
-        dailyRecord.setTotalCalories(resultSet.getInt("total_calories"));
-        dailyRecord.setUserId(resultSet.getInt("user_id"));
-
+        DailyRecord dailyRecord = new DailyRecordBuilder()
+                .setId(resultSet.getInt("id"))
+                .setDate(resultSet.getDate("date").toLocalDate())
+                .setUserId(resultSet.getInt("user_id"))
+                .setTotalCalories(resultSet.getInt("total_calories"))
+                .build();
         return dailyRecord;
     }
 

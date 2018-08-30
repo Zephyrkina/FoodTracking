@@ -2,6 +2,7 @@ package ua.training.controller.servlet.command;
 
 import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.entity.Food;
+import ua.training.model.entity.builder.FoodBuilder;
 import ua.training.model.service.UserService;
 import ua.training.model.service.resourse.manager.ErrorMessageManager;
 import ua.training.model.service.resourse.manager.RegexManager;
@@ -39,7 +40,14 @@ public class AddOwnFood implements Command{
             }
         }
 
-        Food food = new Food(name, calories, carbs, fats, proteins);
+        Food food = new FoodBuilder()
+                .setName(name)
+                .setCalories(calories)
+                .setCarbohydrates(carbs)
+                .setFats(fats)
+                .setProteins(proteins)
+                .build();
+
         UserService userService = new UserService();
         int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));
         userService.addOwnFoodToDB(food, userId);

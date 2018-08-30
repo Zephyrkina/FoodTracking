@@ -3,6 +3,7 @@ package ua.training.controller.servlet.command;
 import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.entity.Food;
 import ua.training.model.entity.User;
+import ua.training.model.entity.builder.UserBuilder;
 import ua.training.model.exception.NotUniqueEmailException;
 import ua.training.model.exception.NotUniqueLoginException;
 import ua.training.model.service.UserService;
@@ -59,7 +60,18 @@ public class Registration implements Command {
 
 
         User.ROLE role = User.ROLE.USER;
-        User user = new User(login, password, email, name_en, role, age, height, weight, activity, calorieNorm);
+        User user = new UserBuilder()
+                .setLogin(login)
+                .setPassword(password)
+                .setEmail(email)
+                .setName(name_en)
+                .setRole(role)
+                .setAge(age)
+                .setHeight(height)
+                .setWeight(weight)
+                .setActivity(activity)
+                .setCalorieNorm(calorieNorm)
+                .build();
 
         userService.createUser(user);
 
