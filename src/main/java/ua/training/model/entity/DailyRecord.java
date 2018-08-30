@@ -23,6 +23,14 @@ public class DailyRecord {
         this.userId = userId;
     }
 
+    public DailyRecord(int id, LocalDate date, int userId, int totalCalories, Map<Food, Integer> consumedFood) {
+        this.id = id;
+        this.date = date;
+        this.userId = userId;
+        this.totalCalories = totalCalories;
+        this.consumedFood = consumedFood;
+    }
+
     public int getId() {
         return id;
     }
@@ -62,5 +70,6 @@ public class DailyRecord {
     public void setConsumedFood(Map<Food, Integer> consumedFood) {
         this.consumedFood = consumedFood;
     }
+
 
 }
