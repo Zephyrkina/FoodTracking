@@ -71,5 +71,14 @@ public class DailyRecord {
         this.consumedFood = consumedFood;
     }
 
-
+    @Override
+    public String toString() {
+        return "DailyRecord{" +
+                "id=" + id +
+                ", date=" + date +
+                ", userId=" + userId +
+                ", totalCalories=" + totalCalories +
+                ", consumedFood=" + consumedFood +
+                '}';
+    }
 }

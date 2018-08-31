@@ -28,9 +28,11 @@ public class AddFoodToDailyRecord implements Command {
         int quantity = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_quantity", regexManager.getProperty("int.numbers")));
         LocalDate date = LocalDate.now();
         System.out.println(date);
+        
+        dailyRecordService.addFoodToDailyRecord(foodId, quantity, date, userId);
 
         try {
-            dailyRecordService.addFoodToDailyRecord(foodId, quantity, date, userId);
+            dailyRecordService.getTotalCalories(userId, LocalDate.now());
         } catch (ExceededCalorieNormException e) {
             request.getSession().setAttribute("calorieNormExceeded", e.getMessage());
         }

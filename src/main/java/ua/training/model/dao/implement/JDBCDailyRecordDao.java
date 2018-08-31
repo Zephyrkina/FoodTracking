@@ -93,6 +93,7 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
 
         Map<Integer, DailyRecord> dailyRecordMap = new HashMap<>();
         DailyRecord dailyRecord = null;
+        Map<Integer, DailyRecord> idRecordMap = new HashMap<>();
 
        /* List<DailyRecord> dailyRecordList = new ArrayList<>();
 
@@ -104,12 +105,13 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
 
         String sql1 = "SELECT * FROM daily_record " +
                 "RIGHT JOIN daily_record_has_food ON daily_record.id = daily_record_has_food.daily_record_id " +
-                " left join food on  food.id = daily_record_has_food.food_id where daily_record.user_id = ?";
+                " left join food on  food.id = daily_record_has_food.food_id where daily_record.user_id = ? and not daily_record.id = ?";
 
-        String sql2 = "insert into food_diary (date, total_calories, user_id) values (?, ?, ?)";
-        String sql3 = "SELECT LAST_INSERT_ID() as last_id from food_diary";
+        String sql2 = "insert into food_diary ( date, total_calories, user_id) values (?, ?, ?)";
+        String sql3 = "SELECT LAST_INSERT_ID() as last_id, row_count() as row_count from food_diary";
         String sql4 = "insert into record (name_en, quantity, calories, carbs, proteins, fats, diary_id) values (?, ?, ?, ?, ?, ?, ?)";
         String sql5 = "delete from daily_record where id = ?";
+        //String sql6 = "select ROW_COUNT() as row_count from food_diary";
         int record_id = 0;
 
         //TODO extract anything possible in methods
@@ -128,21 +130,42 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
 //-----------------------first query----------------------------------------------------------
 
             getAllStatement.setInt(1, userId);
+            getAllStatement.setInt(2, dailyRecordId);
             ResultSet resultSet = getAllStatement.executeQuery();
 
             while(resultSet.next()) {
                 dailyRecord = dailyRecordMapper.extractFromResultSet(resultSet);
+
+                idRecordMap.putIfAbsent(dailyRecord.getId(), dailyRecord);
+
                 Food food = foodMapper.extractFromResultSet(resultSet);
                 int quantity = resultSet.getInt("quantity");
-                dailyRecord = dailyRecordMapper.makeUnique(dailyRecordMap, dailyRecord);
-                dailyRecord.getConsumedFood().put(food, quantity);
+
+                idRecordMap.get(dailyRecord.getId()).getConsumedFood().put(food, quantity);
+
+               /* dailyRecord = dailyRecordMapper.makeUnique(dailyRecordMap, dailyRecord);
+                dailyRecord.getConsumedFood().put(food, quantity);*/
 
             }
+            for(Map.Entry<Integer, DailyRecord> idRecMap : idRecordMap.entrySet()) {
+                System.out.println(idRecMap.getKey() + "   " + idRecMap.getValue().toString());
+
+            }
+
 //-----------------------second query----------------------------------------------------------
 
-            createFoodDiaryDayRecordStatement.setDate(1, Date.valueOf(dailyRecord.getDate()));
+            for(Map.Entry<Integer, DailyRecord> idRecMap : idRecordMap.entrySet()){
+                createFoodDiaryDayRecordStatement.setDate(1, Date.valueOf(idRecMap.getValue().getDate()));
+                createFoodDiaryDayRecordStatement.setInt(2, idRecMap.getValue().getTotalCalories());
+                createFoodDiaryDayRecordStatement.setInt(3, userId);
+
+                createFoodDiaryDayRecordStatement.addBatch();
+
+            }
+
+           /* createFoodDiaryDayRecordStatement.setDate(1, Date.valueOf(dailyRecord.getDate()));
             createFoodDiaryDayRecordStatement.setInt(2, dailyRecord.getTotalCalories());
-            createFoodDiaryDayRecordStatement.setInt(3, userId);
+            createFoodDiaryDayRecordStatement.setInt(3, userId)*/;
 
             createFoodDiaryDayRecordStatement.executeUpdate();
 
@@ -151,16 +174,51 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
             resultSet = getIdStatement.executeQuery();
 
 
-            int newDiaryId = 0;
+            int firstDiaryId = 0;
 
+            int lastDiaryId = 0;
 
             if (resultSet.next()) {
-                newDiaryId = Integer.parseInt(resultSet.getString("last_id"));
+                firstDiaryId = Integer.parseInt(resultSet.getString("last_id"));
+                lastDiaryId = Integer.parseInt(resultSet.getString("row_count"));
+
             } else {
                 throw new RuntimeException("problems with id");
             }
+
+           /* resultSet = getRowCountStatement.executeQuery();
+
+
+
+            if (resultSet.next()) {
+                lastDiaryId = Integer.parseInt(resultSet.getString("row_count"));
+            } else {
+                throw new RuntimeException("problems with row count");
+            }*/
+            System.out.println("index1: " + firstDiaryId);
+
+
+            lastDiaryId--;
+            System.out.println("index2: " + lastDiaryId);
+
 //-----------------------fourth query----------------------------------------------------------
 
+            for(Map.Entry<Integer, DailyRecord> idRecMap : idRecordMap.entrySet()){
+                for(Map.Entry<Food, Integer> foodQuantityMap : idRecMap.getValue().getConsumedFood().entrySet()) {
+                    createPermanentRecordStatement.setString(1, foodQuantityMap.getKey().getName());
+                    createPermanentRecordStatement.setInt(2, foodQuantityMap.getValue());
+                    createPermanentRecordStatement.setInt(3, foodQuantityMap.getKey().getCalories());
+                    createPermanentRecordStatement.setInt(4, foodQuantityMap.getKey().getCarbohydrates());
+                    createPermanentRecordStatement.setInt(5, foodQuantityMap.getKey().getProteins());
+                    createPermanentRecordStatement.setInt(6, foodQuantityMap.getKey().getFats());
+                    createPermanentRecordStatement.setInt(7, firstDiaryId);
+
+                    firstDiaryId++;
+
+                    createPermanentRecordStatement.addBatch();
+                }
+            }
+/*
             for(Map.Entry<Food, Integer> foodQuantityMap : dailyRecord.getConsumedFood().entrySet()) {
                 createPermanentRecordStatement.setString(1, foodQuantityMap.getKey().getName());
                 createPermanentRecordStatement.setInt(2, foodQuantityMap.getValue());
@@ -171,19 +229,25 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
                 createPermanentRecordStatement.setInt(7, newDiaryId);
 
                 createPermanentRecordStatement.addBatch();
-            }
+            }*/
 
             createPermanentRecordStatement.executeBatch();
 
 //-----------------------fifth query----------------------------------------------------------
 
 
-            deleteTemporaryRecordStatement.setInt(1, dailyRecordId);
+            for(Map.Entry<Integer, DailyRecord> idRecMap : idRecordMap.entrySet()) {
+                deleteTemporaryRecordStatement.setInt(1, idRecMap.getKey());
+                deleteTemporaryRecordStatement.addBatch();
+            }
             deleteTemporaryRecordStatement.executeUpdate();
+
+//-----------------------------------------------
 
             connection.commit();
 
         } catch (SQLException e) {
+            System.out.println("ooops, rollback");
             try {
                 connection.rollback();
             } catch (SQLException e1) {
@@ -198,10 +262,10 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
     }
 
     @Override
-    public int countCalories(int dailyRecordId, int userId) {
+    public int countCalories(int dailyRecordId, int userId, LocalDate date) {
         String sql1 = "SELECT * FROM daily_record " +
                 "RIGHT JOIN daily_record_has_food ON daily_record.id = daily_record_has_food.daily_record_id " +
-                " left join food on  food.id = daily_record_has_food.food_id where daily_record.user_id = ?";
+                " left join food on  food.id = daily_record_has_food.food_id where daily_record.user_id = ? and daily_record.date = ?";
         String sql2 = "update daily_record set total_calories = ? where id = ?";
         int total_calories = 0;
 
@@ -211,6 +275,7 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
             connection.setAutoCommit(false);
 
             getAllStatement.setInt(1, userId);
+            getAllStatement.setDate(2, Date.valueOf(date));
             ResultSet resultSet = getAllStatement.executeQuery();
 
             while(resultSet.next()) {

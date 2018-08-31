@@ -12,7 +12,7 @@ public interface DailyRecordDao extends GenericDao<DailyRecord> {
     int addFoodToRecord(int dailyRecordId, int foodId, int quantity);
     int getRecordIdByUserIdAndDate(int userId, LocalDate date);
     boolean savePreviousRecords(int userId, int dailyRecordId);
-    int countCalories(int dailyRecordId, int userId);
+    int countCalories(int dailyRecordId, int userId, LocalDate date);
     List<Food> showTodaysFoodList(int userId, LocalDate date);
     int getTotalCalories(int userId, LocalDate date);
 }

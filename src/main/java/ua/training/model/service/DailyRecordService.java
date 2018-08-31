@@ -8,18 +8,21 @@ import ua.training.model.entity.Food;
 import ua.training.model.exception.ExceededCalorieNormException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class DailyRecordService {
     DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public void savePreviousRecords(int userId) {
-       /* try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
-            if (dailyRecordDao.todaysDailyRecordExists(userId, )) {
-                int dailyRecordId = dailyRecordDao.getRecordIdByUserIdAndDate(userId);
+
+    //TODO savePreviousRecords(userId, date);
+    public void savePreviousRecords(int userId, LocalDate date) {
+        try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
+            if (dailyRecordDao.todaysDailyRecordExists(userId, date)) {
+                int dailyRecordId = dailyRecordDao.getRecordIdByUserIdAndDate(userId, date);
                 dailyRecordDao.savePreviousRecords(userId, dailyRecordId);
             }
-        }*/
+        }
     }
 
     public List<Food> showTodaysFoodList(int userId, LocalDate date) {
@@ -29,7 +32,6 @@ public class DailyRecordService {
     }
 
     public void addFoodToDailyRecord(int foodId, int quantity, LocalDate date, int userId) {
-        int consumedCalories = 0;
         int dailyRecordId = 0;
 
         try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()){
@@ -40,17 +42,9 @@ public class DailyRecordService {
             dailyRecordId = dailyRecordDao.getRecordIdByUserIdAndDate(userId, date);
             System.out.println("dailyRecordId: " + dailyRecordId);
             dailyRecordDao.addFoodToRecord(dailyRecordId, foodId, quantity);
-            consumedCalories = dailyRecordDao.countCalories(dailyRecordId, userId);
+            dailyRecordDao.countCalories(dailyRecordId, userId, date);
 
         }
-        try (UserDao userDao = daoFactory.createUserDao()) {
-            int calorieNorm = userDao.findById(userId).getCalorieNorm();
-            int calorieExceeded = consumedCalories - calorieNorm;
-            if (calorieExceeded > 0) {
-                throw new ExceededCalorieNormException("Calorie norm was exceeded on " + calorieExceeded + " calories");
-            }
-        }
-
     }
 
     public void getTotalCalories(int userId, LocalDate date) {
@@ -62,7 +56,6 @@ public class DailyRecordService {
         try (UserDao userDao = daoFactory.createUserDao()) {
             calorieNorm = userDao.findById(userId).getCalorieNorm();
         }
-        System.out.println("int get total calories + date: " + date);
         int calorieExceeded = total_calories - calorieNorm;
         if (calorieExceeded > 0) {
             throw new ExceededCalorieNormException("Calorie norm was exceeded on " + calorieExceeded + " calories");
