@@ -17,10 +17,6 @@
     <jsp:include page="/jsp/menu.jsp"></jsp:include>
     <fmt:bundle basename="pagecontent">
 
-       <%-- <fmt:message key="label.welcome"/> <hr/>
-        <fmt:message key="footer.copyright"/> <hr/>
-        <fmt:message key="footer.date"/>--%>
-
 
     <h1> <fmt:message key="login.welcome"/></h1><br/>
     <form method="post" action="${pageContext.request.contextPath}/app/login">

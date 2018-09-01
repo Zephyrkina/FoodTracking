@@ -8,6 +8,8 @@ public class SecurityConfig {
     public static String ROLE_ADMIN = "ADMIN";
     //public static String ROLE_GUEST = "GUEST";
 
+    //TODO make something with this class
+
     private static final Map<String, List<String>> roleAccessConfig = new ConcurrentHashMap<>();
 
     static {

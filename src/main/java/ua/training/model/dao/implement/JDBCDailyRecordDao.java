@@ -95,30 +95,22 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
         DailyRecord dailyRecord = null;
         Map<Integer, DailyRecord> idRecordMap = new HashMap<>();
 
-       /* List<DailyRecord> dailyRecordList = new ArrayList<>();
-
-
         String sql1 = "SELECT * FROM daily_record " +
                 "RIGHT JOIN daily_record_has_food ON daily_record.id = daily_record_has_food.daily_record_id " +
                 " left join food on  food.id = daily_record_has_food.food_id where daily_record.user_id = ? and not daily_record.id = ?";
-*/
-
-        String sql1 = "SELECT * FROM daily_record " +
-                "RIGHT JOIN daily_record_has_food ON daily_record.id = daily_record_has_food.daily_record_id " +
-                " left join food on  food.id = daily_record_has_food.food_id where daily_record.user_id = ? and not daily_record.id = ?";
-
         String sql2 = "insert into food_diary ( date, total_calories, user_id) values (?, ?, ?)";
-        String sql3 = "SELECT LAST_INSERT_ID() as last_id, row_count() as row_count from food_diary";
+        String sql27 = "SELECT row_count() as row_count from food_diary";
+        String sql3 = "SELECT LAST_INSERT_ID() as last_id from food_diary";
         String sql4 = "insert into record (name_en, quantity, calories, carbs, proteins, fats, diary_id) values (?, ?, ?, ?, ?, ?, ?)";
         String sql5 = "delete from daily_record where id = ?";
-        //String sql6 = "select ROW_COUNT() as row_count from food_diary";
-        int record_id = 0;
+
 
         //TODO extract anything possible in methods
 
         try (PreparedStatement getAllStatement = connection.prepareStatement(sql1);
              PreparedStatement createFoodDiaryDayRecordStatement = connection.prepareStatement(sql2);
              PreparedStatement getIdStatement = connection.prepareStatement(sql3);
+             PreparedStatement getRowCountStatement = connection.prepareStatement(sql27);
              PreparedStatement createPermanentRecordStatement = connection.prepareStatement(sql4);
              PreparedStatement deleteTemporaryRecordStatement = connection.prepareStatement(sql5)){
 
@@ -162,44 +154,35 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
                 createFoodDiaryDayRecordStatement.addBatch();
 
             }
+            createFoodDiaryDayRecordStatement.executeBatch();
 
-           /* createFoodDiaryDayRecordStatement.setDate(1, Date.valueOf(dailyRecord.getDate()));
-            createFoodDiaryDayRecordStatement.setInt(2, dailyRecord.getTotalCalories());
-            createFoodDiaryDayRecordStatement.setInt(3, userId)*/;
-
-            createFoodDiaryDayRecordStatement.executeUpdate();
 
 //-----------------------third query----------------------------------------------------------
 
-            resultSet = getIdStatement.executeQuery();
+            resultSet = getRowCountStatement.executeQuery();
 
-
-            int firstDiaryId = 0;
-
-            int lastDiaryId = 0;
-
+            int rowCount = 0;
             if (resultSet.next()) {
-                firstDiaryId = Integer.parseInt(resultSet.getString("last_id"));
-                lastDiaryId = Integer.parseInt(resultSet.getString("row_count"));
+                rowCount = Integer.parseInt(resultSet.getString("row_count"));
 
             } else {
                 throw new RuntimeException("problems with id");
             }
 
-           /* resultSet = getRowCountStatement.executeQuery();
+            resultSet = getIdStatement.executeQuery();
 
-
+            int last_id = 0;
 
             if (resultSet.next()) {
-                lastDiaryId = Integer.parseInt(resultSet.getString("row_count"));
+                last_id = Integer.parseInt(resultSet.getString("last_id"));
+
             } else {
-                throw new RuntimeException("problems with row count");
-            }*/
-            System.out.println("index1: " + firstDiaryId);
+                throw new RuntimeException("problems with id");
+            }
 
 
-            lastDiaryId--;
-            System.out.println("index2: " + lastDiaryId);
+            int id = last_id - rowCount - 1;
+
 
 //-----------------------fourth query----------------------------------------------------------
 
@@ -211,25 +194,12 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
                     createPermanentRecordStatement.setInt(4, foodQuantityMap.getKey().getCarbohydrates());
                     createPermanentRecordStatement.setInt(5, foodQuantityMap.getKey().getProteins());
                     createPermanentRecordStatement.setInt(6, foodQuantityMap.getKey().getFats());
-                    createPermanentRecordStatement.setInt(7, firstDiaryId);
-
-                    firstDiaryId++;
+                    createPermanentRecordStatement.setInt(7, id);
 
                     createPermanentRecordStatement.addBatch();
                 }
+                id++;
             }
-/*
-            for(Map.Entry<Food, Integer> foodQuantityMap : dailyRecord.getConsumedFood().entrySet()) {
-                createPermanentRecordStatement.setString(1, foodQuantityMap.getKey().getName());
-                createPermanentRecordStatement.setInt(2, foodQuantityMap.getValue());
-                createPermanentRecordStatement.setInt(3, foodQuantityMap.getKey().getCalories());
-                createPermanentRecordStatement.setInt(4, foodQuantityMap.getKey().getCarbohydrates());
-                createPermanentRecordStatement.setInt(5, foodQuantityMap.getKey().getProteins());
-                createPermanentRecordStatement.setInt(6, foodQuantityMap.getKey().getFats());
-                createPermanentRecordStatement.setInt(7, newDiaryId);
-
-                createPermanentRecordStatement.addBatch();
-            }*/
 
             createPermanentRecordStatement.executeBatch();
 
