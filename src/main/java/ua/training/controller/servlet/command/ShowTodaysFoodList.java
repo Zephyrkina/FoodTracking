@@ -28,6 +28,6 @@ public class ShowTodaysFoodList implements Command {
         } catch (FoodListIsEmptyException e) {
             request.setAttribute("foodListIsEmpty", e.getMessage());
         }
-        return "/jsp/user/user_page.jsp";
+        return "/jsp/user/showTodaysMeals.jsp";
     }
 }

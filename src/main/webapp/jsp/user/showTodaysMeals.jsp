@@ -1,11 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<%@ page  isErrorPage="true" isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
 
 
 <html>
 <head>
-    <title>Ooooops</title>
+    <title>Login</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="<c:url value='/css/style.css'/>" rel="stylesheet">
 
@@ -23,37 +23,34 @@
 </head>
 <body>
 <jsp:include page="/jsp/header.jsp"></jsp:include>
-<div class="container main__login__part">
+<jsp:include page="/jsp/menu.jsp"></jsp:include>
 
-    <div style="margin-top: 60px;"><h3>Ooops, something went wrong :(</h3> </div>
+
+<div class="container main__login__part">
     <div>
-    <a href="${pageContext.request.contextPath}/jsp/index.jsp">На головну</a>
+<%--
+        <a href="${pageContext.request.contextPath}/app/showTodaysFoodList">Show today's meals</a>
+--%>
+        <p>${requestScope.foodListIsEmpty}</p>
+
+        <c:forEach items="${requestScope.foodList}" var="food" >
+            <div class="row">
+                <div class="col-lg-2">${food.id}</div>
+                <div class="col-lg-2">${food.name}</div>
+                <div class="col-lg-2"> ${food.calories}</div>
+                <div class="col-lg-2">${food.fats}</div>
+                <div class="col-lg-2">${food.proteins}</div>
+                <div class="col-lg-2">${food.carbohydrates}</div>
+
+            </div>
+        </c:forEach>
+
     </div>
 
 
+</div>
 </div>
 <jsp:include page="/jsp/footer.jsp"></jsp:include>
 
 </body>
 </html>
-
-
-
-
-<%--
-
-<%@ page isErrorPage="true" contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Oooops</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
-<body>
-<div class="container">
-    <div style="margin-top: 60px;"><h3>Ooops, something went wrong :(</h3> </div>
-    <br>
-    <a href="${pageContext.request.contextPath}/jsp/index.jsp">На головну</a>
-</div>
-</body>
-</html>
---%>
