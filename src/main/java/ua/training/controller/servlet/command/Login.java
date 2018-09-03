@@ -22,25 +22,31 @@ public class Login implements Command{
 
         InputDataUtils inputDataUtils = new InputDataUtils();
         RegexManager regexManager = new RegexManager();
+        UserService userService = new UserService();
+        DailyRecordService dailyRecordService = new DailyRecordService();
+
+        String login1 = request.getParameter("input_login");
+        String password1 = request.getParameter("input_password");
+
+        if ( login1 == null && password1 == null) {
+            return "/WEB-INF/jsp/login.jsp";
+        }
 
         String login = inputDataUtils.readCorrectData(request, "input_login", regexManager.getProperty("login"));
         String password = inputDataUtils.readCorrectData(request,"input_password", regexManager.getProperty("password"));
-
-        UserService userService = new UserService();
-        DailyRecordService dailyRecordService = new DailyRecordService();
 
         try {
             userService.checkLoginExists(login);
         } catch(ItemNotFoundException e) {
             request.setAttribute("userNotFound", "User with login \"" + login + "\" doesn't exist");
-            return "/jsp/login.jsp";
+            return "/WEB-INF/jsp/login.jsp";
         }
 
         try {
             userService.checkPasswordCorrect(password);
         } catch(ItemNotFoundException e) {
             request.setAttribute("wrong_input_password", "Wrong password");
-            return "/jsp/login.jsp";
+            return "/WEB-INF/jsp/login.jsp";
 
         }
 
@@ -49,7 +55,7 @@ public class Login implements Command{
         while(requestAttributeNames.hasMoreElements()){
             String attrName = requestAttributeNames.nextElement();
             if (attrName.contains("wrong")){
-                return "/jsp/login.jsp";
+                return "/WEB-INF/jsp/login.jsp";
             }
         }
 
@@ -72,7 +78,11 @@ public class Login implements Command{
             request.getSession().setAttribute("calorieNormExceeded", e.getMessage());
         }
 
-        return "redirect:/jsp/" + roleString +"/"+ roleString +"_page.jsp";
+/*
+        return "redirect:/WEB-INF/jsp/" + roleString +"/"+ roleString +"_page.jsp";
+*/
+        return "/WEB-INF/jsp/" + roleString +"/"+ roleString +"_page.jsp";
+
 
 
     }

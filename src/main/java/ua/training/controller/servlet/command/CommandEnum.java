@@ -56,6 +56,16 @@ public enum CommandEnum {
             this.command = new Registration();
         }
     },
+    USER{
+        {
+            this.command = new User();
+        }
+    },
+    ADMIN{
+        {
+            this.command = new Admin();
+        }
+    },
     LOGOUT{
         {
             this.command = new Logout();

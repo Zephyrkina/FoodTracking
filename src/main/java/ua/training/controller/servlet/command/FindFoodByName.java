@@ -20,6 +20,10 @@ public class FindFoodByName implements Command{
         RegexManager regexManager = new RegexManager();
         InputDataUtils inputDataUtils = new InputDataUtils();
 
+        if (request.getParameter("search_food_name") == null) {
+            return "/WEB-INF/jsp/user/findFood.jsp";
+        }
+
 
         String foodName = inputDataUtils.readCorrectData(request,"search_food_name", regexManager.getProperty("name"));
 
@@ -28,7 +32,7 @@ public class FindFoodByName implements Command{
         while(requestAttributeNames.hasMoreElements()){
             String attrName = requestAttributeNames.nextElement();
             if (attrName.contains("wrong")){
-                return "/jsp/user/findFood.jsp";
+                return "/WEB-INF/jsp/user/findFood.jsp";
             }
         }
 
@@ -38,14 +42,14 @@ public class FindFoodByName implements Command{
             food = new FoodService().findFoodByName(foodName);
         } catch(ItemNotFoundException itfe) {
             request.setAttribute("cantFindFoodMessage", "there is no food in db. Try to create your own");
-            return "/jsp/user/findFood.jsp";
+            return "/WEB-INF/jsp/user/findFood.jsp";
         }
 
         List<Food> foods = new ArrayList<>();
         foods.add(food);
         //request.setAttribute("food", food);
         request.setAttribute("foods", foods);
-        return "/jsp/user/findFood.jsp";
+        return "/WEB-INF/jsp/user/findFood.jsp";
 
     }
 }

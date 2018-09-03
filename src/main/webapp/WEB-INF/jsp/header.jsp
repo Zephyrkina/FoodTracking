@@ -42,10 +42,10 @@
                 <c:choose>
                     <c:when test="${sessionScope.role == 'GUEST'}">
                         <div>
-                            <a class="white__link" style="padding-right: 10px;" href="${pageContext.request.contextPath}/jsp/login.jsp">
+                            <a class="white__link" style="padding-right: 10px;" href="${pageContext.request.contextPath}/app/login">
                                 Login
                             </a>
-                            <a class="white__link" href="${pageContext.request.contextPath}/jsp/registration.jsp">
+                            <a class="white__link" href="${pageContext.request.contextPath}/app/registration">
                                 Registration
                             </a>
                         </div>
@@ -53,7 +53,7 @@
                     </c:when>
                     <c:otherwise>
                         <div >
-                            <a class="white__link " style="padding-right: 10px;" href="${pageContext.request.contextPath}/jsp/user/user_page.jsp">Hi, ${sessionScope.login}</a>
+                            <a class="white__link " style="padding-right: 10px;" href="${pageContext.request.contextPath}/app/user">Hi, ${sessionScope.login}</a>
                             <a class="white__link" href="${pageContext.request.contextPath}/app/logout">
                                 Log out
                             </a>

@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SecurityConfig {
     public static String ROLE_USER = "USER";
     public static String ROLE_ADMIN = "ADMIN";
-    //public static String ROLE_GUEST = "GUEST";
+    public static String ROLE_GUEST = "GUEST";
 
     //TODO make something with this class
 
@@ -19,6 +19,7 @@ public class SecurityConfig {
     private static void init() {
         List<String> userPatterns = new ArrayList<>();
         userPatterns.add("/user");
+        //userPatterns.add("/app/showTodaysFoodList");
 
         roleAccessConfig.put(ROLE_USER, userPatterns);
 
@@ -28,10 +29,10 @@ public class SecurityConfig {
 
         roleAccessConfig.put(ROLE_ADMIN, adminPatterns);
 
-      /*  List<String> guestPatterns = new ArrayList<>();
-        guestPatterns.add("/login");
+       List<String> guestPatterns = new ArrayList<>();
+        guestPatterns.add("/app/login");
 
-        roleAccessConfig.put(ROLE_GUEST, guestPatterns);*/
+        roleAccessConfig.put(ROLE_GUEST, guestPatterns);
     }
 
     public static Set<String> getAllAppRoles() { return roleAccessConfig.keySet(); }

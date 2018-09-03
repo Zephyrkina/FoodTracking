@@ -29,6 +29,15 @@ public class AddOwnFood implements Command{
         UserService userService = new UserService();
         FoodService foodService = new FoodService();
 
+        if (request.getParameter("own_food_name") == null
+                && request.getParameter("own_food_calories") == null
+                && request.getParameter("own_food_carbs") == null
+                && request.getParameter("own_food_fats") == null
+                && request.getParameter("own_food_proteins") == null ) {
+          return "/WEB-INF/jsp/user/addOwnFood.jsp";
+
+        }
+
 
         String name = inputDataUtils.readCorrectData(request, "own_food_name", regexManager.getProperty("name"));
         int calories = Integer.parseInt(inputDataUtils.readCorrectData(request, "own_food_calories", regexManager.getProperty("int.numbers")));
@@ -41,7 +50,7 @@ public class AddOwnFood implements Command{
         while(requestAttributeNames.hasMoreElements()){
             String attrName = requestAttributeNames.nextElement();
             if (attrName.contains("wrong")){
-                return "/jsp/user/addOwnFood.jsp";
+                return "/WEB-INF/jsp/user/addOwnFood.jsp";
             }
         }
 
@@ -59,9 +68,11 @@ public class AddOwnFood implements Command{
             foodService.addOwnFoodToDB(food, userId);
         } catch (ItemAlreadyExists e) {
             request.setAttribute("foodAlreadyExists", e.getMessage());
-            return "/jsp/user/addOwnFood.jsp";
+            return "/WEB-INF/jsp/user/addOwnFood.jsp";
         }
 
-        return "redirect:/jsp/user/user_page.jsp";
+//        return "redirect:/WEB-INF/jsp/user/user_page.jsp";
+        return "/WEB-INF/jsp/user/user_page.jsp";
+
     }
 }

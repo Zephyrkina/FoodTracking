@@ -22,7 +22,7 @@
 
 </head>
 <body>
-<jsp:include page="/jsp/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
 <div class="container main__login__part">
     <!-- REGISTRATION FORM -->
     <div class="text-center" style="padding:50px 0">
@@ -116,7 +116,7 @@
                     <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
                 </div>
                 <div class="etc-login-form">
-                    <p>already have an account? <a href="${pageContext.request.contextPath}/jsp/login.jsp">login here</a></p>
+                    <p>already have an account? <a href="${pageContext.request.contextPath}/app/login">login here</a></p>
                 </div>
             </form>
         </div>
@@ -129,7 +129,7 @@
 
 </div>
 </div>
-<jsp:include page="/jsp/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
 
 </body>
 </html>

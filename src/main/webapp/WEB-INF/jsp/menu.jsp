@@ -25,10 +25,10 @@
                     <a href="${pageContext.request.contextPath}/app/showTodaysFoodList">Show today's meals</a>
                 </div>
                 <div class="">
-                    <a href="${pageContext.request.contextPath}/jsp/user/findFood.jsp">Find food</a>
+                    <a href="${pageContext.request.contextPath}/app/findFoodByName">Find food</a>
                 </div>
                 <div class="">
-                    <a href="${pageContext.request.contextPath}/jsp/user/addOwnFood.jsp">Add own food</a>
+                    <a href="${pageContext.request.contextPath}/app/addOwnFood">Add own food</a>
                 </div>
                 <div class="">
                     <a href="${pageContext.request.contextPath}/app/savePreviousRecords">Save records</a>

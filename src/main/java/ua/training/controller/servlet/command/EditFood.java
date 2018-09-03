@@ -35,7 +35,7 @@ public class EditFood implements Command {
         while(requestAttributeNames.hasMoreElements()){
             String attrName = requestAttributeNames.nextElement();
             if (attrName.contains("wrong")){
-                return "/jsp/admin/editFood.jsp";
+                return "/WEB-INF/jsp/admin/editFood.jsp";
             }
         }
         Food food = new FoodBuilder()
@@ -49,6 +49,10 @@ public class EditFood implements Command {
 
         foodService.editFood(food);
 
+/*
         return "redirect:/app/showAllFood?currentPage="+ currentPage+"&recordsPerPage=" + recordsPerPage;
+*/
+        return "/app/showAllFood?currentPage="+ currentPage+"&recordsPerPage=" + recordsPerPage;
+
     }
 }

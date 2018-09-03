@@ -34,7 +34,7 @@ public class AuthFilter implements Filter {
 
         if (role == null) {
             request.getSession().setAttribute("role", User.ROLE.GUEST.toString());
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
             dispatcher.forward(request, response);
             return;
         }
@@ -44,7 +44,7 @@ public class AuthFilter implements Filter {
         if (isSecurityPage(request)) {
             boolean hasPermission = hasPermission(request);
             if (!hasPermission) {
-                request.getServletContext().getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+                request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
             }
         }
 

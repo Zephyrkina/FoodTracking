@@ -19,6 +19,6 @@ public class SavePreviousRecords implements Command {
         LocalDate date = LocalDate.now();
         dailyRecordService.savePreviousRecords(userId, date);
 
-        return "/jsp/user/user_page.jsp";
+        return "/WEB-INF/jsp/user/user_page.jsp";
     }
 }

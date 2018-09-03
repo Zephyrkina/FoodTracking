@@ -20,8 +20,8 @@
 
 </head>
 <body>
-<jsp:include page="/jsp/header.jsp"></jsp:include>
-<jsp:include page="/jsp/menu.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>
 
 <div class="container main__login__part">
     <div class="text-center " style="padding:50px 0">
@@ -80,7 +80,7 @@
 
 
 </div>
-<jsp:include page="/jsp/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
 
 </body>
 </html>

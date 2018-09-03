@@ -1,5 +1,7 @@
 package ua.training.controller.servlet;
 
+import ua.training.model.entity.User;
+
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -9,6 +11,7 @@ public class SessionListener implements HttpSessionListener{
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
         //httpSessionEvent.getSession().setMaxInactiveInterval(20);
+        httpSessionEvent.getSession().setAttribute("role", User.ROLE.GUEST.toString());
     }
 
     @Override

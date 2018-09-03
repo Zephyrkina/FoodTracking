@@ -22,8 +22,8 @@
 
 </head>
 <body>
-<jsp:include page="/jsp/header.jsp"></jsp:include>
-<jsp:include page="/jsp/menu.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>
 
 <div class="container main__login__part">
 
@@ -66,7 +66,7 @@
                 </div>
                 <div class="etc-login-form">
                     <p></p>
-                    <p>new user? <a href="${pageContext.request.contextPath}/jsp/registration.jsp"> create new account</a></p>
+                    <p>new user? <a href="${pageContext.request.contextPath}/app/registration"> create new account</a></p>
                 </div>
             </form>
         </div>
@@ -139,7 +139,7 @@
 
 </div>
 </div>
-<jsp:include page="/jsp/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
 
 </body>
 </html>

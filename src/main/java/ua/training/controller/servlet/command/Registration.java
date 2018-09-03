@@ -25,7 +25,17 @@ public class Registration implements Command {
 
         UserService userService = new UserService();
 
-
+        if( request.getParameter("user_name") == null
+                && request.getParameter("user_login") == null
+                && request.getParameter("user_email") == null
+                && request.getParameter("user_password") == null
+                && request.getParameter("user_password_repeat") == null
+                && request.getParameter("user_age") == null
+                && request.getParameter("user_height") == null
+                && request.getParameter("user_weight") == null
+                && request.getParameter("user_activity") == null) {
+            return "/WEB-INF/jsp/registration.jsp";
+        }
 
         String name_en = inputDataUtils.readCorrectData(request, "user_name", regexManager.getProperty("name"));
         String login = inputDataUtils.readCorrectData(request, "user_login", regexManager.getProperty("login"));
@@ -52,7 +62,7 @@ public class Registration implements Command {
         while(requestAttributeNames.hasMoreElements()){
             String attrName = requestAttributeNames.nextElement();
             if (attrName.contains("wrong")){
-                return "/jsp/registration.jsp";
+                return "/WEB-INF/jsp/registration.jsp";
             }
         }
 
@@ -80,6 +90,9 @@ public class Registration implements Command {
         request.getServletContext().setAttribute(login, request.getSession());
 
 
-        return "redirect:/jsp/user/user_page.jsp";
+/*
+        return "redirect:/WEB-INF/jsp/user/user_page.jsp";
+*/
+        return "/WEB-INF/jsp/index.jsp";
         }
 }

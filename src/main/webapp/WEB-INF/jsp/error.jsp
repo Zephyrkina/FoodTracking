@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title>Ooooops</title>
+    <title>Error page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="<c:url value='/css/style.css'/>" rel="stylesheet">
 
@@ -22,17 +22,21 @@
 
 </head>
 <body>
-<jsp:include page="/jsp/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
 <div class="container main__login__part">
 
-    <div style="margin-top: 60px;"><h3>Ooops, something went wrong :(</h3> </div>
-    <div>
-    <a href="${pageContext.request.contextPath}/jsp/index.jsp">На головну</a>
-    </div>
+    <h1> Error 404 </h1>
+    <p>Page not found</p>
+
+<%--
+    <a href="${pageContext.request.contextPath}/app/home">На головну</a>
+--%>
+    <a href="${pageContext.request.contextPath}/index.jsp">На головну</a>
+
 
 
 </div>
-<jsp:include page="/jsp/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
 
 </body>
 </html>
@@ -45,14 +49,16 @@
 <%@ page isErrorPage="true" contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Oooops</title>
+    <title>Error Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 </head>
 <body>
 <div class="container">
-    <div style="margin-top: 60px;"><h3>Ooops, something went wrong :(</h3> </div>
-    <br>
-    <a href="${pageContext.request.contextPath}/jsp/index.jsp">На головну</a>
+<h1> Error 404 </h1>
+<p>Page not found</p>
+
+<a href="${pageContext.request.contextPath}/jsp/index.jsp">На головну</a>
 </div>
 </body>
 </html>

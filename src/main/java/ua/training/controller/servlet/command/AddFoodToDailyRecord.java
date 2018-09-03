@@ -23,11 +23,14 @@ public class AddFoodToDailyRecord implements Command {
         DailyRecordService dailyRecordService = new DailyRecordService();
         InputDataUtils inputDataUtils = new InputDataUtils();
 
+
+
         int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));
         int foodId = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_id", regexManager.getProperty("int.numbers")));
         int quantity = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_quantity", regexManager.getProperty("int.numbers")));
         LocalDate date = LocalDate.now();
-        System.out.println(date);
+
+
 
         dailyRecordService.addFoodToDailyRecord(foodId, quantity, date, userId);
 
@@ -37,6 +40,6 @@ public class AddFoodToDailyRecord implements Command {
             request.getSession().setAttribute("calorieNormExceeded", e.getMessage());
         }
 
-        return "/jsp/user/user_page.jsp";
+        return "/WEB-INF/jsp/user/user_page.jsp";
     }
 }

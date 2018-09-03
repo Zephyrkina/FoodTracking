@@ -14,6 +14,11 @@ import java.util.List;
 public class ShowAllFood implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        if (request.getParameter("currentPage") == null
+               && request.getParameter("recordsPerPage") == null ) {
+            return "/WEB-INF/jsp/admin/showAllFood.jsp";
+        }
         int currentPage = Integer.valueOf(request.getParameter("currentPage"));
         int recordsPerPage = Integer.valueOf(request.getParameter("recordsPerPage"));
 
@@ -36,7 +41,7 @@ public class ShowAllFood implements Command {
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("recordsPerPage", recordsPerPage);
 
-        return "/jsp/admin/showAllFood.jsp";
+        return "/WEB-INF/jsp/admin/showAllFood.jsp";
 
     }
 }

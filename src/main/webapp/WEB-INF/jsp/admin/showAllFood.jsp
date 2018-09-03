@@ -22,8 +22,8 @@
 
 </head>
 <body>
-<jsp:include page="/jsp/header.jsp"></jsp:include>
-<jsp:include page="/jsp/menu.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>
 
 <div class="container main__login__part">
 
@@ -76,7 +76,7 @@
                     <td>${food.fats}</td>
                     <td>${food.proteins}</td>
 
-                    <form method="post" action="${pageContext.request.contextPath}/jsp/admin/editFood.jsp">
+                    <form method="post" action="${pageContext.request.contextPath}/WEB-INF/jsp/admin/editFood.jsp">
 
                         <input type="hidden" name="food_id" value="${food.id}">
                         <input type="hidden" name="food_name" value="${food.name}">
@@ -135,7 +135,7 @@
 
 
 </div>
-<jsp:include page="/jsp/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
 
 </body>
 </html>
