@@ -27,11 +27,31 @@
 
 <div class="container main__login__part">
 
-    <div>
+  <%--  <div>
         <a href="${pageContext.request.contextPath}/app/showAllFood">Show all food</a>
-    </div>
+    </div>--%>
 
 
+          <div class="user-container">
+              <div class="user-container-header white__link">
+                  Your Daily Summary
+              </div>
+              <div class="user-container-main row">
+                  <div class="user-image-container col-lg-2">
+                      <img class="user-image" src="<c:url value='/img/default-user-image.png'/>" alt="userPhoto">
+                  </div>
+                  <div class=" col-lg-8">
+                      <div style="margin-bottom: 30px;"> ${sessionScope.login}</div>
+
+                      <p>Calories remaining: </p>
+                      <p style="color: lightgreen;"> ${sessionScope.calorieNorm} - ${sessionScope.consumedCalories} = ${sessionScope.difference}</p>
+                      <div>
+                          <p style="color: red;">${sessionScope.calorieNormExceeded}</p>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
 
 
 </div>

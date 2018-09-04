@@ -28,10 +28,43 @@
 
 <div class="container main__login__part">
     <div>
-<%--
-        <a href="${pageContext.request.contextPath}/app/showTodaysFoodList">Show today's meals</a>
---%>
         <p>${requestScope.foodListIsEmpty}</p>
+
+        <c:if test="${requestScope.foodList != null }">
+            <div class="row">
+                <div class="col-lg-2">Name</div>
+                <div class="col-lg-2">Calories</div>
+                <div class="col-lg-2">Carbohydrates</div>
+                <div class="col-lg-2">Fats</div>
+                <div class="col-lg-2">Proteins</div>
+                <div class="col-lg-2">Weight</div>
+
+            </div>
+            <div style="margin:30px 0px; height: 1px; background:gray;"></div>
+        </c:if>
+
+        <c:forEach items="${requestScope.foodList}" var="food" >
+            <div class="row">
+                <div class="col-lg-2">${food.name}</div>
+                <div class="col-lg-2"> ${food.calories}</div>
+                <div class="col-lg-2">${food.carbohydrates}</div>
+                <div class="col-lg-2">${food.fats}</div>
+                <div class="col-lg-2">${food.proteins}</div>
+<%--
+                <div class="col-lg-2">${food.weight}</div>
+--%>
+
+            </div>
+        </c:forEach>
+    </div>
+   <%--
+    <div>
+&lt;%&ndash;
+        <a href="${pageContext.request.contextPath}/app/showTodaysFoodList">Show today's meals</a>
+&ndash;%&gt;
+        <p>${requestScope.foodListIsEmpty}</p>
+
+
 
         <c:forEach items="${requestScope.foodList}" var="food" >
             <div class="row">
@@ -45,11 +78,11 @@
             </div>
         </c:forEach>
 
-    </div>
+    </div>--%>
 
 
 </div>
-</div>
+
 <jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
 
 </body>

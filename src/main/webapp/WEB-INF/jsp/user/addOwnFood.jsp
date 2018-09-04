@@ -64,7 +64,7 @@
                             <label for="own_proteins" class="sr-only">Proteins</label>
                             <input  type="number" name="own_food_proteins" value="${own_food_proteins}"  placeholder="proteins"  class="form-control" id="own_proteins" >
                         </div>
-                        <div class="error-alert">${wrong_own_food_fats}</div>
+                        <div class="error-alert">${wrong_own_food_proteins}</div>
 
                     </div>
                     <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>

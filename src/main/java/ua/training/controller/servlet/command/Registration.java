@@ -32,8 +32,7 @@ public class Registration implements Command {
                 && request.getParameter("user_password_repeat") == null
                 && request.getParameter("user_age") == null
                 && request.getParameter("user_height") == null
-                && request.getParameter("user_weight") == null
-                && request.getParameter("user_activity") == null) {
+                && request.getParameter("user_weight") == null ){
             return "/WEB-INF/jsp/registration.jsp";
         }
 

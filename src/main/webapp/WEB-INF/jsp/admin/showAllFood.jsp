@@ -53,7 +53,62 @@
 
     <br>
     <br>
-    <div class="row col-md-6">
+   <%-- <div class="row col-md-6">--%>
+        <div>
+            <c:if test="${requestScope.foodList != null }">
+                <div class="row">
+                    <div class="col-lg-1">Id</div>
+                    <div class="col-lg-2">Name</div>
+                    <div class="col-lg-2">Calories</div>
+                    <div class="col-lg-2">Carbohydrates</div>
+                    <div class="col-lg-2">Fats</div>
+                    <div class="col-lg-1">Proteins</div>
+                    <div class="col-lg-1">Edit</div>
+                    <div class="col-lg-1">Delete</div>
+                </div>
+                <div style="margin:30px 0px; height: 1px; background:gray;"></div>
+
+            </c:if>
+            <c:forEach items="${foodList}" var="food">
+                <div class="row">
+                    <div class="col-lg-1">${food.id}</div>
+                    <div class="col-lg-2">${food.name}</div>
+                    <div class="col-lg-2">${food.calories}</div>
+                    <div class="col-lg-2">${food.carbohydrates}</div>
+                    <div class="col-lg-2">${food.fats}</div>
+                    <div class="col-lg-1">${food.proteins}</div>
+                    <div class="col-lg-1">
+                    <form method="post" action="${pageContext.request.contextPath}/WEB-INF/jsp/admin/editFood.jsp">
+
+                        <input type="hidden" name="food_id" value="${food.id}">
+                        <input type="hidden" name="food_name" value="${food.name}">
+                        <input type="hidden" name="food_calories" value="${food.calories}">
+                        <input type="hidden" name="food_carbs" value="${food.carbohydrates}">
+                        <input type="hidden" name="food_fats" value="${food.fats}">
+                        <input type="hidden" name="food_proteins" value="${food.proteins}">
+
+                        <input type="hidden" name="current_page" value="${currentPage}">
+                        <input type="hidden" name="no_of_pages" value="${noOfPages}">
+                        <input type="hidden" name="records_per_page" value="${recordsPerPage}">
+
+                        <input class="button" type="submit" value="Edit">
+                    </form>
+                    </div>
+                    <div class="col-lg-1">
+                    <form method="post" action="${pageContext.request.contextPath}/app/deleteFood">
+                        <input type="hidden" name="food_id" value="${food.id}">
+                        <input type="hidden" name="current_page" value="${currentPage}">
+                        <input type="hidden" name="no_of_pages" value="${noOfPages}">
+                        <input type="hidden" name="records_per_page" value="${recordsPerPage}">
+                        <input class="button" type="submit" value="Delete">
+                    </form>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+
+
+       <%--
         <table class="table table-striped table-bordered table-sm">
             <tr>
                 <th>Id</th>
@@ -100,7 +155,7 @@
                     </form>
                 </tr>
             </c:forEach>
-        </table>
+        </table>--%>
 
         <ul class="pagination">
             <c:if test="${currentPage != 1}">
@@ -130,7 +185,7 @@
                 </li>
             </c:if>
         </ul>
-    </div>
+
 
 
 

@@ -17,10 +17,12 @@
     &lt;%&ndash;<link rel="stylesheet" href="../css/bootstrap.css">&ndash;%&gt;
 
 </head>--%>
-
-    <div class="container-fluid menu-bar-Lera">
+<c:if test="${sessionScope.role != 'GUEST'}">
+    <div class="container-fluid menu-bar">
         <div class="container">
             <div class="menu-href">
+<%--<c:choose>
+    <c:when test="${sessionScope.role == 'GUEST'}">--%>
                 <div class="">
                     <a href="${pageContext.request.contextPath}/app/showTodaysFoodList">Show today's meals</a>
                 </div>
@@ -33,11 +35,19 @@
                 <div class="">
                     <a href="${pageContext.request.contextPath}/app/savePreviousRecords">Save records</a>
                 </div>
-            </div>
+
+                 <c:if test="${sessionScope.role == 'ADMIN'}">
+                     <div>
+                         <a href="${pageContext.request.contextPath}/app/showAllFood">Show all food</a>
+                     </div>
+                 </c:if>
+
+
+        </div>
         </div>
     </div>
 
-
+</c:if>
 
 
 <%--

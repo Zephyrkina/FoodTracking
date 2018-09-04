@@ -71,11 +71,19 @@ public class Login implements Command{
         System.out.println(role);
         String roleString = role.toString().toLowerCase();
 
-        int userId = userService.getUserIdByLogin(login);
-        try {
-            dailyRecordService.getTotalCalories(userId, LocalDate.now());
-        } catch (ExceededCalorieNormException e) {
-            request.getSession().setAttribute("calorieNormExceeded", e.getMessage());
+       int userId = userService.getUserIdByLogin(login);
+
+        int consumedCalories = dailyRecordService.getTotalCalories(userId, LocalDate.now());
+        int calorieNorm = userService.getCalorieNorm(userId);
+        int diff = calorieNorm - consumedCalories;
+
+        request.getSession().setAttribute("consumedCalories", consumedCalories);
+        request.getSession().setAttribute("calorieNorm", calorieNorm);
+        request.getSession().setAttribute("difference", diff);
+
+
+        if (calorieNorm - consumedCalories < 0){
+            request.getSession().setAttribute("calorieNormExceeded", "You have exceeded daily calorie norm!");
         }
 
 /*

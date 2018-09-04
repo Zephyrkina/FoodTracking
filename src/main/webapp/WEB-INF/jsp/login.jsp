@@ -23,16 +23,16 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
+<%--
 <jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>
+--%>
 
 <div class="container main__login__part">
 
 
 
 
-<%--
-    <jsp:include page="/jsp/menu.jsp"></jsp:include>
---%>
+    <jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>
 
 <div class="row">
     <div class="text-center login__container" style="padding:50px 0">

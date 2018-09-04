@@ -34,11 +34,24 @@ public class AddFoodToDailyRecord implements Command {
 
         dailyRecordService.addFoodToDailyRecord(foodId, quantity, date, userId);
 
+       /* int consumedCalories = dailyRecordService.getTotalCalories(userId, LocalDate.now());
+        int calorieNorm = userService.getCalorieNorm(userId);
+        int diff = calorieNorm - consumedCalories;
+
+        request.getSession().setAttribute("consumedCalories", consumedCalories);
+        request.getSession().setAttribute("calorieNorm", calorieNorm);
+        request.getSession().setAttribute("difference", diff);
+
+
+        if (calorieNorm - consumedCalories < 0){
+            request.getSession().setAttribute("calorieNormExceeded", "You have exceeded daily calorie norm!");
+        }*/
+/*
         try {
             dailyRecordService.getTotalCalories(userId, LocalDate.now());
         } catch (ExceededCalorieNormException e) {
             request.getSession().setAttribute("calorieNormExceeded", e.getMessage());
-        }
+        }*/
 
         return "/WEB-INF/jsp/user/user_page.jsp";
     }

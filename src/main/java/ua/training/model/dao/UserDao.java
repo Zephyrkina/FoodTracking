@@ -9,5 +9,6 @@ public interface UserDao extends GenericDao<User>{
     void checkUniqueLoginEmail(String login, String email);
     void checkLoginExists(String login);
     void checkPasswordCorrect(String password);
+    int getCalorieNorm(int userId);
 
 }

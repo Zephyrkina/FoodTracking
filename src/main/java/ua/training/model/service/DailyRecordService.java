@@ -47,20 +47,19 @@ public class DailyRecordService {
         }
     }
 
-    public void getTotalCalories(int userId, LocalDate date) {
-        int total_calories;
-        int calorieNorm;
+    public int getTotalCalories(int userId, LocalDate date) {
         try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
-            total_calories = dailyRecordDao.getTotalCalories(userId, date);
+            return  dailyRecordDao.getTotalCalories(userId, date);
         }
-        try (UserDao userDao = daoFactory.createUserDao()) {
+       /* try (UserDao userDao = daoFactory.createUserDao()) {
             calorieNorm = userDao.findById(userId).getCalorieNorm();
         }
         int calorieExceeded = total_calories - calorieNorm;
         if (calorieExceeded > 0) {
             throw new ExceededCalorieNormException("Calorie norm was exceeded on " + calorieExceeded + " calories");
-        }
+        }*/
     }
+
 
 
 }

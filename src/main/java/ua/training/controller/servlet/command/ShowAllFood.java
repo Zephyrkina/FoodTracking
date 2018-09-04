@@ -15,12 +15,8 @@ public class ShowAllFood implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        if (request.getParameter("currentPage") == null
-               && request.getParameter("recordsPerPage") == null ) {
-            return "/WEB-INF/jsp/admin/showAllFood.jsp";
-        }
-        int currentPage = Integer.valueOf(request.getParameter("currentPage"));
-        int recordsPerPage = Integer.valueOf(request.getParameter("recordsPerPage"));
+        int currentPage = request.getParameter("currentPage") == null ? 1 :  Integer.valueOf(request.getParameter("currentPage"));
+        int recordsPerPage = request.getParameter("recordsPerPage") == null ? 5 :  Integer.valueOf(request.getParameter("recordsPerPage"));
 
         FoodService foodService = new FoodService();
         List<Food> foodList;

@@ -42,6 +42,13 @@ public class UserService {
         }
 
     }
+    public int getCalorieNorm(int userId) {
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            return userDao.getCalorieNorm(userId);
+
+        }
+
+    }
 
     public void createUser(User user){
         try (UserDao userDao = daoFactory.createUserDao()) {
@@ -51,7 +58,6 @@ public class UserService {
     }
 
     public void checkUniqueLoginEmail(String login, String email){
-
         try (UserDao userDao = daoFactory.createUserDao()) {
             userDao.checkUniqueLoginEmail(login, email);
 

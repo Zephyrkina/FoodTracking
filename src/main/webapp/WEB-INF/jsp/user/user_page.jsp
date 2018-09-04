@@ -25,11 +25,56 @@
 <jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>
 
-<div class="container main__login__part">
+<div class="container">
+    <div class="main__login__part">
+        <div class="user-container">
+            <div class="user-container-header white__link">
+                Your Daily Summary
+            </div>
+            <div class="user-container-main row">
+                <div class="user-image-container col-lg-2">
+                    <img class="user-image" src="<c:url value='/img/default-user-image.png'/>" alt="userPhoto">
+                </div>
+                <div class=" col-lg-8">
+                    <div style="margin-bottom: 30px;"> ${sessionScope.login}</div>
 
-    <div>
-        <p style="color: red;">${sessionScope.calorieNormExceeded}</p>
+                    <p>Calories remaining: </p>
+                    <p style="color: #25b650;"> ${sessionScope.calorieNorm} - ${sessionScope.consumedCalories} = ${sessionScope.difference}</p>
+                    <div>
+                        <p style="color: red;">${sessionScope.calorieNormExceeded}</p>
+                    </div>
+                    <div style="color: #25b650;">
+                        ${requestScope.savedRecords}
+                    </div>
+                </div>
+            </div>
+
     </div>
+    </div>
+    <%--<div class="user-container" style="margin-top: 50px;">
+        <div class="user-container-main">
+            <div style="color: red;">
+                ${requestScope.savedRecords}
+            </div>
+
+            &lt;%&ndash;<div class="user-image-container col-lg-2">
+                <img class="user-image" src="<c:url value='/img/default-user-image.png'/>" alt="userPhoto">
+            </div>
+            <div class=" col-lg-8">
+                <div style="margin-bottom: 30px;"> ${sessionScope.login}</div>
+
+                <p>Calories remaining: </p>
+                <p style="color: #25b650;"> ${sessionScope.calorieNorm} - ${sessionScope.consumedCalories} = ${sessionScope.difference}</p>
+                <div>
+                    <p style="color: red;">${sessionScope.calorieNormExceeded}</p>
+                </div>
+            </div>&ndash;%&gt;
+        </div>
+
+    </div>--%>
+
+
+
 
 
 
@@ -97,10 +142,8 @@
         <a href="${pageContext.request.contextPath}/app/savePreviousRecords">Finish all previous records</a>
     </div>--%>
 
-
-
-
 </div>
+
 <jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
 
 </body>

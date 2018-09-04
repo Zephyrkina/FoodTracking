@@ -67,31 +67,41 @@
     <p>${wrong_search_food_name}</p>--%>
 
 
-    <p>
-        <c:forEach items="${requestScope.foods}" var="food" >
-    <form method="post" action="${pageContext.request.contextPath}/app/addFoodToDailyRecord">
+    <div>
+        <c:if test="${requestScope.foods != null }">
         <div class="row">
-            <div class="col-lg-2">${food.id}</div>
-            <div class="col-lg-2">${food.name}</div>
-            <div class="col-lg-1"> ${food.calories}</div>
-            <div class="col-lg-1"> ${food.carbohydrates}</div>
-            <div class="col-lg-1">${food.fats}</div>
-            <div class="col-lg-1">${food.proteins}</div>
-
-            <input type="hidden" name="food_id" value="${food.id}">
-            <input type="hidden" name="food_name" value="${food.name}">
-            <input type="hidden" name="food_calories" value="${food.calories}">
-            <input type="hidden" name="food_carbs" value="${food.carbohydrates}">
-            <input type="hidden" name="food_fats" value="${food.fats}">
-            <input type="hidden" name="food_proteins" value="${food.proteins}">
-
-            <div class="col-lg-1"><input type="number" placeholder="gramms" name="food_quantity"></div>
-            <div class="col-lg-1"><input class="button" style="margin-left:70px;" type="submit" value="Add"></div>
+            <div class="col-lg-2">Name</div>
+            <div class="col-lg-2">Calories</div>
+            <div class="col-lg-2">Carbohydrates</div>
+            <div class="col-lg-2">Fats</div>
+            <div class="col-lg-2">Proteins</div>
+            <div class="col-lg-1">Weight</div>
+            <div class="col-lg-1">Add</div>
         </div>
-    </form>
-    </c:forEach>
-    </p>
+        </c:if>
+        <c:forEach items="${requestScope.foods}" var="food" >
+            <div style="margin:30px 0px; height: 1px; background:gray;"></div>
+            <form method="post" action="${pageContext.request.contextPath}/app/addFoodToDailyRecord">
+                <div class="row">
+                    <div class="col-lg-2">${food.name}</div>
+                    <div class="col-lg-2"> ${food.calories}</div>
+                    <div class="col-lg-2"> ${food.carbohydrates}</div>
+                    <div class="col-lg-2">${food.fats}</div>
+                    <div class="col-lg-2">${food.proteins}</div>
 
+                    <input type="hidden" name="food_id" value="${food.id}">
+                    <input type="hidden" name="food_name" value="${food.name}">
+                    <input type="hidden" name="food_calories" value="${food.calories}">
+                    <input type="hidden" name="food_carbs" value="${food.carbohydrates}">
+                    <input type="hidden" name="food_fats" value="${food.fats}">
+                    <input type="hidden" name="food_proteins" value="${food.proteins}">
+
+                    <div class="col-lg-1"><input style="width: 60px" type="text" placeholder="gramms" name="food_quantity" pattern="[0-9]{1,4}"></div>
+                    <div class="col-lg-1"><input class="button" type="submit" value="Add"></div>
+                </div>
+            </form>
+        </c:forEach>
+    </div>
 <%--
     <p>${cantFindFoodMessage}</p>
 --%>
@@ -100,7 +110,7 @@
 
 
 
-</div>
+
 </div>
 <jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
 

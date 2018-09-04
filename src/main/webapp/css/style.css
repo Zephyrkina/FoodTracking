@@ -1,5 +1,5 @@
 header {
-    background: #0056b3;
+    background: #006ac5;
 }
 footer {
 
@@ -432,14 +432,14 @@ label:hover:before {
     color: #b21f2d;
     opacity: 0.5;
 }
-.menu-bar-Lera {
+.menu-bar {
     color: white;
     width: 100%;
-    background-color: lightsteelblue;
+    background-color: #004f86;
     padding-top: 20px;
     padding-bottom: 20px;
 }
-.menu-bar-Lera a {
+.menu-bar a {
     color: white;
 }
 
@@ -447,5 +447,31 @@ label:hover:before {
     display: flex;
     justify-content: space-between;
     /*align-items: center;*/
+}
+
+.user-container{
+    background-color: white;
+
+}
+
+.user-container-header{
+    background: #004f86;
+
+    padding: 20px 30px;
+}
+.user-container-main{
+    padding: 30px;
+}
+.user-image {
+
+    width: 100%;
+
+}
+
+.user-image-container {
+    /*
+    width: 20%;
+    */
+   /* padding: 10px;*/
 }
 

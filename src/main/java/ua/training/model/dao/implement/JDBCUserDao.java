@@ -284,6 +284,30 @@ public class JDBCUserDao implements UserDao {
     }
 
     @Override
+    public int getCalorieNorm(int userId) {
+        String sql1 = "select calorie_norm from `user` where id = ?";
+        int calorie_norm = 0;
+
+        try (PreparedStatement preparedStatement1 = connection.prepareStatement(sql1))
+        {
+            preparedStatement1.setInt(1, userId);
+            try ( ResultSet resultSet = preparedStatement1.executeQuery()) {
+                resultSet.next();
+                calorie_norm = resultSet.getInt("calorie_norm");
+
+               /* if(! resultSet.next()){
+                    throw new ItemNotFoundException();
+                }*/
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return calorie_norm;
+    }
+
+    @Override
     public void close() {
         try {
             connection.close();
