@@ -17,6 +17,8 @@
     &lt;%&ndash;<link rel="stylesheet" href="../css/bootstrap.css">&ndash;%&gt;
 
 </head>--%>
+<fmt:bundle basename="pagecontent" prefix="menu." >
+
 <c:if test="${sessionScope.role != 'GUEST'}">
     <div class="container-fluid menu-bar">
         <div class="container">
@@ -24,21 +26,21 @@
 <%--<c:choose>
     <c:when test="${sessionScope.role == 'GUEST'}">--%>
                 <div class="">
-                    <a href="${pageContext.request.contextPath}/app/showTodaysFoodList">Show today's meals</a>
+                    <a href="${pageContext.request.contextPath}/app/showTodaysFoodList"><fmt:message key="show.diary"/></a>
                 </div>
                 <div class="">
-                    <a href="${pageContext.request.contextPath}/app/findFoodByName">Find food</a>
+                    <a href="${pageContext.request.contextPath}/app/findFoodByName"><fmt:message key="find.food"/></a>
                 </div>
                 <div class="">
-                    <a href="${pageContext.request.contextPath}/app/addOwnFood">Add own food</a>
+                    <a href="${pageContext.request.contextPath}/app/addOwnFood"><fmt:message key="add.food"/></a>
                 </div>
                 <div class="">
-                    <a href="${pageContext.request.contextPath}/app/savePreviousRecords">Save records</a>
+                    <a href="${pageContext.request.contextPath}/app/savePreviousRecords"><fmt:message key="save.records"/></a>
                 </div>
 
                  <c:if test="${sessionScope.role == 'ADMIN'}">
                      <div>
-                         <a href="${pageContext.request.contextPath}/app/showAllFood">Show all food</a>
+                         <a href="${pageContext.request.contextPath}/app/showAllFood"><fmt:message key="show.all.food"/></a>
                      </div>
                  </c:if>
 
@@ -48,81 +50,5 @@
     </div>
 
 </c:if>
+</fmt:bundle>
 
-
-<%--
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language: pageContext.request.locale}" scope="session"/>
-<fmt:setLocale value="${language}" scope="session" />
-
-
-
-
-
-
-
-<form>
-    <select id="language" name="language" onchange="submit()">
-        <option value="en_US" ${language == 'en_US' ? 'selected' : ''}>English</option>
-        <option value="uk_UA" ${language == 'uk_UA' ? 'selected' : ''}>Ukrainian</option>
-    </select>
-</form>
-<br>
---%>
-
-<%--
-<fmt:bundle basename="pagecontent" />
---%>
-
-
-<%--<div class="mb-4">
-    <form>
-        <input name="language" type="image" value="en_US"
-        ${language=='en_US' ? 'selected' : '' } src = "http://icons.iconarchive.com/icons/custom-icon-design/all-country-flag/128/United-States-Flag-icon.png" style="height: 30px; width: 30px;">
-        <input name="language" type="image" value="uk_UA"
-        ${language=='uk_UA' ? 'selected' : '' } src = "http://icons.iconarchive.com/icons/custom-icon-design/all-country-flag/128/Ukraine-Flag-icon.png" style="height: 30px; width: 30px;">
-    </form>
-</div>
-<br>--%>
-
-
-<%--
-
-    <fmt:message key="label.welcome" bundle="${rb}"/> <hr/>
-    <fmt:message key="footer.copyright" bundle="${rb}"/> <hr/>
-    <fmt:message key="footer.date" bundle="${rb}"/>
---%>
-
-
-
-
-<%--
-<br>
-<br>--%>
-
-<%--
-<a href="${pageContext.request.contextPath}/jsp/user/user_page.jsp">
-    User page
-</a>
-||
-<a href="${pageContext.request.contextPath}/jsp/admin/admin_page.jsp">
-   Admin page
-</a>
-
-||
-<a href="${pageContext.request.contextPath}/jsp/login.jsp">
-    Login
-</a>
-||
-<a href="${pageContext.request.contextPath}/app/logout">
-    Logout
-</a>
-
-
-<span style="color:red">[ ${sessionScope.role} ]</span>
-
-<br>--%>

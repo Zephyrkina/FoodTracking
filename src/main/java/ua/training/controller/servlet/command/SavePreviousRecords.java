@@ -3,6 +3,7 @@ package ua.training.controller.servlet.command;
 import ua.training.model.service.DailyRecordService;
 import ua.training.model.service.FoodService;
 import ua.training.model.service.UserService;
+import ua.training.model.service.resourse.manager.ErrorMessageManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +20,7 @@ public class SavePreviousRecords implements Command {
         LocalDate date = LocalDate.now();
         dailyRecordService.savePreviousRecords(userId, date);
 
-        request.setAttribute("savedRecords", "All previous records are saved");
+        request.setAttribute("savedRecords",  new ErrorMessageManager().getProperty("saved.all.records"));
 
         return "/WEB-INF/jsp/user/user_page.jsp";
     }

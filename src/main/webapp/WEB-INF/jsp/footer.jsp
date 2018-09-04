@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-
+<fmt:bundle basename="pagecontent" prefix="footer." >
 <footer >
     <div class="container-fluid">
         <div class="container">
@@ -83,9 +83,9 @@
                 <div class="triangle-footer"></div>
             </div>
             <div class="rightsSignBlock">
-                <span class="rightsSign">@2018 FoodTracking.<br></span>
-                <span class="rightsSign">All Rights Reserved.<br></span>
-                <span class="rightsSign">Designed by Valeriia Voinalovich<br></span>
+                <span class="rightsSign"><fmt:message key="name"/><br></span>
+                <span class="rightsSign"><fmt:message key="rights"/><br></span>
+                <span class="rightsSign"><fmt:message key="designed"/><br></span>
             </div>
            <%-- <div class="row ">
                 <div class="col-6 col-sm-4 col-md-3 col-lg-2 row">
@@ -107,3 +107,4 @@
         </div>
     </div>
 </footer>
+</fmt:bundle>

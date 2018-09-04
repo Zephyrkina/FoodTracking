@@ -3,6 +3,7 @@ package ua.training.controller.servlet.command;
 import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.service.DailyRecordService;
 import ua.training.model.service.UserService;
+import ua.training.model.service.resourse.manager.ErrorMessageManager;
 import ua.training.model.service.resourse.manager.RegexManager;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +30,11 @@ public class User implements Command {
 
 
         if (calorieNorm - consumedCalories < 0){
-            request.getSession().setAttribute("calorieNormExceeded", "You have exceeded daily calorie norm!");
+            request.getSession().setAttribute("calorieNormExceeded", new ErrorMessageManager().getProperty("exceeded.daily.norm"));
+/*
+            request.getSession().setAttribute("calorieNormExceeded", "<fmt:message key=\"calories.remaining\"/> ");
+*/
+
         }
         return "/WEB-INF/jsp/user/user_page.jsp";
     }

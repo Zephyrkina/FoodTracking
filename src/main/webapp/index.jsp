@@ -24,9 +24,10 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>
+<fmt:bundle basename="pagecontent" prefix="index." >
 
 <div class="container main__login__part">
-    <h1>Welcome to our food tracker</h1>
+    <h1><fmt:message key="welcome"/> </h1>
     <div class="row">
         <div class="col-lg-6 text-block">
             <p>
@@ -97,6 +98,7 @@
 
 </div>
 </div>
+</fmt:bundle>
 <jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
 
 </body>

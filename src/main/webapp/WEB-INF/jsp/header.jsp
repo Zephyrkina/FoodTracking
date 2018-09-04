@@ -19,6 +19,8 @@
 
 </head>
 <header>
+    <fmt:bundle basename="pagecontent" prefix="header." >
+
     <div class="container">
         <div class="header__container align-items-center menu-href ">
             <div class="  header__form ">
@@ -43,19 +45,19 @@
                     <c:when test="${sessionScope.role == 'GUEST'}">
                         <div>
                             <a class="white__link" style="padding-right: 10px;" href="${pageContext.request.contextPath}/app/login">
-                                Login
+                                <fmt:message key="login"/>
                             </a>
                             <a class="white__link" href="${pageContext.request.contextPath}/app/registration">
-                                Registration
+                                <fmt:message key="registration"/>
                             </a>
                         </div>
 
                     </c:when>
                     <c:otherwise>
                         <div >
-                            <a class="white__link " style="padding-right: 10px;" href="${pageContext.request.contextPath}/app/user">Hi, ${sessionScope.login}</a>
+                            <a class="white__link " style="padding-right: 10px;" href="${pageContext.request.contextPath}/app/user"><fmt:message key="hello"/>, ${sessionScope.login}</a>
                             <a class="white__link" href="${pageContext.request.contextPath}/app/logout">
-                                Log out
+                                <fmt:message key="logout"/>
                             </a>
                         </div>
 
@@ -66,4 +68,5 @@
 
 
     </div>
+    </fmt:bundle>
 </header>

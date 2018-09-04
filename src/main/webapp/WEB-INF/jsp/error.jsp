@@ -2,10 +2,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page  isErrorPage="true" isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
 
+<fmt:bundle basename="pagecontent" prefix="error." >
 
 <html>
 <head>
-    <title>Error page</title>
+    <title><fmt:message key="title"/></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="<c:url value='/css/style.css'/>" rel="stylesheet">
 
@@ -23,19 +24,21 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
+
 <div class="container main__login__part">
 
-    <h1> Error 404 </h1>
-    <p>Page not found</p>
+    <h1> <fmt:message key="404"/> </h1>
+    <p><fmt:message key="page.not.found"/></p>
 
 <%--
     <a href="${pageContext.request.contextPath}/app/home">На головну</a>
 --%>
-    <a href="${pageContext.request.contextPath}/index.jsp">На головну</a>
+    <a href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="to.main.page"/></a>
 
 
 
 </div>
+</fmt:bundle>
 <jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
 
 </body>

@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page  isErrorPage="true" isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
 
+<fmt:bundle basename="pagecontent" prefix="exception." >
 
 <html>
 <head>
@@ -25,12 +26,9 @@
 <jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
 <div class="container main__login__part">
 
-    <div style="margin-top: 60px;"><h3>Ooops, something went wrong :(</h3> </div>
+    <div style="margin-top: 60px;"><h3><fmt:message key="message"/></h3> </div>
     <div>
-<%--
-    <a href="${pageContext.request.contextPath}/app/home">На головну</a>
---%>
-    <a href="${pageContext.request.contextPath}/index.jsp">На головну</a>
+    <a href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="home.page"/></a>
 
     </div>
 
@@ -41,23 +39,4 @@
 </body>
 </html>
 
-
-
-
-<%--
-
-<%@ page isErrorPage="true" contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Oooops</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
-<body>
-<div class="container">
-    <div style="margin-top: 60px;"><h3>Ooops, something went wrong :(</h3> </div>
-    <br>
-    <a href="${pageContext.request.contextPath}/jsp/index.jsp">На головну</a>
-</div>
-</body>
-</html>
---%>
+</fmt:bundle>
