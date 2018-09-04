@@ -1,5 +1,7 @@
 package ua.training.model.dao.implement;
 
+import ua.training.model.dao.mapper.FoodDTOMapper;
+import ua.training.model.dto.FoodDTO;
 import ua.training.model.exception.ItemNotFoundException;
 import ua.training.model.dao.FoodDao;
 import ua.training.model.dao.mapper.FoodMapper;
@@ -20,18 +22,20 @@ public class JDBCFoodDao implements FoodDao {
     }
 
     @Override
-    public int create(Food entity) {
-        String sql = "insert into food (name_en, calories, carbs, fats, proteins, food_id)" +
-                " values (?, ?, ?, ?, ?, ?)";
+    public int create(FoodDTO entity) {
+        String sql = "insert into food (name_en, calories, carbs, fats, proteins, id, name_ua)" +
+                " values (?, ?, ?, ?, ?, ?, ?)";
         int result = 0;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-            preparedStatement.setString(1, entity.getName());
+            preparedStatement.setString(1, entity.getNameEn());
             preparedStatement.setInt(2, entity.getCalories());
             preparedStatement.setInt(3, entity.getCarbohydrates());
             preparedStatement.setInt(4, entity.getFats());
             preparedStatement.setInt(5, entity.getProteins());
             preparedStatement.setInt(6, entity.getId());
+            preparedStatement.setString(7, entity.getNameUa());
+
 
             result =  preparedStatement.executeUpdate();
 
@@ -42,11 +46,11 @@ public class JDBCFoodDao implements FoodDao {
     }
 
     @Override
-    public Food findById(int foodId) {
+    public FoodDTO findById(int foodId) {
         String sql = "select * from food where food_id = ?";
         ResultSet resultSet;
-        Food food = null;
-        FoodMapper foodMapper = new FoodMapper();
+        FoodDTO food = null;
+        FoodDTOMapper foodDTOMapper = new FoodDTOMapper();
 
         try (
              PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -55,7 +59,7 @@ public class JDBCFoodDao implements FoodDao {
             resultSet = preparedStatement.executeQuery();
 
             resultSet.next();
-            food = foodMapper.extractFromResultSet(resultSet);
+            food = foodDTOMapper.extractFromResultSet(resultSet);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,18 +68,18 @@ public class JDBCFoodDao implements FoodDao {
     }
 
     @Override
-    public List<Food> findAll() {
+    public List<FoodDTO> findAll() {
         String sql = "select * from food";
         ResultSet resultSet;
-        List<Food> foods = new ArrayList<>();
-        FoodMapper foodMapper = new FoodMapper();
+        List<FoodDTO> foods = new ArrayList<>();
+        FoodDTOMapper foodDTOMapper = new FoodDTOMapper();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Food food = foodMapper.extractFromResultSet(resultSet);
+                FoodDTO food = foodDTOMapper.extractFromResultSet(resultSet);
                 foods.add(food);
             }
         } catch (SQLException e) {
@@ -101,17 +105,19 @@ public class JDBCFoodDao implements FoodDao {
     }
 
     @Override
-    public int update(Food entity) {
-        String sql = "update food set name_en = ?, calories = ?, carbs = ?, fats = ?, proteins = ? where id = ?";
+    public int update(FoodDTO entity) {
+        String sql = "update food set name_en = ?, calories = ?, carbs = ?, fats = ?, proteins = ?, name_ua = ? where id = ?";
         int result = 0;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-            preparedStatement.setString(1, entity.getName());
+            preparedStatement.setString(1, entity.getNameEn());
             preparedStatement.setInt(2, entity.getCalories());
             preparedStatement.setInt(3, entity.getCarbohydrates());
             preparedStatement.setInt(4, entity.getFats());
             preparedStatement.setInt(5, entity.getProteins());
             preparedStatement.setInt(6, entity.getId());
+            preparedStatement.setString(7, entity.getNameUa());
+
 
             result =  preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -121,11 +127,11 @@ public class JDBCFoodDao implements FoodDao {
     }
 
     @Override
-    public Food findByName(String foodName) {
+    public FoodDTO findByName(String foodName) {
         String sql = "select * from food where name_en = ?";
         ResultSet resultSet;
-        Food food = null;
-        FoodMapper foodMapper = new FoodMapper();
+        FoodDTO food = null;
+        FoodDTOMapper foodDTOMapper = new FoodDTOMapper();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setString(1, foodName);
@@ -133,7 +139,7 @@ public class JDBCFoodDao implements FoodDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()){
-                food = foodMapper.extractFromResultSet(resultSet);
+                food = foodDTOMapper.extractFromResultSet(resultSet);
             } else {
                 throw new ItemNotFoundException();
             }
@@ -145,19 +151,20 @@ public class JDBCFoodDao implements FoodDao {
     }
 
     @Override
-    public int createUsersFood(Food entity, int userId) {
-        String sql = "insert into food (name_en, calories, carbs, fats, proteins, id, user_id)" +
-                " values (?, ?, ?, ?, ?, ?, ?)";
+    public int createUsersFood(FoodDTO entity, int userId) {
+        String sql = "insert into food (name_en, calories, carbs, fats, proteins, id, user_id, name_ua)" +
+                " values (?, ?, ?, ?, ?, ?, ?, ?)";
         int result = 0;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-            preparedStatement.setString(1, entity.getName());
+            preparedStatement.setString(1, entity.getNameEn());
             preparedStatement.setInt(2, entity.getCalories());
             preparedStatement.setInt(3, entity.getCarbohydrates());
             preparedStatement.setInt(4, entity.getFats());
             preparedStatement.setInt(5, entity.getProteins());
             preparedStatement.setInt(6, entity.getId());
             preparedStatement.setInt(7, userId);
+            preparedStatement.setString(8, entity.getNameUa());
 
             result =  preparedStatement.executeUpdate();
 
@@ -168,11 +175,11 @@ public class JDBCFoodDao implements FoodDao {
     }
 
     @Override
-    public List<Food> findAllFood(int currentPage, int recordsPerPage) {
+    public List<FoodDTO> findAllFood(int currentPage, int recordsPerPage) {
         String sql = "select * from food limit ?, ?";
         int start = currentPage * recordsPerPage - recordsPerPage;
-        List<Food> foods = new ArrayList<>();
-        FoodMapper foodMapper = new FoodMapper();
+        List<FoodDTO> foods = new ArrayList<>();
+        FoodDTOMapper foodDTOMapper = new FoodDTOMapper();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
@@ -180,7 +187,7 @@ public class JDBCFoodDao implements FoodDao {
             preparedStatement.setInt(2, recordsPerPage);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    Food food = foodMapper.extractFromResultSet(resultSet);
+                    FoodDTO food = foodDTOMapper.extractFromResultSet(resultSet);
                     foods.add(food);
                 }
             }
