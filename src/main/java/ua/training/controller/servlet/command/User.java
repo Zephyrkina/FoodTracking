@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Locale;
 
 public class User implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Locale locale = (Locale) request.getSession().getAttribute("locale");
+
 
         UserService userService = new UserService();
         DailyRecordService dailyRecordService = new DailyRecordService();
@@ -30,7 +33,7 @@ public class User implements Command {
 
 
         if (calorieNorm - consumedCalories < 0){
-            request.getSession().setAttribute("calorieNormExceeded", new ErrorMessageManager().getProperty("exceeded.daily.norm"));
+            request.getSession().setAttribute("calorieNormExceeded", new ErrorMessageManager(locale).getProperty("exceeded.daily.norm"));
 /*
             request.getSession().setAttribute("calorieNormExceeded", "<fmt:message key=\"calories.remaining\"/> ");
 */

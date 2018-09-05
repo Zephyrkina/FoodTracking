@@ -13,11 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.Locale;
 
 public class Registration implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        RegexManager regexManager = new RegexManager();
+        Locale locale = (Locale) request.getSession().getAttribute("locale");
+
+        RegexManager regexManager = new RegexManager(locale);
 
         //TODO breaks when input letters in int fields
 

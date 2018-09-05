@@ -14,11 +14,13 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Locale;
 
 public class AddFoodToDailyRecord implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        RegexManager regexManager = new RegexManager();
+        Locale locale = (Locale) request.getSession().getAttribute("locale");
+        RegexManager regexManager = new RegexManager(locale);
         UserService userService = new UserService();
         DailyRecordService dailyRecordService = new DailyRecordService();
         InputDataUtils inputDataUtils = new InputDataUtils();

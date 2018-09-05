@@ -1,5 +1,6 @@
 package ua.training.controller.servlet.command;
 
+import ua.training.model.dto.FoodDTO;
 import ua.training.model.entity.Food;
 import ua.training.model.exception.ItemNotFoundException;
 import ua.training.model.service.DailyRecordService;
@@ -19,7 +20,7 @@ public class ShowAllFood implements Command {
         int recordsPerPage = request.getParameter("recordsPerPage") == null ? 5 :  Integer.valueOf(request.getParameter("recordsPerPage"));
 
         FoodService foodService = new FoodService();
-        List<Food> foodList;
+        List<FoodDTO> foodList;
 
 
         int rows = foodService.getNumberOfRows();

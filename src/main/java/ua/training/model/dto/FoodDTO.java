@@ -74,4 +74,17 @@ public class FoodDTO {
     public void setProteins(int proteins) {
         this.proteins = proteins;
     }
+
+    @Override
+    public String toString() {
+        return "FoodDTO{" +
+                "id=" + id +
+                ", nameUa='" + nameUa + '\'' +
+                ", nameEn='" + nameEn + '\'' +
+                ", calories=" + calories +
+                ", carbohydrates=" + carbohydrates +
+                ", fats=" + fats +
+                ", proteins=" + proteins +
+                '}';
+    }
 }

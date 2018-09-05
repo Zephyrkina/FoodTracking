@@ -127,14 +127,15 @@ public class JDBCFoodDao implements FoodDao {
     }
 
     @Override
-    public FoodDTO findByName(String foodName) {
-        String sql = "select * from food where name_en = ?";
+    public FoodDTO findByName(String foodNameEn, String foodNameUa) {
+        String sql = "select * from food where name_en = ? or name_ua = ? ";
         ResultSet resultSet;
         FoodDTO food = null;
         FoodDTOMapper foodDTOMapper = new FoodDTOMapper();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-            preparedStatement.setString(1, foodName);
+            preparedStatement.setString(1, foodNameEn);
+            preparedStatement.setString(2, foodNameUa);
 
             resultSet = preparedStatement.executeQuery();
 

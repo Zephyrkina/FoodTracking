@@ -6,7 +6,7 @@ import ua.training.model.entity.Food;
 import java.util.List;
 
 public interface FoodDao extends GenericDao<FoodDTO> {
-    FoodDTO findByName(String name);
+    FoodDTO findByName(String nameEn, String nameUa);
     int createUsersFood(FoodDTO entity, int userId);
     List<FoodDTO> findAllFood(int currentPage, int recordsPerPage);
     int numberOfRows();

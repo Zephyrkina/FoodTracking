@@ -51,6 +51,6 @@ public class FoodDTOBuilder {
         return this;
     }
     public FoodDTO build() {
-        return new FoodDTO(id, nameEn, nameUa, calories, carbohydrates, fats, proteins);
+        return new FoodDTO(id, nameUa, nameEn, calories, carbohydrates, fats, proteins);
     }
 }

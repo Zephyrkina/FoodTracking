@@ -1,5 +1,6 @@
 package ua.training.controller.servlet.command;
 
+import ua.training.controller.servlet.Servlet;
 import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.entity.DailyRecord;
 import ua.training.model.entity.User;
@@ -15,13 +16,22 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Enumeration;
+import java.util.Locale;
+import java.util.logging.Logger;
 
 public class Login implements Command{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+/*
+        private final Logger log = Logger.getLogger();
+*/
+
+        Locale locale = (Locale) request.getSession().getAttribute("locale");
+        System.out.println("locale in login: " + locale);
+
 
         InputDataUtils inputDataUtils = new InputDataUtils();
-        RegexManager regexManager = new RegexManager();
+        RegexManager regexManager = new RegexManager(locale);
         UserService userService = new UserService();
         DailyRecordService dailyRecordService = new DailyRecordService();
 
@@ -89,7 +99,7 @@ public class Login implements Command{
 /*
         return "redirect:/WEB-INF/jsp/" + roleString +"/"+ roleString +"_page.jsp";
 */
-        return "/WEB-INF/jsp/" + roleString +"/"+ roleString +"_page.jsp";
+        return "redirect:/app/user";
 
 
 

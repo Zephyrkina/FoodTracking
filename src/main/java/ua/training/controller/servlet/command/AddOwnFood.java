@@ -1,8 +1,10 @@
 package ua.training.controller.servlet.command;
 
 import ua.training.controller.utils.InputDataUtils;
+import ua.training.model.dto.FoodDTO;
 import ua.training.model.entity.Food;
 import ua.training.model.entity.builder.FoodBuilder;
+import ua.training.model.entity.builder.FoodDTOBuilder;
 import ua.training.model.exception.ItemAlreadyExists;
 import ua.training.model.service.DailyRecordService;
 import ua.training.model.service.FoodService;
@@ -17,11 +19,20 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
 
 public class AddOwnFood implements Command{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        RegexManager regexManager = new RegexManager();
+        Locale locale = (Locale) request.getSession().getAttribute("locale");
+
+        RegexManager regexManager = new RegexManager(locale);
+/*
+        String locale = request.getSession().getAttribute("language").toString();
+*/
+
+        System.out.println(locale);
+
 
         //TODO breaks when input letters in int fields
 
@@ -39,11 +50,30 @@ public class AddOwnFood implements Command{
         }
 
 
+
+        String nameEn = null;
+        String nameUa = null;
+
+        if(locale.toString().equals("uk_UA")){
+
+            nameUa = inputDataUtils.readCorrectData(request, "own_food_name", regexManager.getProperty("name"));
+            System.out.println("ua:" + nameUa);
+        }
+        if(locale.toString().equals("en_US")){
+            nameEn = inputDataUtils.readCorrectData(request, "own_food_name", regexManager.getProperty("name"));
+            System.out.println("en:" + nameEn);
+
+
+        }
+
+/*
         String name = inputDataUtils.readCorrectData(request, "own_food_name", regexManager.getProperty("name"));
+*/
         int calories = Integer.parseInt(inputDataUtils.readCorrectData(request, "own_food_calories", regexManager.getProperty("int.numbers")));
         int carbs = Integer.parseInt(inputDataUtils.readCorrectData(request, "own_food_carbs", regexManager.getProperty("int.numbers")));
         int fats = Integer.parseInt(inputDataUtils.readCorrectData(request, "own_food_fats", regexManager.getProperty("int.numbers")));
         int proteins = Integer.parseInt(inputDataUtils.readCorrectData(request, "own_food_proteins", regexManager.getProperty("int.numbers")));
+
 
         Enumeration<String> requestAttributeNames = request.getAttributeNames();
 
@@ -54,13 +84,15 @@ public class AddOwnFood implements Command{
             }
         }
 
-        Food food = new FoodBuilder()
-                .setName(name)
+        FoodDTO food = new FoodDTOBuilder()
+                .setNameEn(nameEn)
+                .setNameUa(nameUa)
                 .setCalories(calories)
                 .setCarbohydrates(carbs)
                 .setFats(fats)
                 .setProteins(proteins)
                 .build();
+
 
         int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));
 
