@@ -5,6 +5,7 @@ import ua.training.model.entity.User;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+import java.util.Locale;
 
 @WebListener
 public class SessionListener implements HttpSessionListener{
@@ -12,6 +13,7 @@ public class SessionListener implements HttpSessionListener{
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
         //httpSessionEvent.getSession().setMaxInactiveInterval(20);
         httpSessionEvent.getSession().setAttribute("role", User.ROLE.GUEST.toString());
+        httpSessionEvent.getSession().setAttribute("locale", new Locale("en","US"));
     }
 
     @Override
