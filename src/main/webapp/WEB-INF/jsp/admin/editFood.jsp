@@ -2,10 +2,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
 
+<fmt:bundle basename="pagecontent"  >
 
 <html>
 <head>
-    <title>Admin page</title>
+    <title><fmt:message key="edit.food.title"/></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="<c:url value='/css/style.css'/>" rel="stylesheet">
 
@@ -25,7 +26,7 @@
 
 <div class="container main__login__part">
     <div class="text-center " style="padding:50px 0">
-        <div class="logo">Food's editor</div>
+        <div class="logo"> <fmt:message key="edit.food.header"/></div>
         <!-- Main Form -->
         <div class="login-form-1">
             <form id="login-form" class="text-left" action="${pageContext.request.contextPath}/app/editFood" method="post">
@@ -34,35 +35,35 @@
                     <div class="login-group">
                         <input type="hidden" name="food_id" value="${param.food_id}">
                         <div class="form-group">
-                            <label for="own_foodname" class="sr-only">Foodname</label>
-                            <input type="text" name="food_name" value="${param.food_name}" placeholder="name" class="form-control" id="own_foodname" >
+                            <label for="own_foodname" class="sr-only"><fmt:message key="food.name"/></label>
+                            <input type="text" name="food_name" value="${param.food_name}" placeholder="<fmt:message key="food.name"/>" class="form-control" id="own_foodname" >
                         </div>
                         <div class="error-alert">${wrong_food_name}</div>
                         <div class="error-alert">${requestScope.foodAlreadyExists} </div>
 
                         <div class="form-group">
-                            <label for="own_calories" class="sr-only">Calories</label>
-                            <input  type="number" name="food_calories" value="${param.food_calories}"  placeholder="calories"  class="form-control" id="own_calories" >
+                            <label for="own_calories" class="sr-only"><fmt:message key="food.calories"/></label>
+                            <input  type="number" name="food_calories" value="${param.food_calories}"  placeholder="<fmt:message key="food.calories"/>"  class="form-control" id="own_calories" >
                         </div>
                         <div class="error-alert">${wrong_food_calories}</div>
 
                         <div class="form-group">
-                            <label for="own_carbohydrates" class="sr-only">Carbohydrates</label>
-                            <input  type="number" name="food_carbs" value="${param.food_carbs}"  placeholder="carbohydrates"  class="form-control" id="own_carbohydrates" >
+                            <label for="own_carbohydrates" class="sr-only"><fmt:message key="food.carbs"/></label>
+                            <input  type="number" name="food_carbs" value="${param.food_carbs}"  placeholder="<fmt:message key="food.carbs"/>"  class="form-control" id="own_carbohydrates" >
                         </div>
                         <div class="error-alert">${wrong_food_carbs}</div>
 
                         <div class="form-group">
-                            <label for="own_fats" class="sr-only">Fats</label>
-                            <input  type="number" name="food_fats" value="${param.food_fats}"  placeholder="fats"  class="form-control" id="own_fats" >
+                            <label for="own_fats" class="sr-only"><fmt:message key="food.fats"/></label>
+                            <input  type="number" name="food_fats" value="${param.food_fats}"  placeholder="<fmt:message key="food.fats"/>"  class="form-control" id="own_fats" >
                         </div>
                         <div class="error-alert">${wrong_food_fats}</div>
 
                         <div class="form-group">
-                            <label for="own_proteins" class="sr-only">Proteins</label>
-                            <input  type="number" name="food_proteins" value="${param.food_proteins}"  placeholder="proteins"  class="form-control" id="own_proteins" >
+                            <label for="own_proteins" class="sr-only"><fmt:message key="food.proteins"/></label>
+                            <input  type="number" name="food_proteins" value="${param.food_proteins}"  placeholder="<fmt:message key="food.proteins"/>"  class="form-control" id="own_proteins" >
                         </div>
-                        <div class="error-alert">${wrong_food_fats}</div>
+                        <div class="error-alert">${wrong_food_proteins}</div>
                         <input type="hidden" name="current_page" value="${param.current_page}">
                         <input type="hidden" name="no_of_pages" value="${param.no_of_page}">
                         <input type="hidden" name="records_per_page" value="${param.records_per_page}">
@@ -87,54 +88,4 @@
 
 
 
-
-<%--
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Add own food</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-</head>
-<body>
-<div class="container">
-
-    &lt;%&ndash;
-    add regexes
-    &ndash;%&gt;
-
-
-    <form action="${pageContext.request.contextPath}/app/editFood" method="post">
-        <label>Input your type of food</label>
-        <input type="hidden" name="food_id" value="${param.food_id}">
-        <br>
-        <input type="text" name="food_name" value="${param.food_name}" required>
-        <br>
-        ${wrong_food_name}
-        <br>
-        <input type="number" name="food_calories" value="${param.food_calories}" required>
-        <br>
-        ${wrong_food_calories}
-        <br>
-        <input type="number" name="food_carbs" value="${param.food_carbs}" required>
-        <br>
-        ${wrong_food_carbs}
-        <br>
-        <input type="number" name="food_fats"  value="${param.food_fats}" required>
-        <br>
-        ${wrong_food_fats}
-        <br>
-        <input type="number" name="food_proteins" value="${param.food_proteins}" required>
-        <br> ${wrong_food_proteins}
-        <br>
-
-        <input type="hidden" name="current_page" value="${param.current_page}">
-        <input type="hidden" name="no_of_pages" value="${param.no_of_page}">
-        <input type="hidden" name="records_per_page" value="${param.records_per_page}">
-
-
-        <input class="button" type="submit" value="Edit">
-    </form>
-</div>
-</body>
-</html>--%>
+</fmt:bundle>

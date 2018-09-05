@@ -6,7 +6,7 @@
 
 <html>
 <head>
-    <title>Admin page</title>
+    <title><fmt:message key="admin.title"/></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="<c:url value='/css/style.css'/>" rel="stylesheet">
 
@@ -46,7 +46,7 @@
                           <p style="color: red;">${sessionScope.calorieNormExceeded}</p>
                       </div>
                       <div style="color: #25b650;">
-                              ${sessionScope.savedRecords}
+                              ${requestScope.savedRecords}
 
                       </div>
                   </div>

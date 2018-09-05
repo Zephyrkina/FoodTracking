@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
 
+<fmt:bundle basename="pagecontent"  >
 
 <html>
 <head>
@@ -32,12 +33,12 @@
 
         <c:if test="${requestScope.foodList != null }">
             <div class="row">
-                <div class="col-lg-2">Name</div>
-                <div class="col-lg-2">Calories</div>
-                <div class="col-lg-2">Carbohydrates</div>
-                <div class="col-lg-2">Fats</div>
-                <div class="col-lg-2">Proteins</div>
-                <div class="col-lg-2">Weight</div>
+                <div class="col-lg-2"><fmt:message key="food.table.name"/></div>
+                <div class="col-lg-2"><fmt:message key="food.table.calories"/></div>
+                <div class="col-lg-2"><fmt:message key="food.table.carbs"/></div>
+                <div class="col-lg-2"><fmt:message key="food.table.fats"/></div>
+                <div class="col-lg-2"><fmt:message key="food.table.proteins"/></div>
+                <div class="col-lg-2"><fmt:message key="food.table.weight"/></div>
 
             </div>
             <div style="margin:30px 0px; height: 1px; background:gray;"></div>
@@ -87,3 +88,4 @@
 
 </body>
 </html>
+</fmt:bundle>

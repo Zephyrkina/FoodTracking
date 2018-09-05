@@ -2,10 +2,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
 
+<fmt:bundle basename="pagecontent" >
 
 <html>
 <head>
-    <title>Login</title>
+    <title><fmt:message key="find.food.title"/></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="<c:url value='/css/style.css'/>" rel="stylesheet">
 
@@ -30,7 +31,7 @@
 
 
     <div class="text-center " style="padding:50px 0">
-        <div class="logo">Input food name for search</div>
+        <div class="logo"><fmt:message key="find.food.header"/></div>
         <!-- Main Form -->
         <div class="login-form-1">
             <form id="login-form" class="text-left" action="${pageContext.request.contextPath}/app/findFoodByName" method="post">
@@ -39,7 +40,7 @@
                     <div class="login-group">
                         <div class="form-group">
                             <label for="search_foodname" class="sr-only">Foodname</label>
-                            <input type="text" name="search_food_name"  placeholder="name" class="form-control" id="search_foodname" >
+                            <input type="text" name="search_food_name"  placeholder="<fmt:message key="food.name"/>" class="form-control" id="search_foodname" >
 
                         </div>
                         <div class="error-alert">${wrong_search_food_name}</div>
@@ -70,13 +71,13 @@
     <div>
         <c:if test="${requestScope.foods != null }">
         <div class="row">
-            <div class="col-lg-2">Name</div>
-            <div class="col-lg-2">Calories</div>
-            <div class="col-lg-2">Carbohydrates</div>
-            <div class="col-lg-2">Fats</div>
-            <div class="col-lg-2">Proteins</div>
-            <div class="col-lg-1">Weight</div>
-            <div class="col-lg-1">Add</div>
+            <div class="col-lg-2"><fmt:message key="food.table.name"/></div>
+            <div class="col-lg-2"><fmt:message key="food.table.calories"/></div>
+            <div class="col-lg-2"><fmt:message key="food.table.carbs"/></div>
+            <div class="col-lg-2"><fmt:message key="food.table.fats"/></div>
+            <div class="col-lg-2"><fmt:message key="food.table.proteins"/></div>
+            <div class="col-lg-1"><fmt:message key="food.table.weight"/></div>
+            <div class="col-lg-1"><fmt:message key="food.table.add"/></div>
         </div>
         </c:if>
         <c:forEach items="${requestScope.foods}" var="food" >
@@ -96,8 +97,8 @@
                     <input type="hidden" name="food_fats" value="${food.fats}">
                     <input type="hidden" name="food_proteins" value="${food.proteins}">
 
-                    <div class="col-lg-1"><input style="width: 60px" type="text" placeholder="gramms" name="food_quantity" pattern="[0-9]{1,4}"></div>
-                    <div class="col-lg-1"><input class="button" type="submit" value="Add"></div>
+                    <div class="col-lg-1"><input style="width: 60px" type="text" placeholder="<fmt:message key="food.weight"/>" name="food_quantity" pattern="[0-9]{1,4}"></div>
+                    <div class="col-lg-1"><input class="button" type="submit" value="<fmt:message key="food.table.add"/>"></div>
                 </div>
             </form>
         </c:forEach>
