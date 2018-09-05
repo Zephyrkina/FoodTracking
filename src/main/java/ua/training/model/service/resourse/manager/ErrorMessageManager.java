@@ -1,12 +1,13 @@
 package ua.training.model.service.resourse.manager;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ErrorMessageManager implements ResourceManager {
     private ResourceBundle bungle;
 
-    public ErrorMessageManager() {
-        bungle = ResourceBundle.getBundle("errorMessage");
+    public ErrorMessageManager(Locale locale) {
+        bungle = ResourceBundle.getBundle("errorMessages", locale);
     }
 
     @Override

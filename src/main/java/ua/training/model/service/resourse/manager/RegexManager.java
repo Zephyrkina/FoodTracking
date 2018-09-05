@@ -1,12 +1,13 @@
 package ua.training.model.service.resourse.manager;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class RegexManager implements ResourceManager {
     private ResourceBundle bungle;
 
-    public RegexManager() {
-        bungle = ResourceBundle.getBundle("regex");
+    public RegexManager(Locale locale) {
+        bungle = ResourceBundle.getBundle("regex", locale);
     }
 
     @Override

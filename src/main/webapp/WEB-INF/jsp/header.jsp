@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<%--
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language: 'en_US'}" scope="session"/>
+<fmt:setLocale value="${language}" scope="session" />--%>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -19,15 +23,17 @@
 
 </head>
 <header>
+     <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language: pageContext.request.locale}" scope="session"/>
+               <fmt:setLocale value="${language}" scope="session" />
     <fmt:bundle basename="pagecontent" prefix="header." >
 
     <div class="container">
         <div class="header__container align-items-center menu-href ">
             <div class="  header__form ">
-                <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language: pageContext.request.locale}" scope="session"/>
-                <fmt:setLocale value="${language}" scope="session" />
+               <%-- <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language: pageContext.request.locale}" scope="session"/>
+                <fmt:setLocale value="${language}" scope="session" />--%>
 
-                <form class="">
+                <form class="" method="post" <%--action="${pageContext.request.contextPath}/app/"--%>>
                     <select id="language" name="language" onchange="submit()"  class="header__form" >
                         <option value="en_US" ${language == 'en_US' ? 'selected' : ''}>English</option>
                         <option value="uk_UA" ${language == 'uk_UA' ? 'selected' : ''}>Ukrainian</option>

@@ -84,6 +84,7 @@
             <div style="margin:30px 0px; height: 1px; background:gray;"></div>
             <form method="post" action="${pageContext.request.contextPath}/app/addFoodToDailyRecord">
                 <div class="row">
+
                     <div class="col-lg-2">${food.name}</div>
                     <div class="col-lg-2"> ${food.calories}</div>
                     <div class="col-lg-2"> ${food.carbohydrates}</div>
@@ -117,3 +118,4 @@
 
 </body>
 </html>
+</fmt:bundle>
