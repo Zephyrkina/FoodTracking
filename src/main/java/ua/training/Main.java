@@ -1,12 +1,41 @@
 package ua.training;
 
+import org.apache.logging.log4j.*;
 import ua.training.model.dao.DailyRecordDao;
 import ua.training.model.dao.DaoFactory;
 import ua.training.model.dao.implement.JDBCDaoFactory;
+import ua.training.model.entity.User;
+
 
 public class Main {
+    static final Logger rootLogger = LogManager.getRootLogger();
+    static final Logger userLogger = LogManager.getLogger(User.class);
+
     public static void main(String[] args) {
+        User user = new User();
+        user.setName("Anakin");
+
+        userLogger.info(user.toString());
+
+        rootLogger.info("Root Logger: "  + user.toString());
+
+        //debug
+        if (rootLogger.isDebugEnabled()) {
+            rootLogger.debug("RootLogger: In debug message");
+            userLogger.debug("UserLogger in debug");
+        }
+
+        try {
+            User userNull = new User();
+            userNull.getName().toString();
+        } catch (NullPointerException ex) {
+            userLogger.error("error message: " + ex.getMessage());
+            userLogger.fatal("fatal error message: " + ex.getMessage());
+        }
+
+/*
         JDBCDaoFactory jdbcDaoFactory = new JDBCDaoFactory();
+*/
 
        /*
         UserDao jdbcUserDao = jdbcDaoFactory.createUserDao();
@@ -38,9 +67,9 @@ public class Main {
 
         //System.out.println(jdbcUserDao.findById(11));
 
-        DaoFactory daoFactory = DaoFactory.getInstance();
+        /*DaoFactory daoFactory = DaoFactory.getInstance();
         DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao();
-        dailyRecordDao.savePreviousRecords(3,7);
+        dailyRecordDao.savePreviousRecords(3,7);*/
 
 
     }
