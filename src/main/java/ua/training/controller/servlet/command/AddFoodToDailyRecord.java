@@ -55,6 +55,6 @@ public class AddFoodToDailyRecord implements Command {
             request.getSession().setAttribute("calorieNormExceeded", e.getMessage());
         }*/
 
-        return "/WEB-INF/jsp/user/user_page.jsp";
+        return "/app/user";
     }
 }

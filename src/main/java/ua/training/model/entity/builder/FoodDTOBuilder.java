@@ -6,11 +6,11 @@ public class FoodDTOBuilder {
     private int id;
     private String nameEn;
     private String nameUa;
-
     private int calories;
     private int carbohydrates;
     private int fats;
     private int proteins;
+    private int quantity;
 
     public FoodDTOBuilder() {
     }
@@ -50,7 +50,12 @@ public class FoodDTOBuilder {
         this.proteins = proteins;
         return this;
     }
+    public FoodDTOBuilder setQuantity(int quantity) {
+        this.quantity = quantity;
+        return this;
+    }
+
     public FoodDTO build() {
-        return new FoodDTO(id, nameUa, nameEn, calories, carbohydrates, fats, proteins);
+        return new FoodDTO(id, nameUa, nameEn, calories, carbohydrates, fats, proteins, quantity);
     }
 }

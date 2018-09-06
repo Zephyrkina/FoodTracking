@@ -1,5 +1,6 @@
 package ua.training.model.dao;
 
+import ua.training.model.dto.FoodDTO;
 import ua.training.model.entity.DailyRecord;
 import ua.training.model.entity.Food;
 
@@ -13,6 +14,6 @@ public interface DailyRecordDao extends GenericDao<DailyRecord> {
     int getRecordIdByUserIdAndDate(int userId, LocalDate date);
     boolean savePreviousRecords(int userId, int dailyRecordId);
     int countCalories(int dailyRecordId, int userId, LocalDate date);
-    List<Food> showTodaysFoodList(int userId, LocalDate date);
+    List<FoodDTO> showTodaysFoodList(int userId, LocalDate date);
     int getTotalCalories(int userId, LocalDate date);
 }

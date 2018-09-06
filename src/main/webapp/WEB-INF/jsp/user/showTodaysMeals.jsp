@@ -51,9 +51,7 @@
                 <div class="col-lg-2">${food.carbohydrates}</div>
                 <div class="col-lg-2">${food.fats}</div>
                 <div class="col-lg-2">${food.proteins}</div>
-<%--
-                <div class="col-lg-2">${food.weight}</div>
---%>
+                <div class="col-lg-2">${food.quantity}</div>
 
             </div>
         </c:forEach>

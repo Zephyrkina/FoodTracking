@@ -1,16 +1,13 @@
 package ua.training.model.dao.mapper;
 
 import ua.training.model.dto.FoodDTO;
-import ua.training.model.entity.Food;
-import ua.training.model.entity.builder.FoodBuilder;
 import ua.training.model.entity.builder.FoodDTOBuilder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class FoodDTOMapper implements ObjectMapper<FoodDTO> {
-
+public class FoodDTOLocaleMapper implements ObjectMapper<FoodDTO> {
     @Override
     public FoodDTO extractFromResultSet(ResultSet resultSet) throws SQLException {
         FoodDTO food = new FoodDTOBuilder()
@@ -21,7 +18,6 @@ public class FoodDTOMapper implements ObjectMapper<FoodDTO> {
                 .setCarbohydrates(resultSet.getInt("carbs"))
                 .setFats(resultSet.getInt("fats"))
                 .setProteins(resultSet.getInt("proteins"))
-                .setQuantity(resultSet.getInt("quantity"))
                 .build();
 
         return food;
@@ -30,7 +26,5 @@ public class FoodDTOMapper implements ObjectMapper<FoodDTO> {
     @Override
     public FoodDTO makeUnique(Map<Integer, FoodDTO> cache, FoodDTO food) {
         cache.putIfAbsent(food.getId(), food);
-        return cache.get(food.getId());
-
-    }
+        return cache.get(food.getId());    }
 }

@@ -1,5 +1,6 @@
 package ua.training.model.dao.implement;
 
+import ua.training.model.dao.mapper.FoodDTOLocaleMapper;
 import ua.training.model.dao.mapper.FoodDTOMapper;
 import ua.training.model.dto.FoodDTO;
 import ua.training.model.exception.ItemNotFoundException;
@@ -131,7 +132,7 @@ public class JDBCFoodDao implements FoodDao {
         String sql = "select * from food where name_en = ? or name_ua = ? ";
         ResultSet resultSet;
         FoodDTO food = null;
-        FoodDTOMapper foodDTOMapper = new FoodDTOMapper();
+        FoodDTOLocaleMapper foodDTOMapper = new FoodDTOLocaleMapper();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setString(1, foodNameEn);

@@ -1,5 +1,10 @@
 package ua.training.model.dto;
 
+import ua.training.model.entity.Food;
+import ua.training.model.entity.builder.FoodBuilder;
+
+import java.util.Locale;
+
 public class FoodDTO {
     private int id;
     private String nameUa;
@@ -8,8 +13,9 @@ public class FoodDTO {
     private int carbohydrates;
     private int fats;
     private int proteins;
+    private int quantity;
 
-    public FoodDTO(int id, String nameUa, String nameEn, int calories, int carbohydrates, int fats, int proteins) {
+    public FoodDTO(int id, String nameUa, String nameEn, int calories, int carbohydrates, int fats, int proteins, int quantity) {
         this.id = id;
         this.nameUa = nameUa;
         this.nameEn = nameEn;
@@ -17,6 +23,22 @@ public class FoodDTO {
         this.carbohydrates = carbohydrates;
         this.fats = fats;
         this.proteins = proteins;
+        this.quantity = quantity;
+    }
+
+    public Food convertToLocalizatedFood(Locale locale){
+        String lang = locale.getLanguage();
+        System.out.println("language in dto: " + lang);
+
+        return new FoodBuilder()
+                .setId(id)
+                .setName(lang.equals("en") ? nameEn : nameUa)
+                .setCalories(calories)
+                .setCarbohydrates(carbohydrates)
+                .setFats(fats)
+                .setProteins(proteins)
+                .setQuantity(quantity)
+                .build();
     }
 
     public int getId() {
@@ -75,6 +97,14 @@ public class FoodDTO {
         this.proteins = proteins;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     @Override
     public String toString() {
         return "FoodDTO{" +
@@ -85,6 +115,7 @@ public class FoodDTO {
                 ", carbohydrates=" + carbohydrates +
                 ", fats=" + fats +
                 ", proteins=" + proteins +
+                ", quantity=" + quantity +
                 '}';
     }
 }

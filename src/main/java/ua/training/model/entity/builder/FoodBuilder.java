@@ -9,6 +9,7 @@ public class FoodBuilder {
     private int carbohydrates;
     private int fats;
     private int proteins;
+    private int quantity;
 
     public FoodBuilder() {
     }
@@ -42,7 +43,13 @@ public class FoodBuilder {
         this.proteins = proteins;
         return this;
     }
+
+    public FoodBuilder setQuantity(int quantity) {
+        this.quantity = quantity;
+        return this;
+    }
+
     public Food build() {
-        return new Food(id, name, calories, carbohydrates, fats, proteins);
+        return new Food(id, name, calories, carbohydrates, fats, proteins, quantity);
     }
 }

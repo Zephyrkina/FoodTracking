@@ -3,32 +3,39 @@ package ua.training.model.service;
 import ua.training.model.dao.DailyRecordDao;
 import ua.training.model.dao.DaoFactory;
 import ua.training.model.dao.UserDao;
+import ua.training.model.dto.FoodDTO;
 import ua.training.model.entity.DailyRecord;
 import ua.training.model.entity.Food;
 import ua.training.model.exception.ExceededCalorieNormException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class DailyRecordService {
     DaoFactory daoFactory = DaoFactory.getInstance();
 
 
-    //TODO savePreviousRecords(userId, date);
     public void savePreviousRecords(int userId, LocalDate date) {
         try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
-            if (dailyRecordDao.todaysDailyRecordExists(userId, date)) {
-                int dailyRecordId = dailyRecordDao.getRecordIdByUserIdAndDate(userId, date);
-                dailyRecordDao.savePreviousRecords(userId, dailyRecordId);
-            }
+            int dailyRecordId = dailyRecordDao.getRecordIdByUserIdAndDate(userId, date);
+            dailyRecordDao.savePreviousRecords(userId, dailyRecordId);
+
         }
     }
 
-    public List<Food> showTodaysFoodList(int userId, LocalDate date) {
+    public List<Food> showTodaysFoodList(int userId, LocalDate date, Locale locale) {
+        List<FoodDTO> dtoList;
+        List<Food> foodList = new ArrayList<>();
         try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
-            return dailyRecordDao.showTodaysFoodList(userId, date);
+            dtoList = dailyRecordDao.showTodaysFoodList(userId, date);
         }
+        for (FoodDTO dto : dtoList){
+            foodList.add(dto.convertToLocalizatedFood(locale));
+        }
+        return foodList;
     }
 
     public void addFoodToDailyRecord(int foodId, int quantity, LocalDate date, int userId) {

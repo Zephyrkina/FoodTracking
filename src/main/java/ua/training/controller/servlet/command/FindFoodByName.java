@@ -53,16 +53,17 @@ public class FindFoodByName implements Command{
             }
         }
 
-        FoodDTO food;
+        FoodDTO foodDTO;
 
         try {
-            food = new FoodService().findFoodByName(nameEn, nameUa);
+            foodDTO = new FoodService().findFoodByName(nameEn, nameUa);
         } catch(ItemNotFoundException itfe) {
             request.setAttribute("cantFindFoodMessage", "there is no food in db. Try to create your own");
             return "/WEB-INF/jsp/user/findFood.jsp";
         }
+        Food food = foodDTO.convertToLocalizatedFood(locale);
 
-        List<FoodDTO> foods = new ArrayList<>();
+        List<Food> foods = new ArrayList<>();
         foods.add(food);
         //request.setAttribute("food", food);
         request.setAttribute("foods", foods);

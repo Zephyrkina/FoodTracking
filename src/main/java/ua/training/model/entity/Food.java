@@ -7,6 +7,7 @@ public class Food {
     private int carbohydrates;
     private int fats;
     private int proteins;
+    private int quantity;
 
     //TODO overrride hash and equals??
 
@@ -24,13 +25,15 @@ public class Food {
         this.proteins = proteins;
     }
 
-    public Food(int id, String name, int calories, int carbohydrates, int fats, int proteins) {
+    public Food(int id, String name, int calories, int carbohydrates, int fats, int proteins, int quantity) {
         this.id = id;
         this.name = name;
         this.calories = calories;
         this.carbohydrates = carbohydrates;
         this.fats = fats;
         this.proteins = proteins;
+        this.quantity = quantity;
+
     }
 
     public int getId() {
@@ -79,6 +82,14 @@ public class Food {
 
     public void setProteins(int proteins) {
         this.proteins = proteins;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override

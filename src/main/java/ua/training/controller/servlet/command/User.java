@@ -16,6 +16,7 @@ public class User implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Locale locale = (Locale) request.getSession().getAttribute("locale");
+        System.out.println("locale in user: " + locale);
 
 
         UserService userService = new UserService();

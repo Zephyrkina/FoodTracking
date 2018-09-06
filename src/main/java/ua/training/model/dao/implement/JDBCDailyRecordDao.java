@@ -2,10 +2,13 @@ package ua.training.model.dao.implement;
 
 import ua.training.model.dao.DailyRecordDao;
 import ua.training.model.dao.mapper.DailyRecordMapper;
+import ua.training.model.dao.mapper.FoodDTOMapper;
 import ua.training.model.dao.mapper.FoodMapper;
+import ua.training.model.dto.FoodDTO;
 import ua.training.model.entity.DailyRecord;
 import ua.training.model.entity.Food;
 import ua.training.model.exception.FoodListIsEmptyException;
+import ua.training.model.exception.OperationFailedException;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -75,8 +78,9 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
             preparedStatement.setDate(2, Date.valueOf(date));
 
             try ( ResultSet resultSet = preparedStatement.executeQuery()) {
-                resultSet.next();
-                record_id = resultSet.getInt("id");
+                if (resultSet.next()) {
+                    record_id = resultSet.getInt("id");
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -157,6 +161,8 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
             createFoodDiaryDayRecordStatement.executeBatch();
 
 
+
+
 //-----------------------third query----------------------------------------------------------
 
             resultSet = getRowCountStatement.executeQuery();
@@ -210,11 +216,14 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
                 deleteTemporaryRecordStatement.setInt(1, idRecMap.getKey());
                 deleteTemporaryRecordStatement.addBatch();
             }
-            deleteTemporaryRecordStatement.executeUpdate();
+            deleteTemporaryRecordStatement.executeBatch();
 
 //-----------------------------------------------
 
+            System.out.println("transaction1");
             connection.commit();
+            System.out.println("transaction2");
+
 
         } catch (SQLException e) {
             System.out.println("ooops, rollback");
@@ -224,6 +233,7 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            throw new OperationFailedException();
         }
 
 
@@ -267,6 +277,8 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+
+
         }
 
         return total_calories;
@@ -274,13 +286,13 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
     }
 
     @Override
-    public List<Food> showTodaysFoodList(int userId, LocalDate userDate) {
+    public List<FoodDTO> showTodaysFoodList(int userId, LocalDate userDate) {
         String sql1 = "SELECT * FROM daily_record " +
                 "RIGHT JOIN daily_record_has_food ON daily_record.id = daily_record_has_food.daily_record_id " +
                 " left join food on  food.id = daily_record_has_food.food_id where daily_record.user_id = ? and daily_record.date = ? ";
 
-        List<Food> foodList = new ArrayList<>();
-        FoodMapper foodMapper = new FoodMapper();
+        List<FoodDTO> foodList = new ArrayList<>();
+        FoodDTOMapper foodMapper = new FoodDTOMapper();
 
         try (PreparedStatement getAllStatement = connection.prepareStatement(sql1)){
             getAllStatement.setInt(1, userId);
@@ -294,7 +306,7 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
             resultSet.previous();
 
             while(resultSet.next()) {
-                Food food = foodMapper.extractFromResultSet(resultSet);
+                FoodDTO food = foodMapper.extractFromResultSet(resultSet);
                 foodList.add(food);
             }
 

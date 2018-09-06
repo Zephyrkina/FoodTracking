@@ -10,6 +10,9 @@ import ua.training.model.service.DailyRecordService;
 import ua.training.model.service.UserService;
 import ua.training.model.service.resourse.manager.RegexManager;
 
+import org.apache.logging.log4j.*;
+
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,14 +23,20 @@ import java.util.Locale;
 import java.util.logging.Logger;
 
 public class Login implements Command{
+/*
+    static final org.apache.logging.log4j.Logger loginLogger = LogManager.getLogger(Login.class);
+*/
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
 /*
         private final Logger log = Logger.getLogger();
 */
 
         Locale locale = (Locale) request.getSession().getAttribute("locale");
         System.out.println("locale in login: " + locale);
+
 
 
         InputDataUtils inputDataUtils = new InputDataUtils();
@@ -44,6 +53,8 @@ public class Login implements Command{
 
         String login = inputDataUtils.readCorrectData(request, "input_login", regexManager.getProperty("login"));
         String password = inputDataUtils.readCorrectData(request,"input_password", regexManager.getProperty("password"));
+
+
 
         try {
             userService.checkLoginExists(login);
@@ -83,7 +94,7 @@ public class Login implements Command{
 
        int userId = userService.getUserIdByLogin(login);
 
-        int consumedCalories = dailyRecordService.getTotalCalories(userId, LocalDate.now());
+        /*int consumedCalories = dailyRecordService.getTotalCalories(userId, LocalDate.now());
         int calorieNorm = userService.getCalorieNorm(userId);
         int diff = calorieNorm - consumedCalories;
 
@@ -94,7 +105,11 @@ public class Login implements Command{
 
         if (calorieNorm - consumedCalories < 0){
             request.getSession().setAttribute("calorieNormExceeded", "You have exceeded daily calorie norm!");
-        }
+        }*/
+
+/*
+        loginLogger.info(login);
+*/
 
 /*
         return "redirect:/WEB-INF/jsp/" + roleString +"/"+ roleString +"_page.jsp";

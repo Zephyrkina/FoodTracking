@@ -1,5 +1,6 @@
 package ua.training.controller.servlet.command;
 
+import ua.training.model.exception.OperationFailedException;
 import ua.training.model.service.DailyRecordService;
 import ua.training.model.service.FoodService;
 import ua.training.model.service.UserService;
@@ -21,9 +22,18 @@ public class SavePreviousRecords implements Command {
         DailyRecordService dailyRecordService = new DailyRecordService();
         int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));
         LocalDate date = LocalDate.now();
-        dailyRecordService.savePreviousRecords(userId, date);
 
-        request.setAttribute("savedRecords",  new ErrorMessageManager(locale).getProperty("saved.all.records"));
+        try {
+            System.out.println("saveprev rec");
+            dailyRecordService.savePreviousRecords(userId, date);
+            System.out.println("saveprev rec2");
+
+            request.setAttribute("savedRecords",  new ErrorMessageManager(locale).getProperty("saved.all.records"));
+
+        } catch (OperationFailedException e) {
+            request.setAttribute("savedRecords",  new ErrorMessageManager(locale).getProperty("records.not.saved"));
+        }
+
 
         return "/WEB-INF/jsp/user/user_page.jsp";
     }
