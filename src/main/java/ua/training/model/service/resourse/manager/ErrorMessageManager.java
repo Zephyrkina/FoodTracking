@@ -7,7 +7,7 @@ public class ErrorMessageManager implements ResourceManager {
     private ResourceBundle bungle;
 
     public ErrorMessageManager(Locale locale) {
-        bungle = ResourceBundle.getBundle("errorMessages", locale);
+        bungle = ResourceBundle.getBundle("errorMessage", locale);
     }
 
     @Override
