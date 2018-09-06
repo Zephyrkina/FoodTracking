@@ -49,6 +49,10 @@
                               ${requestScope.savedRecords}
 
                       </div>
+                      <div style="color: red;">
+                              ${requestScope.notSavedRecords}
+
+                      </div>
                   </div>
               </div>
 

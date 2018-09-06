@@ -24,14 +24,12 @@ public class SavePreviousRecords implements Command {
         LocalDate date = LocalDate.now();
 
         try {
-            System.out.println("saveprev rec");
             dailyRecordService.savePreviousRecords(userId, date);
-            System.out.println("saveprev rec2");
 
             request.setAttribute("savedRecords",  new ErrorMessageManager(locale).getProperty("saved.all.records"));
 
         } catch (OperationFailedException e) {
-            request.setAttribute("savedRecords",  new ErrorMessageManager(locale).getProperty("records.not.saved"));
+            request.setAttribute("notSavedRecords",  new ErrorMessageManager(locale).getProperty("records.not.saved"));
         }
 
 

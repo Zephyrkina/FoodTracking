@@ -10,7 +10,9 @@ import ua.training.model.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ShowAllFood implements Command {
     @Override
@@ -21,6 +23,8 @@ public class ShowAllFood implements Command {
 
         FoodService foodService = new FoodService();
         List<FoodDTO> foodList;
+        List<Food> foods = new ArrayList<>();
+        Food food;
 
 
         int rows = foodService.getNumberOfRows();
@@ -33,7 +37,12 @@ public class ShowAllFood implements Command {
         }
         foodList = foodService.findAllFood(currentPage, recordsPerPage);
 
-        request.setAttribute("foodList", foodList);
+        for(FoodDTO dto : foodList) {
+            food = dto.convertToLocalizatedFood((Locale) request.getSession().getAttribute("locale"));
+            foods.add(food);
+        }
+
+        request.setAttribute("foodList", foods);
         request.setAttribute("noOfPages", amountOfPages);
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("recordsPerPage", recordsPerPage);

@@ -171,6 +171,7 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
             if (resultSet.next()) {
                 rowCount = Integer.parseInt(resultSet.getString("row_count"));
 
+
             } else {
                 throw new RuntimeException("problems with id");
             }
@@ -188,6 +189,7 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
 
 
             int id = last_id - rowCount - 1;
+
 
 
 //-----------------------fourth query----------------------------------------------------------
@@ -220,13 +222,9 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
 
 //-----------------------------------------------
 
-            System.out.println("transaction1");
             connection.commit();
-            System.out.println("transaction2");
-
 
         } catch (SQLException e) {
-            System.out.println("ooops, rollback");
             try {
                 connection.rollback();
             } catch (SQLException e1) {

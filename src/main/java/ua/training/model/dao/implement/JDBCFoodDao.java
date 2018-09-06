@@ -129,7 +129,7 @@ public class JDBCFoodDao implements FoodDao {
 
     @Override
     public FoodDTO findByName(String foodNameEn, String foodNameUa) {
-        String sql = "select * from food where name_en = ? or name_ua = ? ";
+        String sql = "select * from food where (name_en = ? or name_ua = ?) ";
         ResultSet resultSet;
         FoodDTO food = null;
         FoodDTOLocaleMapper foodDTOMapper = new FoodDTOLocaleMapper();
@@ -181,7 +181,7 @@ public class JDBCFoodDao implements FoodDao {
         String sql = "select * from food limit ?, ?";
         int start = currentPage * recordsPerPage - recordsPerPage;
         List<FoodDTO> foods = new ArrayList<>();
-        FoodDTOMapper foodDTOMapper = new FoodDTOMapper();
+        FoodDTOLocaleMapper foodDTOMapper = new FoodDTOLocaleMapper();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
