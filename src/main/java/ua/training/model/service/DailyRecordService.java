@@ -26,16 +26,10 @@ public class DailyRecordService {
         }
     }
 
-    public List<Food> showTodaysFoodList(int userId, LocalDate date, Locale locale) {
-        List<FoodDTO> dtoList;
-        List<Food> foodList = new ArrayList<>();
+    public List<FoodDTO> showTodaysFoodList(int userId, LocalDate date) {
         try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
-            dtoList = dailyRecordDao.showTodaysFoodList(userId, date);
+            return dailyRecordDao.showTodaysFoodList(userId, date);
         }
-        for (FoodDTO dto : dtoList){
-            foodList.add(dto.convertToLocalizatedFood(locale));
-        }
-        return foodList;
     }
 
     public void addFoodToDailyRecord(int foodId, int quantity, LocalDate date, int userId) {
@@ -44,10 +38,8 @@ public class DailyRecordService {
         try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()){
             if (!dailyRecordDao.todaysDailyRecordExists(userId, date)) {
                 dailyRecordDao.create(new DailyRecord(date, userId));
-                System.out.println("crating new food");
             }
             dailyRecordId = dailyRecordDao.getRecordIdByUserIdAndDate(userId, date);
-            System.out.println("dailyRecordId: " + dailyRecordId);
             dailyRecordDao.addFoodToRecord(dailyRecordId, foodId, quantity);
             dailyRecordDao.countCalories(dailyRecordId, userId, date);
 
@@ -58,15 +50,7 @@ public class DailyRecordService {
         try (DailyRecordDao dailyRecordDao = daoFactory.createDailyRecordDao()) {
             return  dailyRecordDao.getTotalCalories(userId, date);
         }
-       /* try (UserDao userDao = daoFactory.createUserDao()) {
-            calorieNorm = userDao.findById(userId).getCalorieNorm();
-        }
-        int calorieExceeded = total_calories - calorieNorm;
-        if (calorieExceeded > 0) {
-            throw new ExceededCalorieNormException("Calorie norm was exceeded on " + calorieExceeded + " calories");
-        }*/
     }
-
 
 
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,20 +20,22 @@ public class ShowTodaysFoodList implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         UserService userService = new UserService();
         DailyRecordService dailyRecordService = new DailyRecordService();
-        Locale locale = (Locale) request.getSession().getAttribute("locale");
 
 
         int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));
-        LocalDate date = LocalDate.now();
 
+        List<Food> foods = new ArrayList<>();
+        Food food;
         try {
-            List<Food> foodList = dailyRecordService.showTodaysFoodList(userId, date, locale);
-            request.setAttribute("foodList", foodList);
-
+            List<FoodDTO> foodList = dailyRecordService.showTodaysFoodList(userId, LocalDate.now());
+            for(FoodDTO dto : foodList) {
+                food = dto.convertToLocalizatedFood((Locale) request.getSession().getAttribute("locale"));
+                foods.add(food);
+            }
+            request.setAttribute("foodList", foods);
         } catch (FoodListIsEmptyException e) {
             request.setAttribute("foodListIsEmpty", e.getMessage());
         }
-
 
 
         return "/WEB-INF/jsp/user/showTodaysMeals.jsp";
