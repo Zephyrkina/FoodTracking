@@ -24,7 +24,6 @@ public class ShowAllFood implements Command {
         FoodService foodService = new FoodService();
         List<FoodDTO> foodList;
         List<Food> foods = new ArrayList<>();
-        Food food;
 
 
         int rows = foodService.getNumberOfRows();
@@ -35,11 +34,11 @@ public class ShowAllFood implements Command {
         if (currentPage > amountOfPages) {
             currentPage = amountOfPages;
         }
+
         foodList = foodService.findAllFood(currentPage, recordsPerPage);
 
         for(FoodDTO dto : foodList) {
-            food = dto.convertToLocalizatedFood((Locale) request.getSession().getAttribute("locale"));
-            foods.add(food);
+            foods.add(dto.convertToLocalizatedFood((Locale) request.getSession().getAttribute("locale")));
         }
 
         request.setAttribute("foodList", foods);

@@ -18,14 +18,9 @@ public class SavePreviousRecords implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Locale locale = (Locale) request.getSession().getAttribute("locale");
 
-        UserService userService = new UserService();
-        DailyRecordService dailyRecordService = new DailyRecordService();
-        int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));
-        LocalDate date = LocalDate.now();
-
         try {
-            dailyRecordService.savePreviousRecords(userId, date);
-
+            new DailyRecordService().savePreviousRecords(new UserService()
+                    .getUserIdByLogin((String)request.getSession().getAttribute("login")), LocalDate.now());
             request.setAttribute("savedRecords",  new ErrorMessageManager(locale).getProperty("saved.all.records"));
 
         } catch (OperationFailedException e) {

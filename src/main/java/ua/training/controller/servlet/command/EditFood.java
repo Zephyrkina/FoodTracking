@@ -25,28 +25,19 @@ public class EditFood implements Command {
         }
 
         InputDataUtils inputDataUtils = new InputDataUtils();
-        FoodService foodService = new FoodService();
-
-        int currentPage = Integer.parseInt(request.getParameter("current_page"));
-        int recordsPerPage = Integer.parseInt(request.getParameter("records_per_page"));
-
-        String localeString = locale.toString();
 
         String nameEn = null;
         String nameUa = null;
 
-        if(localeString.contains("uk")){
+        if(locale.getLanguage().equals("uk")){
             nameUa = inputDataUtils.readCorrectData(request, "food_name", regexManager.getProperty("name"));
         }
-        if(localeString.contains("en")){
+        if(locale.getLanguage().equals("en")){
             nameEn = inputDataUtils.readCorrectData(request, "food_name", regexManager.getProperty("name"));
 
         }
 
         int id = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_id", regexManager.getProperty("int.numbers")));
-/*
-        String name = inputDataUtils.readCorrectData(request, "food_name", regexManager.getProperty("name"));
-*/
         int calories = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_calories", regexManager.getProperty("int.numbers")));
         int carbs = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_carbs", regexManager.getProperty("int.numbers")));
         int fats = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_fats", regexManager.getProperty("int.numbers")));
@@ -70,12 +61,11 @@ public class EditFood implements Command {
                 .setProteins(proteins)
                 .build();
 
-        System.out.println(food.toString());
 
-/*
-        return "redirect:/app/showAllFood?currentPage="+ currentPage+"&recordsPerPage=" + recordsPerPage;
-*/
-        return "/app/showAllFood?currentPage="+ currentPage+"&recordsPerPage=" + recordsPerPage;
+        new FoodService().editFood(food);
+
+        return "/app/showAllFood?currentPage="+ Integer.parseInt(request.getParameter("current_page"))
+                +"&recordsPerPage=" + Integer.parseInt(request.getParameter("records_per_page"));
 
     }
 }

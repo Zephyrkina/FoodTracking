@@ -19,10 +19,6 @@ public class DailyRecordMapper implements ObjectMapper<DailyRecord> {
                 .setTotalCalories(resultSet.getInt("total_calories"))
                 .build();
 
-       /* Food food = new FoodMapper().extractFromResultSet(resultSet);
-        int quantity = resultSet.getInt("quanity");
-        dailyRecord.getConsumedFood().put(food, quantity);*/
-
         return dailyRecord;
     }
 

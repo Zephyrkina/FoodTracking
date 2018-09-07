@@ -26,5 +26,6 @@ public class FoodDTOLocaleMapper implements ObjectMapper<FoodDTO> {
     @Override
     public FoodDTO makeUnique(Map<Integer, FoodDTO> cache, FoodDTO food) {
         cache.putIfAbsent(food.getId(), food);
-        return cache.get(food.getId());    }
+        return cache.get(food.getId());
+    }
 }

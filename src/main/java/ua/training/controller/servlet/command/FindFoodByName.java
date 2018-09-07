@@ -32,16 +32,11 @@ public class FindFoodByName implements Command{
         String nameEn = null;
         String nameUa = null;
 
-        if(locale.toString().equals("uk_UA")){
-
+        if(locale.getLanguage().equals("uk")){
             nameUa = inputDataUtils.readCorrectData(request, "search_food_name", regexManager.getProperty("name"));
-            System.out.println(nameUa);
         }
-        if(locale.toString().equals("en_US")){
+        if(locale.getLanguage().equals("en")){
             nameEn = inputDataUtils.readCorrectData(request, "search_food_name", regexManager.getProperty("name"));
-            System.out.println(nameEn);
-
-
         }
 
         Enumeration<String> requestAttributeNames = request.getAttributeNames();
@@ -61,11 +56,10 @@ public class FindFoodByName implements Command{
             request.setAttribute("cantFindFoodMessage", "there is no food in db. Try to create your own");
             return "/WEB-INF/jsp/user/findFood.jsp";
         }
-        Food food = foodDTO.convertToLocalizatedFood(locale);
 
         List<Food> foods = new ArrayList<>();
-        foods.add(food);
-        //request.setAttribute("food", food);
+        foods.add(foodDTO.convertToLocalizatedFood(locale));
+
         request.setAttribute("foods", foods);
         return "/WEB-INF/jsp/user/findFood.jsp";
 

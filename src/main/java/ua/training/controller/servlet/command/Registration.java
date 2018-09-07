@@ -17,14 +17,8 @@ import java.util.Locale;
 public class Registration implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Locale locale = (Locale) request.getSession().getAttribute("locale");
-
-        RegexManager regexManager = new RegexManager(locale);
-
-        //TODO breaks when input letters in int fields
-
+        RegexManager regexManager = new RegexManager((Locale) request.getSession().getAttribute("locale"));
         InputDataUtils inputDataUtils = new InputDataUtils();
-
         UserService userService = new UserService();
 
         if( request.getParameter("user_name") == null
@@ -57,7 +51,6 @@ public class Registration implements Command {
             request.setAttribute("notUniqueEmail", "Email is already in use. Choose another one.");
         }
 
-
         Enumeration<String> requestAttributeNames = request.getAttributeNames();
 
         while(requestAttributeNames.hasMoreElements()){
@@ -68,15 +61,14 @@ public class Registration implements Command {
         }
 
         int calorieNorm = userService.calculateCalorieNorm(age, height, weight);
-
-
         User.ROLE role = User.ROLE.USER;
+
         User user = new UserBuilder()
                 .setLogin(login)
                 .setPassword(password)
                 .setEmail(email)
                 .setName(name_en)
-                .setRole(role)
+                .setRole(User.ROLE.USER)
                 .setAge(age)
                 .setHeight(height)
                 .setWeight(weight)
@@ -91,9 +83,6 @@ public class Registration implements Command {
         request.getServletContext().setAttribute(login, request.getSession());
 
 
-/*
-        return "redirect:/WEB-INF/jsp/user/user_page.jsp";
-*/
         return "/WEB-INF/jsp/index.jsp";
         }
 }

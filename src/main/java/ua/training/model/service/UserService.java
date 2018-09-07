@@ -17,12 +17,6 @@ public class UserService {
     DaoFactory daoFactory = DaoFactory.getInstance();
 
 
-    public boolean userExists(String login, String password) {
-        try (UserDao userDao = daoFactory.createUserDao()) {
-            return userDao.userExists(login, password);
-        }
-    }
-
     public User.ROLE getRoleByLoginPassword(String login, String password) {
         try (UserDao userDao = daoFactory.createUserDao()) {
             return userDao.getRoleByLoginPassword(login, password);

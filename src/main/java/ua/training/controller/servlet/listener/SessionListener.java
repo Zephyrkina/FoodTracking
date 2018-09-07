@@ -11,7 +11,6 @@ import java.util.Locale;
 public class SessionListener implements HttpSessionListener{
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
-        //httpSessionEvent.getSession().setMaxInactiveInterval(20);
         httpSessionEvent.getSession().setAttribute("role", User.ROLE.GUEST.toString());
         httpSessionEvent.getSession().setAttribute("locale", new Locale("en","US"));
     }

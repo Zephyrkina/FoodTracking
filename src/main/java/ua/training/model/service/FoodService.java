@@ -20,7 +20,7 @@ public class FoodService {
             try {
 
                 foodDao.findByName(food.getNameEn(), food.getNameUa());
-                throw new ItemAlreadyExists("Food with such name already exists!");
+                throw new ItemAlreadyExists();
             }catch (ItemNotFoundException e) {
                 return foodDao.createUsersFood(food, userId);
             }

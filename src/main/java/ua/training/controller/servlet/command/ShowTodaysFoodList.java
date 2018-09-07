@@ -18,19 +18,16 @@ import java.util.Locale;
 public class ShowTodaysFoodList implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserService userService = new UserService();
-        DailyRecordService dailyRecordService = new DailyRecordService();
 
-
-        int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));
-
-        List<Food> foods = new ArrayList<>();
-        Food food;
         try {
-            List<FoodDTO> foodList = dailyRecordService.showTodaysFoodList(userId, LocalDate.now());
+            List<FoodDTO> foodList = new DailyRecordService()
+                    .showTodaysFoodList(new UserService()
+                            .getUserIdByLogin((String)request.getSession().getAttribute("login")), LocalDate.now());
+
+            List<Food> foods = new ArrayList<>();
+
             for(FoodDTO dto : foodList) {
-                food = dto.convertToLocalizatedFood((Locale) request.getSession().getAttribute("locale"));
-                foods.add(food);
+                foods.add(dto.convertToLocalizatedFood((Locale) request.getSession().getAttribute("locale")));
             }
             request.setAttribute("foodList", foods);
         } catch (FoodListIsEmptyException e) {

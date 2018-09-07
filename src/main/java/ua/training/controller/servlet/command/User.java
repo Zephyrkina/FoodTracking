@@ -15,16 +15,11 @@ import java.util.Locale;
 public class User implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Locale locale = (Locale) request.getSession().getAttribute("locale");
-        System.out.println("locale in user: " + locale);
-
-
         UserService userService = new UserService();
-        DailyRecordService dailyRecordService = new DailyRecordService();
 
         int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));
 
-        int consumedCalories = dailyRecordService.getTotalCalories(userId, LocalDate.now());
+        int consumedCalories = new DailyRecordService().getTotalCalories(userId, LocalDate.now());
         int calorieNorm = userService.getCalorieNorm(userId);
         int diff = calorieNorm - consumedCalories;
 
@@ -34,12 +29,11 @@ public class User implements Command {
 
 
         if (calorieNorm - consumedCalories < 0){
-            request.getSession().setAttribute("calorieNormExceeded", new ErrorMessageManager(locale).getProperty("exceeded.daily.norm"));
-/*
-            request.getSession().setAttribute("calorieNormExceeded", "<fmt:message key=\"calories.remaining\"/> ");
-*/
+            request.getSession().setAttribute("calorieNormExceeded",
+                    new ErrorMessageManager((Locale) request.getSession().getAttribute("locale")).getProperty("exceeded.daily.norm"));
 
         }
+
         return "/WEB-INF/jsp/user/user_page.jsp";
     }
 }

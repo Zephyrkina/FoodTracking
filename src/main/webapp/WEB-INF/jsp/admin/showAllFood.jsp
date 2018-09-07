@@ -111,56 +111,6 @@
             </c:forEach>
         </div>
 
-
-       <%--
-        <table class="table table-striped table-bordered table-sm">
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Calories</th>
-                <th>Carbohydrates</th>
-                <th>Fats</th>
-                <th>Proteins</th>
-                <th>Edit</th>
-                <th>Delete</th>
-
-            </tr>
-
-            <c:forEach items="${foodList}" var="food">
-                <tr>
-                    <td>${food.id}</td>
-                    <td>${food.name}</td>
-                    <td>${food.calories}</td>
-                    <td>${food.carbohydrates}</td>
-                    <td>${food.fats}</td>
-                    <td>${food.proteins}</td>
-
-                    <form method="post" action="${pageContext.request.contextPath}/WEB-INF/jsp/admin/editFood.jsp">
-
-                        <input type="hidden" name="food_id" value="${food.id}">
-                        <input type="hidden" name="food_name" value="${food.name}">
-                        <input type="hidden" name="food_calories" value="${food.calories}">
-                        <input type="hidden" name="food_carbs" value="${food.carbohydrates}">
-                        <input type="hidden" name="food_fats" value="${food.fats}">
-                        <input type="hidden" name="food_proteins" value="${food.proteins}">
-
-                        <input type="hidden" name="current_page" value="${currentPage}">
-                        <input type="hidden" name="no_of_pages" value="${noOfPages}">
-                        <input type="hidden" name="records_per_page" value="${recordsPerPage}">
-
-                        <td><input type="submit" value="Edit"></td>
-                    </form>
-                    <form method="post" action="${pageContext.request.contextPath}/app/deleteFood">
-                        <input type="hidden" name="food_id" value="${food.id}">
-                        <input type="hidden" name="current_page" value="${currentPage}">
-                        <input type="hidden" name="no_of_pages" value="${noOfPages}">
-                        <input type="hidden" name="records_per_page" value="${recordsPerPage}">
-                        <td><input type="submit" value="Delete"></td>
-                    </form>
-                </tr>
-            </c:forEach>
-        </table>--%>
-
         <ul class="pagination">
             <c:if test="${currentPage != 1}">
                 <li class="page-item"><a class="page-link"

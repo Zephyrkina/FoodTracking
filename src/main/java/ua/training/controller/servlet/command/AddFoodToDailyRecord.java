@@ -19,41 +19,16 @@ import java.util.Locale;
 public class AddFoodToDailyRecord implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Locale locale = (Locale) request.getSession().getAttribute("locale");
-        RegexManager regexManager = new RegexManager(locale);
-        UserService userService = new UserService();
-        DailyRecordService dailyRecordService = new DailyRecordService();
+        RegexManager regexManager = new RegexManager((Locale) request.getSession().getAttribute("locale"));
         InputDataUtils inputDataUtils = new InputDataUtils();
 
 
-
-        int userId = userService.getUserIdByLogin((String)request.getSession().getAttribute("login"));
+        int userId = new UserService().getUserIdByLogin((String)request.getSession().getAttribute("login"));
         int foodId = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_id", regexManager.getProperty("int.numbers")));
         int quantity = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_quantity", regexManager.getProperty("int.numbers")));
-        LocalDate date = LocalDate.now();
 
+        new DailyRecordService().addFoodToDailyRecord(foodId, quantity, LocalDate.now(), userId);
 
-
-        dailyRecordService.addFoodToDailyRecord(foodId, quantity, date, userId);
-
-       /* int consumedCalories = dailyRecordService.getTotalCalories(userId, LocalDate.now());
-        int calorieNorm = userService.getCalorieNorm(userId);
-        int diff = calorieNorm - consumedCalories;
-
-        request.getSession().setAttribute("consumedCalories", consumedCalories);
-        request.getSession().setAttribute("calorieNorm", calorieNorm);
-        request.getSession().setAttribute("difference", diff);
-
-
-        if (calorieNorm - consumedCalories < 0){
-            request.getSession().setAttribute("calorieNormExceeded", "You have exceeded daily calorie norm!");
-        }*/
-/*
-        try {
-            dailyRecordService.getTotalCalories(userId, LocalDate.now());
-        } catch (ExceededCalorieNormException e) {
-            request.getSession().setAttribute("calorieNormExceeded", e.getMessage());
-        }*/
 
         return "/app/user";
     }

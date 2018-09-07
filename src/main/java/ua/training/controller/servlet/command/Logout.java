@@ -8,12 +8,8 @@ public class Logout implements Command{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        //request.getServletContext().removeAttribute((String)request.getSession().getAttribute("login"));
         request.getSession().invalidate();
 
-/*
-        return "redirect:/WEB-INF/jsp/index.jsp";
-*/
         return "redirect:/index.jsp";
 
 

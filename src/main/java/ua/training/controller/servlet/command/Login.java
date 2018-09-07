@@ -8,6 +8,7 @@ import ua.training.model.exception.ExceededCalorieNormException;
 import ua.training.model.exception.ItemNotFoundException;
 import ua.training.model.service.DailyRecordService;
 import ua.training.model.service.UserService;
+import ua.training.model.service.resourse.manager.ErrorMessageManager;
 import ua.training.model.service.resourse.manager.RegexManager;
 
 import org.apache.logging.log4j.*;
@@ -34,39 +35,30 @@ public class Login implements Command{
         private final Logger log = Logger.getLogger();
 */
 
-        Locale locale = (Locale) request.getSession().getAttribute("locale");
-        System.out.println("locale in login: " + locale);
-
-
-
         InputDataUtils inputDataUtils = new InputDataUtils();
-        RegexManager regexManager = new RegexManager(locale);
+        RegexManager regexManager = new RegexManager((Locale) request.getSession().getAttribute("locale"));
         UserService userService = new UserService();
-        DailyRecordService dailyRecordService = new DailyRecordService();
 
-        String login1 = request.getParameter("input_login");
-        String password1 = request.getParameter("input_password");
-
-        if ( login1 == null && password1 == null) {
+        if ( request.getParameter("input_login") == null && request.getParameter("input_password") == null) {
             return "/WEB-INF/jsp/login.jsp";
         }
 
         String login = inputDataUtils.readCorrectData(request, "input_login", regexManager.getProperty("login"));
         String password = inputDataUtils.readCorrectData(request,"input_password", regexManager.getProperty("password"));
 
-
-
         try {
             userService.checkLoginExists(login);
         } catch(ItemNotFoundException e) {
-            request.setAttribute("userNotFound", "User with login \"" + login + "\" doesn't exist");
+            request.setAttribute("userNotFound",
+                    new ErrorMessageManager((Locale) request.getSession().getAttribute("locale")).getProperty("user.not.found"));
             return "/WEB-INF/jsp/login.jsp";
         }
 
         try {
             userService.checkPasswordCorrect(password);
         } catch(ItemNotFoundException e) {
-            request.setAttribute("wrong_input_password", "Wrong password");
+            request.setAttribute("wrong_input_password",
+                    new ErrorMessageManager((Locale) request.getSession().getAttribute("locale")).getProperty("wrong.user.password"));
             return "/WEB-INF/jsp/login.jsp";
 
         }
@@ -84,39 +76,12 @@ public class Login implements Command{
             ((HttpSession) request.getServletContext().getAttribute(login)).invalidate();
         }
         User.ROLE role = userService.getRoleByLoginPassword(login, password);
-        //String role = userService.getRoleByLoginPassword(login, password).toString();
 
         request.getSession().setAttribute("login", login);
         request.getSession().setAttribute("role", role.toString());
         request.getServletContext().setAttribute(login, request.getSession());
-        System.out.println(role);
-        String roleString = role.toString().toLowerCase();
 
-       int userId = userService.getUserIdByLogin(login);
-
-        /*int consumedCalories = dailyRecordService.getTotalCalories(userId, LocalDate.now());
-        int calorieNorm = userService.getCalorieNorm(userId);
-        int diff = calorieNorm - consumedCalories;
-
-        request.getSession().setAttribute("consumedCalories", consumedCalories);
-        request.getSession().setAttribute("calorieNorm", calorieNorm);
-        request.getSession().setAttribute("difference", diff);
-
-
-        if (calorieNorm - consumedCalories < 0){
-            request.getSession().setAttribute("calorieNormExceeded", "You have exceeded daily calorie norm!");
-        }*/
-
-/*
-        loginLogger.info(login);
-*/
-
-/*
-        return "redirect:/WEB-INF/jsp/" + roleString +"/"+ roleString +"_page.jsp";
-*/
         return "redirect:/app/user";
-
-
 
     }
 }

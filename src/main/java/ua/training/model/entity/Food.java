@@ -12,18 +12,10 @@ public class Food {
     //TODO overrride hash and equals??
 
 
-    //TODO add popular food statistics
 
     public Food() {
     }
 
-    public Food(String name, int calories, int carbohydrates, int fats, int proteins) {
-        this.name = name;
-        this.calories = calories;
-        this.carbohydrates = carbohydrates;
-        this.fats = fats;
-        this.proteins = proteins;
-    }
 
     public Food(int id, String name, int calories, int carbohydrates, int fats, int proteins, int quantity) {
         this.id = id;

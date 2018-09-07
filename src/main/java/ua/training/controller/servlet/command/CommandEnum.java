@@ -6,11 +6,6 @@ public enum CommandEnum {
             this.command = new Login();
         }
     },
-    SHOWALLUSERSCOMMAND {
-        {
-            this.command = new ShowAllUsersCommand();
-        }
-    },
     SHOWALLFOOD {
         {
             this.command = new ShowAllFood();
@@ -64,11 +59,6 @@ public enum CommandEnum {
     USER{
         {
             this.command = new User();
-        }
-    },
-    ADMIN{
-        {
-            this.command = new Admin();
         }
     },
     LOGOUT{
