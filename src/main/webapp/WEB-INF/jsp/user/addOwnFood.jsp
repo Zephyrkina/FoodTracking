@@ -39,10 +39,17 @@
                 <div class="main-login-form">
                     <div class="login-group">
                         <div class="form-group">
-                            <label for="own_foodname" class="sr-only">Foodname</label>
-                            <input type="text" name="own_food_name" value="${own_food_name}" placeholder="<fmt:message key="food.name"/>" class="form-control" id="own_foodname" >
+                            <label for="own_foodname_en" class="sr-only">Foodname</label>
+                            <input type="text" name="own_food_name_en" value="${own_food_name_en}" placeholder="<fmt:message key="food.name.en"/>" class="form-control" id="own_foodname_en" >
                         </div>
-                        <div class="error-alert">${wrong_own_food_name}</div>
+                        <div class="error-alert">${wrong_own_food_name_en}</div>
+                        <div class="error-alert">${requestScope.foodAlreadyExists} </div>
+
+                        <div class="form-group">
+                            <label for="own_foodname" class="sr-only">Foodname</label>
+                            <input type="text" name="own_food_name_ua" value="${own_food_name_ua}" placeholder="<fmt:message key="food.name.ua"/>" class="form-control" id="own_foodname" >
+                        </div>
+                        <div class="error-alert">${wrong_own_food_name_ua}</div>
                         <div class="error-alert">${requestScope.foodAlreadyExists} </div>
 
                         <div class="form-group">

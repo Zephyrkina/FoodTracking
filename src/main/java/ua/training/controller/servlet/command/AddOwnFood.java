@@ -40,7 +40,8 @@ public class AddOwnFood implements Command{
         UserService userService = new UserService();
         FoodService foodService = new FoodService();
 
-        if (request.getParameter("own_food_name") == null
+        if (request.getParameter("own_food_name_en") == null
+                && request.getParameter("own_food_name_ua") == null
                 && request.getParameter("own_food_calories") == null
                 && request.getParameter("own_food_carbs") == null
                 && request.getParameter("own_food_fats") == null
@@ -51,21 +52,22 @@ public class AddOwnFood implements Command{
 
 
 
-        String nameEn = null;
-        String nameUa = null;
+        String nameEn = inputDataUtils.readCorrectData(request, "own_food_name_en", regexManager.getProperty("own.name.en"));
+        String nameUa = inputDataUtils.readCorrectData(request, "own_food_name_ua", regexManager.getProperty("own.name.ua"));
 
-        if(locale.toString().equals("uk_UA")){
 
-            nameUa = inputDataUtils.readCorrectData(request, "own_food_name", regexManager.getProperty("name"));
+        /*if(locale.toString().equals("uk_UA")){
+
+            nameUa = inputDataUtils.readCorrectData(request, "own_food_name_ua", regexManager.getProperty("name"));
             System.out.println("ua:" + nameUa);
         }
         if(locale.toString().equals("en_US")){
-            nameEn = inputDataUtils.readCorrectData(request, "own_food_name", regexManager.getProperty("name"));
+            nameEn = inputDataUtils.readCorrectData(request, "own_food_name_en", regexManager.getProperty("name"));
             System.out.println("en:" + nameEn);
 
 
         }
-
+*/
 /*
         String name = inputDataUtils.readCorrectData(request, "own_food_name", regexManager.getProperty("name"));
 */

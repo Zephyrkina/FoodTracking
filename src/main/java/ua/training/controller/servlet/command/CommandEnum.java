@@ -56,6 +56,11 @@ public enum CommandEnum {
             this.command = new Registration();
         }
     },
+    CHANGELANGUAGE {
+        {
+            this.command = new ChangeLanguage();
+        }
+    },
     USER{
         {
             this.command = new User();

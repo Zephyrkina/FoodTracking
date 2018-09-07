@@ -33,10 +33,10 @@
                 <fmt:message key="summary"/>
             </div>
             <div class="user-container-main row">
-                <div class="user-image-container col-lg-2">
+                <div class="user-image-container col-2 col-sm-2 col-md-2 col-lg-2">
                     <img class="user-image" src="<c:url value='/img/default-user-image.png'/>" alt="userPhoto">
                 </div>
-                <div class=" col-lg-8">
+                <div class=" col-8 col-sm-8 col-md-8 col-lg-8 col-lg-8">
                     <div style="margin-bottom: 30px;"> ${sessionScope.login}</div>
 
                     <p> <fmt:message key="calories.remaining"/> </p>

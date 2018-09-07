@@ -33,12 +33,12 @@
 
         <c:if test="${requestScope.foodList != null }">
             <div class="row">
-                <div class="col-lg-2"><fmt:message key="food.table.name"/></div>
-                <div class="col-lg-2"><fmt:message key="food.table.calories"/></div>
-                <div class="col-lg-2"><fmt:message key="food.table.carbs"/></div>
-                <div class="col-lg-2"><fmt:message key="food.table.fats"/></div>
-                <div class="col-lg-2"><fmt:message key="food.table.proteins"/></div>
-                <div class="col-lg-2"><fmt:message key="food.table.weight"/></div>
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.name"/></div>
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.calories"/></div>
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.carbs"/></div>
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.fats"/></div>
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.proteins"/></div>
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.weight"/></div>
 
             </div>
             <div style="margin:30px 0px; height: 1px; background:gray;"></div>
@@ -46,38 +46,16 @@
 
         <c:forEach items="${requestScope.foodList}" var="food" >
             <div class="row">
-                <div class="col-lg-2">${food.name}</div>
-                <div class="col-lg-2"> ${food.calories}</div>
-                <div class="col-lg-2">${food.carbohydrates}</div>
-                <div class="col-lg-2">${food.fats}</div>
-                <div class="col-lg-2">${food.proteins}</div>
-                <div class="col-lg-2">${food.quantity}</div>
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.name}</div>
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2"> ${food.calories}</div>
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.carbohydrates}</div>
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.fats}</div>
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.proteins}</div>
+                <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.quantity}</div>
 
             </div>
         </c:forEach>
     </div>
-   <%--
-    <div>
-&lt;%&ndash;
-        <a href="${pageContext.request.contextPath}/app/showTodaysFoodList">Show today's meals</a>
-&ndash;%&gt;
-        <p>${requestScope.foodListIsEmpty}</p>
-
-
-
-        <c:forEach items="${requestScope.foodList}" var="food" >
-            <div class="row">
-                <div class="col-lg-2">${food.id}</div>
-                <div class="col-lg-2">${food.name}</div>
-                <div class="col-lg-2"> ${food.calories}</div>
-                <div class="col-lg-2">${food.fats}</div>
-                <div class="col-lg-2">${food.proteins}</div>
-                <div class="col-lg-2">${food.carbohydrates}</div>
-
-            </div>
-        </c:forEach>
-
-    </div>--%>
 
 
 </div>

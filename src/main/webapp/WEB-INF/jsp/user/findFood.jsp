@@ -58,26 +58,17 @@
         <!-- end:Main Form -->
     </div>
 
-   <%-- <form action="${pageContext.request.contextPath}/app/findFoodByName" method="post">
-        <h3>Input food name for search</h3>
-        <input type="text" name="search_food_name">
-        <input class="button" type="submit" value="Search">
-    </form>
-
-    <p>${errorMessage}</p>
-    <p>${wrong_search_food_name}</p>--%>
-
 
     <div>
         <c:if test="${requestScope.foods != null }">
         <div class="row">
-            <div class="col-lg-2"><fmt:message key="food.table.name"/></div>
-            <div class="col-lg-2"><fmt:message key="food.table.calories"/></div>
-            <div class="col-lg-2"><fmt:message key="food.table.carbs"/></div>
-            <div class="col-lg-2"><fmt:message key="food.table.fats"/></div>
-            <div class="col-lg-2"><fmt:message key="food.table.proteins"/></div>
-            <div class="col-lg-1"><fmt:message key="food.table.weight"/></div>
-            <div class="col-lg-1"><fmt:message key="food.table.add"/></div>
+            <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.name"/></div>
+            <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.calories"/></div>
+            <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.carbs"/></div>
+            <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.fats"/></div>
+            <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.proteins"/></div>
+            <div class="col-1 col-sm-1 col-md-1 col-lg-1"><fmt:message key="food.table.weight"/></div>
+            <div class="col-1 col-sm-1 col-md-1 col-lg-1"><fmt:message key="food.table.add"/></div>
         </div>
         </c:if>
         <c:forEach items="${requestScope.foods}" var="food" >
@@ -85,11 +76,11 @@
             <form method="post" action="${pageContext.request.contextPath}/app/addFoodToDailyRecord">
                 <div class="row">
 
-                    <div class="col-lg-2">${food.name}</div>
-                    <div class="col-lg-2"> ${food.calories}</div>
-                    <div class="col-lg-2"> ${food.carbohydrates}</div>
-                    <div class="col-lg-2">${food.fats}</div>
-                    <div class="col-lg-2">${food.proteins}</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.name}</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2"> ${food.calories}</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2"> ${food.carbohydrates}</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.fats}</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.proteins}</div>
 
                     <input type="hidden" name="food_id" value="${food.id}">
                     <input type="hidden" name="food_name" value="${food.name}">
@@ -98,16 +89,12 @@
                     <input type="hidden" name="food_fats" value="${food.fats}">
                     <input type="hidden" name="food_proteins" value="${food.proteins}">
 
-                    <div class="col-lg-1"><input style="width: 60px" type="text" placeholder="<fmt:message key="food.weight"/>" name="food_quantity" pattern="[0-9]{1,4}"></div>
-                    <div class="col-lg-1"><input class="button" type="submit" value="<fmt:message key="food.table.add"/>"></div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1"><input style="width: 60px" type="text" placeholder="<fmt:message key="food.weight"/>" name="food_quantity" pattern="[0-9]{1,4}"></div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1"><input class="button" type="submit" value="<fmt:message key="food.table.add"/>"></div>
                 </div>
             </form>
         </c:forEach>
     </div>
-<%--
-    <p>${cantFindFoodMessage}</p>
---%>
-
 
 
 

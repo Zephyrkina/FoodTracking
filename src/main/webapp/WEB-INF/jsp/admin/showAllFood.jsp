@@ -59,27 +59,27 @@
         <div>
             <c:if test="${requestScope.foodList != null }">
                 <div class="row">
-                    <div class="col-lg-1"><fmt:message key="food.table.id"/></div>
-                    <div class="col-lg-2"><fmt:message key="food.table.name"/></div>
-                    <div class="col-lg-2"><fmt:message key="food.table.calories"/></div>
-                    <div class="col-lg-2"><fmt:message key="food.table.carbs"/></div>
-                    <div class="col-lg-2"><fmt:message key="food.table.fats"/></div>
-                    <div class="col-lg-1"><fmt:message key="food.table.proteins"/></div>
-                    <div class="col-lg-1"><fmt:message key="food.table.edit"/></div>
-                    <div class="col-lg-1"><fmt:message key="food.table.delete"/></div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1"><fmt:message key="food.table.id"/></div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.name"/></div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.calories"/></div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.carbs"/></div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.fats"/></div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1"><fmt:message key="food.table.proteins"/></div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1"><fmt:message key="food.table.edit"/></div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1"><fmt:message key="food.table.delete"/></div>
                 </div>
                 <div style="margin:30px 0px; height: 1px; background:gray;"></div>
 
             </c:if>
             <c:forEach items="${foodList}" var="food">
                 <div class="row">
-                    <div class="col-lg-1">${food.id}</div>
-                    <div class="col-lg-2">${food.name}</div>
-                    <div class="col-lg-2">${food.calories}</div>
-                    <div class="col-lg-2">${food.carbohydrates}</div>
-                    <div class="col-lg-2">${food.fats}</div>
-                    <div class="col-lg-1">${food.proteins}</div>
-                    <div class="col-lg-1">
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1">${food.id}</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.name}</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.calories}</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.carbohydrates}</div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.fats}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1">${food.proteins}</div>
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1">
                     <form method="post" action="${pageContext.request.contextPath}/app/editFood">
 
                         <input type="hidden" name="food_id" value="${food.id}">
@@ -96,7 +96,7 @@
                         <input class="button" type="submit" value="Edit">
                     </form>
                     </div>
-                    <div class="col-lg-1">
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1">
                     <form method="post" action="${pageContext.request.contextPath}/app/deleteFood">
                         <input type="hidden" name="food_id" value="${food.id}">
                         <input type="hidden" name="current_page" value="${currentPage}">
