@@ -83,6 +83,7 @@
                     <form method="post" action="${pageContext.request.contextPath}/app/editFood">
 
                         <input type="hidden" name="food_id" value="${food.id}">
+
                         <input type="hidden" name="food_name" value="${food.name}">
                         <input type="hidden" name="food_calories" value="${food.calories}">
                         <input type="hidden" name="food_carbs" value="${food.carbohydrates}">
@@ -92,6 +93,7 @@
                         <input type="hidden" name="current_page" value="${currentPage}">
                         <input type="hidden" name="no_of_pages" value="${noOfPages}">
                         <input type="hidden" name="records_per_page" value="${recordsPerPage}">
+                        <input type="hidden" name="toEditPage" value="yes">
 
                         <input class="button" type="submit" value="Edit">
                     </form>

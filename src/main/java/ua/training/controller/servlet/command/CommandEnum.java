@@ -78,9 +78,6 @@ public enum CommandEnum {
     };
 
 
-  /*  LOGIN (new Login()),
-    LOGOUT ( new Logout());*/
-
     Command command;
 
     public Command getCurrentCommand() {

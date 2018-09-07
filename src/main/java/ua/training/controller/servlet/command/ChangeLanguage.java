@@ -7,15 +7,15 @@ import java.io.IOException;
 public class ChangeLanguage implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+/*
         String page = request.getParameter("command");
         if (request.getParameter("query") != null) {
             page += "?" + request.getParameter("query");
         }
 
-        System.out.println(page);
+        System.out.println(page);*/
 
 
-        return page;
+        return "/index.jsp";
     }
 }

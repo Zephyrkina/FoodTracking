@@ -32,22 +32,21 @@
             <div class="  header__form ">
                <%-- <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language: pageContext.request.locale}" scope="session"/>
                 <fmt:setLocale value="${language}" scope="session" />--%>
-<%--
                 <form method="post" action="${pageContext.request.contextPath}/app/changeLanguage">
                     <select id="language" name="language" onchange="submit()"  class="header__form" >
                         <option value="en_US" ${language == 'en_US' ? 'selected' : ''}>English</option>
                         <option value="uk_UA" ${language == 'uk_UA' ? 'selected' : ''}>Ukrainian</option>
                     </select>
-                </form>--%>
+                </form>
 
-                   <form method="post" <%--action="${pageContext.request.contextPath}/app/changeLanguage"--%>>
-                       <input type="hidden" name="command" value="${pageContext.request.requestURI}"/>
-                       <input type="hidden" name="query" value="${pageContext.request.queryString}"/>
-                       <input name="language" type="submit" value="en_US"
-                           ${language=='en_US' ? 'selected' : '' } src = "image/US.png" style="height: 30px; width: 30px;">
-                       <input name="language" type="submit" value="uk_UA"
-                           ${language=='uk_UA' ? 'selected' : '' } src = "image/UA.png" style="height: 30px; width: 30px;">
-                   </form>
+                   <%--<form method="post" &lt;%&ndash;action="${pageContext.request.contextPath}/app/changeLanguage"&ndash;%&gt;>--%>
+                       <%--<input type="hidden" name="command" value="${pageContext.request.requestURI}"/>--%>
+                       <%--<input type="hidden" name="query" value="${pageContext.request.queryString}"/>--%>
+                       <%--<input name="language" type="submit" value="en_US"--%>
+                           <%--${language=='en_US' ? 'selected' : '' } src = "image/US.png" style="height: 30px; width: 30px;">--%>
+                       <%--<input name="language" type="submit" value="uk_UA"--%>
+                           <%--${language=='uk_UA' ? 'selected' : '' } src = "image/UA.png" style="height: 30px; width: 30px;">--%>
+                   <%--</form>--%>
 
 
 

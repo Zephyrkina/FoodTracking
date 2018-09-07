@@ -67,6 +67,7 @@
                         <input type="hidden" name="current_page" value="${param.current_page}">
                         <input type="hidden" name="no_of_pages" value="${param.no_of_page}">
                         <input type="hidden" name="records_per_page" value="${param.records_per_page}">
+                        <input type="hidden" name="toEditPage" value="no">
 
 
                     </div>

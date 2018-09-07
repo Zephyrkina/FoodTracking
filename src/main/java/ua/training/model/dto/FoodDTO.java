@@ -28,7 +28,6 @@ public class FoodDTO {
 
     public Food convertToLocalizatedFood(Locale locale){
         String lang = locale.getLanguage();
-        System.out.println("language in dto: " + lang);
 
         return new FoodBuilder()
                 .setId(id)

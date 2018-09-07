@@ -22,22 +22,26 @@ public class EditFood implements Command {
 
         RegexManager regexManager = new RegexManager(locale);
 
+        if(request.getParameter("toEditPage").equals("yes")){
+            return "/WEB-INF/jsp/admin/editFood.jsp";
+        }
+
         InputDataUtils inputDataUtils = new InputDataUtils();
         FoodService foodService = new FoodService();
 
         int currentPage = Integer.parseInt(request.getParameter("current_page"));
         int recordsPerPage = Integer.parseInt(request.getParameter("records_per_page"));
 
-        String localeString =locale.toString();
+        String localeString = locale.toString();
 
         String nameEn = null;
         String nameUa = null;
 
-        if(localeString.contains("uK")){
-            nameUa = inputDataUtils.readCorrectData(request, "own_food_name", regexManager.getProperty("name"));
+        if(localeString.contains("uk")){
+            nameUa = inputDataUtils.readCorrectData(request, "food_name", regexManager.getProperty("name"));
         }
         if(localeString.contains("en")){
-            nameEn = inputDataUtils.readCorrectData(request, "own_food_name", regexManager.getProperty("name"));
+            nameEn = inputDataUtils.readCorrectData(request, "food_name", regexManager.getProperty("name"));
 
         }
 
@@ -68,7 +72,7 @@ public class EditFood implements Command {
                 .setProteins(proteins)
                 .build();
 
-        foodService.editFood(food);
+        System.out.println(food.toString());
 
 /*
         return "redirect:/app/showAllFood?currentPage="+ currentPage+"&recordsPerPage=" + recordsPerPage;

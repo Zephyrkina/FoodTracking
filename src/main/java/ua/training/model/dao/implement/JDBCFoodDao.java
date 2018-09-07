@@ -116,9 +116,9 @@ public class JDBCFoodDao implements FoodDao {
             preparedStatement.setInt(3, entity.getCarbohydrates());
             preparedStatement.setInt(4, entity.getFats());
             preparedStatement.setInt(5, entity.getProteins());
-            preparedStatement.setInt(6, entity.getId());
-            preparedStatement.setString(7, entity.getNameUa());
 
+            preparedStatement.setString(6, entity.getNameUa());
+            preparedStatement.setInt(7, entity.getId());
 
             result =  preparedStatement.executeUpdate();
         } catch (SQLException e) {
