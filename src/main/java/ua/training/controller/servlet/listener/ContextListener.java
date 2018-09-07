@@ -1,4 +1,4 @@
-package ua.training.controller.servlet;
+package ua.training.controller.servlet.listener;
 
 import ua.training.model.entity.User;
 

@@ -1,7 +1,7 @@
 package ua.training.model.dao.mapper;
 
 import ua.training.model.entity.User;
-import ua.training.model.entity.builder.UserBuilder;
+import ua.training.model.builder.UserBuilder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

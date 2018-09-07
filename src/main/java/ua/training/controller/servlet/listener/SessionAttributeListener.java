@@ -1,4 +1,4 @@
-package ua.training.controller.servlet;
+package ua.training.controller.servlet.listener;
 
 import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.annotation.WebListener;

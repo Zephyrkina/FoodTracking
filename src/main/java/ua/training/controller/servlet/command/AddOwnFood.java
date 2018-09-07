@@ -2,23 +2,17 @@ package ua.training.controller.servlet.command;
 
 import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.dto.FoodDTO;
-import ua.training.model.entity.Food;
-import ua.training.model.entity.builder.FoodBuilder;
-import ua.training.model.entity.builder.FoodDTOBuilder;
+import ua.training.model.builder.FoodBuilder;
+import ua.training.model.builder.FoodDTOBuilder;
 import ua.training.model.exception.ItemAlreadyExists;
-import ua.training.model.service.DailyRecordService;
 import ua.training.model.service.FoodService;
 import ua.training.model.service.UserService;
-import ua.training.model.service.resourse.manager.ErrorMessageManager;
 import ua.training.model.service.resourse.manager.RegexManager;
-import ua.training.model.service.resourse.manager.ResourceManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.Locale;
 
 public class AddOwnFood implements Command{

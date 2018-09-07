@@ -1,12 +1,10 @@
 package ua.training.model.dao.mapper;
 
 import ua.training.model.entity.DailyRecord;
-import ua.training.model.entity.Food;
-import ua.training.model.entity.builder.DailyRecordBuilder;
+import ua.training.model.builder.DailyRecordBuilder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.Map;
 
 public class DailyRecordMapper implements ObjectMapper<DailyRecord> {

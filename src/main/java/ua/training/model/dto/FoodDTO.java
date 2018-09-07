@@ -1,7 +1,7 @@
 package ua.training.model.dto;
 
 import ua.training.model.entity.Food;
-import ua.training.model.entity.builder.FoodBuilder;
+import ua.training.model.builder.FoodBuilder;
 
 import java.util.Locale;
 

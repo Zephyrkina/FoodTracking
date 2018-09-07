@@ -1,4 +1,4 @@
-package ua.training.model.entity.builder;
+package ua.training.model.builder;
 
 import ua.training.model.entity.User;
 

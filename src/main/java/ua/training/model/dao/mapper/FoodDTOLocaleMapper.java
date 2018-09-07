@@ -1,7 +1,7 @@
 package ua.training.model.dao.mapper;
 
 import ua.training.model.dto.FoodDTO;
-import ua.training.model.entity.builder.FoodDTOBuilder;
+import ua.training.model.builder.FoodDTOBuilder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

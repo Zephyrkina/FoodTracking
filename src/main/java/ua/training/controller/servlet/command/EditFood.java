@@ -2,11 +2,9 @@ package ua.training.controller.servlet.command;
 
 import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.dto.FoodDTO;
-import ua.training.model.entity.Food;
-import ua.training.model.entity.builder.FoodBuilder;
-import ua.training.model.entity.builder.FoodDTOBuilder;
+import ua.training.model.builder.FoodBuilder;
+import ua.training.model.builder.FoodDTOBuilder;
 import ua.training.model.service.FoodService;
-import ua.training.model.service.UserService;
 import ua.training.model.service.resourse.manager.RegexManager;
 
 import javax.servlet.http.HttpServletRequest;

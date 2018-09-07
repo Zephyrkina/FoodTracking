@@ -1,9 +1,8 @@
 package ua.training.controller.servlet.command;
 
 import ua.training.controller.utils.InputDataUtils;
-import ua.training.model.entity.Food;
 import ua.training.model.entity.User;
-import ua.training.model.entity.builder.UserBuilder;
+import ua.training.model.builder.UserBuilder;
 import ua.training.model.exception.NotUniqueEmailException;
 import ua.training.model.exception.NotUniqueLoginException;
 import ua.training.model.service.UserService;
