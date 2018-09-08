@@ -50,7 +50,7 @@
                     </div>
                     <div style="color: red;">
                             ${requestScope.notSavedRecords}
-
+                            ${requestScope.recordsAreEmpty}
                     </div>
                 </div>
             </div>
