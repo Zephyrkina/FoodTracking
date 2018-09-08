@@ -17,8 +17,13 @@ import java.util.Date;
 import java.util.Locale;
 
 public class AddFoodToDailyRecord implements Command {
+    //TODO private static final green string
+    //TODO global interf contanrs
+
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         RegexManager regexManager = new RegexManager((Locale) request.getSession().getAttribute("locale"));
         InputDataUtils inputDataUtils = new InputDataUtils();
 

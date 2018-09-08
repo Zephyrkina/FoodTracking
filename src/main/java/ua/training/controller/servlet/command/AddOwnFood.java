@@ -22,6 +22,8 @@ public class AddOwnFood implements Command{
         RegexManager regexManager = new RegexManager((Locale) request.getSession().getAttribute("locale"));
         InputDataUtils inputDataUtils = new InputDataUtils();
 
+        //TODO think about replacing arraylists by linkedlists
+
         if (request.getParameter("own_food_name_en") == null
                 && request.getParameter("own_food_name_ua") == null
                 && request.getParameter("own_food_calories") == null

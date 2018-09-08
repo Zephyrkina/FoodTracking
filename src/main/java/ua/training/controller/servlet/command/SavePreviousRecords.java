@@ -1,5 +1,6 @@
 package ua.training.controller.servlet.command;
 
+import ua.training.model.exception.ItemNotFoundException;
 import ua.training.model.exception.OperationFailedException;
 import ua.training.model.service.DailyRecordService;
 import ua.training.model.service.FoodService;
@@ -25,6 +26,9 @@ public class SavePreviousRecords implements Command {
 
         } catch (OperationFailedException e) {
             request.setAttribute("notSavedRecords",  new ErrorMessageManager(locale).getProperty("records.not.saved"));
+        } catch (ItemNotFoundException e) {
+            request.setAttribute("recordsAreEmpty",  new ErrorMessageManager(locale).getProperty("records.are.empty"));
+
         }
 
 

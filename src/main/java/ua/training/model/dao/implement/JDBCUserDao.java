@@ -17,8 +17,6 @@ import java.util.List;
 public class JDBCUserDao implements UserDao {
     private Connection connection;
 
-    //TODO remove close() ?
-
     //TODO add resultset in try-with-res
 
     public JDBCUserDao(Connection connection) {
@@ -295,9 +293,6 @@ public class JDBCUserDao implements UserDao {
                 resultSet.next();
                 calorie_norm = resultSet.getInt("calorie_norm");
 
-               /* if(! resultSet.next()){
-                    throw new ItemNotFoundException();
-                }*/
             } catch (SQLException e) {
                 e.printStackTrace();
             }

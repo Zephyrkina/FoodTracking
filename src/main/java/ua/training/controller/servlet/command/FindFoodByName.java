@@ -28,7 +28,6 @@ public class FindFoodByName implements Command{
             return "/WEB-INF/jsp/user/findFood.jsp";
         }
 
-
         String nameEn = null;
         String nameUa = null;
 

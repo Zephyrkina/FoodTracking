@@ -15,9 +15,6 @@ import java.util.List;
 public class JDBCFoodDao implements FoodDao {
     private Connection connection;
 
-    //TODO remove close() ?
-
-
     public JDBCFoodDao(Connection connection) {
         this.connection = connection;
     }
