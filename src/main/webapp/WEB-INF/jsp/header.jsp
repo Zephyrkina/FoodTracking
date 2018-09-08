@@ -32,7 +32,7 @@
             <div class="  header__form ">
                <%-- <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language: pageContext.request.locale}" scope="session"/>
                 <fmt:setLocale value="${language}" scope="session" />--%>
-                <form method="post" action="${pageContext.request.contextPath}/app/changeLanguage">
+                <form method="post" action="${pageContext.request.contextPath}/user/changeLanguage">
                     <select id="language" name="language" onchange="submit()"  class="header__form" >
                         <option value="en_US" ${language == 'en_US' ? 'selected' : ''}>English</option>
                         <option value="uk_UA" ${language == 'uk_UA' ? 'selected' : ''}>Ukrainian</option>
@@ -59,10 +59,10 @@
                 <c:choose>
                     <c:when test="${sessionScope.role == 'GUEST'}">
                         <div>
-                            <a class="white__link" style="padding-right: 10px;" href="${pageContext.request.contextPath}/app/login">
+                            <a class="white__link" style="padding-right: 10px;" href="${pageContext.request.contextPath}/guest/login">
                                 <fmt:message key="login"/>
                             </a>
-                            <a class="white__link" href="${pageContext.request.contextPath}/app/registration">
+                            <a class="white__link" href="${pageContext.request.contextPath}/guest/registration">
                                 <fmt:message key="registration"/>
                             </a>
                         </div>
@@ -70,8 +70,8 @@
                     </c:when>
                     <c:otherwise>
                         <div >
-                            <a class="white__link " style="padding-right: 10px;" href="${pageContext.request.contextPath}/app/user"><fmt:message key="hello"/>, ${sessionScope.login}</a>
-                            <a class="white__link" href="${pageContext.request.contextPath}/app/logout">
+                            <a class="white__link " style="padding-right: 10px;" href="${pageContext.request.contextPath}/user/profile"><fmt:message key="hello"/>, ${sessionScope.login}</a>
+                            <a class="white__link" href="${pageContext.request.contextPath}/user/logout">
                                 <fmt:message key="logout"/>
                             </a>
                         </div>

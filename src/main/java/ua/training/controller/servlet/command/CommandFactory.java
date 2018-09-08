@@ -9,7 +9,7 @@ public class CommandFactory {
         Command current = new EmptyCommand();
 
         String action = request.getRequestURI();
-        action = action.replaceAll(".*/app/", "");
+        action = action.replaceAll(".*/guest/|.*/user/|.*/admin/", "");
 
 
         if(action == null || action.isEmpty()) {

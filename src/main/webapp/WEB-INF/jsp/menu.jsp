@@ -12,21 +12,21 @@
             <div class="menu-href">
 
                 <div class="">
-                    <a href="${pageContext.request.contextPath}/app/showTodaysFoodList"><fmt:message key="show.diary"/></a>
+                    <a href="${pageContext.request.contextPath}/user/showTodaysFoodList"><fmt:message key="show.diary"/></a>
                 </div>
                 <div class="">
-                    <a href="${pageContext.request.contextPath}/app/findFoodByName"><fmt:message key="find.food"/></a>
+                    <a href="${pageContext.request.contextPath}/user/findFoodByName"><fmt:message key="find.food"/></a>
                 </div>
                 <div class="">
-                    <a href="${pageContext.request.contextPath}/app/addOwnFood"><fmt:message key="add.food"/></a>
+                    <a href="${pageContext.request.contextPath}/user/addOwnFood"><fmt:message key="add.food"/></a>
                 </div>
                 <div class="">
-                    <a href="${pageContext.request.contextPath}/app/savePreviousRecords"><fmt:message key="save.records"/></a>
+                    <a href="${pageContext.request.contextPath}/user/savePreviousRecords"><fmt:message key="save.records"/></a>
                 </div>
 
                  <c:if test="${sessionScope.role == 'ADMIN'}">
                      <div>
-                         <a href="${pageContext.request.contextPath}/app/showAllFood"><fmt:message key="show.all.food"/></a>
+                         <a href="${pageContext.request.contextPath}/admin/showAllFood"><fmt:message key="show.all.food"/></a>
                      </div>
                  </c:if>
 

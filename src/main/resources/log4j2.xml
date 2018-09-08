@@ -11,7 +11,7 @@
     </Appenders>
 
     <Loggers>
-        <!--<Logger name= "ru.javastudy.examples.User" level="debug" additivity="true">
+        <!--<Logger name= "ru.javastudy.examples.Profile" level="debug" additivity="true">
             <AppenderRef ref="Console"/>
         </Logger>-->
 

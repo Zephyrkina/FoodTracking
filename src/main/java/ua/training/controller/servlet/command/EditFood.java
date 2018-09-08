@@ -64,7 +64,7 @@ public class EditFood implements Command {
 
         new FoodService().editFood(food);
 
-        return "/app/showAllFood?currentPage="+ Integer.parseInt(request.getParameter("current_page"))
+        return "/admin/showAllFood?currentPage="+ Integer.parseInt(request.getParameter("current_page"))
                 +"&recordsPerPage=" + Integer.parseInt(request.getParameter("records_per_page"));
 
     }

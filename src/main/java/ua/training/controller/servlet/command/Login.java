@@ -24,9 +24,7 @@ import java.util.Locale;
 import java.util.logging.Logger;
 
 public class Login implements Command{
-/*
     static final org.apache.logging.log4j.Logger loginLogger = LogManager.getLogger(Login.class);
-*/
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -55,7 +53,7 @@ public class Login implements Command{
         }
 
         try {
-            userService.checkPasswordCorrect(password);
+            userService.checkPasswordCorrect(login ,password);
         } catch(ItemNotFoundException e) {
             request.setAttribute("wrong_input_password",
                     new ErrorMessageManager((Locale) request.getSession().getAttribute("locale")).getProperty("wrong.user.password"));
@@ -81,7 +79,7 @@ public class Login implements Command{
         request.getSession().setAttribute("role", role.toString());
         request.getServletContext().setAttribute(login, request.getSession());
 
-        return "redirect:/app/user";
+        return "redirect:/user/profile";
 
     }
 }

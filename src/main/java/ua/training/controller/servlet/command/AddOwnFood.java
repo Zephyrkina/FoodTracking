@@ -68,7 +68,7 @@ public class AddOwnFood implements Command{
             return "/WEB-INF/jsp/user/addOwnFood.jsp";
         }
 
-        return "/WEB-INF/jsp/user/user_page.jsp";
+        return "/WEB-INF/jsp/user/userPage.jsp";
 
     }
 }

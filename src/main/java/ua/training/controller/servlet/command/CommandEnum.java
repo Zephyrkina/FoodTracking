@@ -56,9 +56,9 @@ public enum CommandEnum {
             this.command = new ChangeLanguage();
         }
     },
-    USER{
+    PROFILE{
         {
-            this.command = new User();
+            this.command = new Profile();
         }
     },
     LOGOUT{

@@ -32,6 +32,6 @@ public class SavePreviousRecords implements Command {
         }
 
 
-        return "/WEB-INF/jsp/user/user_page.jsp";
+        return "/WEB-INF/jsp/user/userPage.jsp";
     }
 }

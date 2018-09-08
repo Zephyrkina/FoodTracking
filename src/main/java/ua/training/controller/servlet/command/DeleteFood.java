@@ -16,6 +16,6 @@ public class DeleteFood implements Command {
 
         new FoodService().deleteFoodById(Integer.parseInt(request.getParameter("food_id")));
 
-        return "/app/showAllFood?currentPage="+ currentPage+"&recordsPerPage=" + recordsPerPage;
+        return "/admin/showAllFood?currentPage="+ currentPage+"&recordsPerPage=" + recordsPerPage;
     }
 }

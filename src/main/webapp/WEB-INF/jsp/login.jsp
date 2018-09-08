@@ -41,7 +41,7 @@
         <div class="logo"><fmt:message key="header"/></div>
         <!-- Main Form -->
         <div class="login-form-1">
-            <form id="login-form" class="text-left" method="post" action="${pageContext.request.contextPath}/app/login">
+            <form id="login-form" class="text-left" method="post" action="${pageContext.request.contextPath}/guest/login">
                 <div class="login-form-main-message"></div>
                 <div class="main-login-form">
                     <div class="login-group">
@@ -68,7 +68,7 @@
                 </div>
                 <div class="etc-login-form">
                     <p></p>
-                    <p><fmt:message key="question"/> <a href="${pageContext.request.contextPath}/app/registration"> <fmt:message key="new.user"/></a></p>
+                    <p><fmt:message key="question"/> <a href="${pageContext.request.contextPath}/guest/registration"> <fmt:message key="new.user"/></a></p>
                 </div>
             </form>
         </div>

@@ -263,19 +263,18 @@ public class JDBCUserDao implements UserDao {
     }
 
     @Override
-    public void checkPasswordCorrect(String userPassword) {
-        String sql1 = "select * from `user` where password = ?";
+    public void checkPasswordCorrect(String userLogin, String userPassword) {
+        String sql1 = "select * from `user` where password = ? and login = ?";
 
         try (PreparedStatement preparedStatement1 = connection.prepareStatement(sql1))
         {
             preparedStatement1.setString(1, userPassword);
-            try ( ResultSet resultSet = preparedStatement1.executeQuery()) {
+            preparedStatement1.setString(2, userLogin);
+             ResultSet resultSet = preparedStatement1.executeQuery();
                 if(! resultSet.next()){
                     throw new ItemNotFoundException();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

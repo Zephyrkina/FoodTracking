@@ -35,6 +35,6 @@ public class AddFoodToDailyRecord implements Command {
         new DailyRecordService().addFoodToDailyRecord(foodId, quantity, LocalDate.now(), userId);
 
 
-        return "/app/user";
+        return "/user/profile";
     }
 }

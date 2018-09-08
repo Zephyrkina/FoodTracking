@@ -39,14 +39,14 @@ public class Main {
 
        /*
         UserDao jdbcUserDao = jdbcDaoFactory.createUserDao();
-        User user = new User(10, "username", "1234", "email123", "Vasya", User.ROLE.USER, 18,
-        178, 67.0, User.LIFE_ACTIVITY.NORMAL , 2500 );
+        Profile user = new Profile(10, "username", "1234", "email123", "Vasya", Profile.ROLE.USER, 18,
+        178, 67.0, Profile.LIFE_ACTIVITY.NORMAL , 2500 );
 
         System.out.println(jdbcUserDao.create(user));
 
         System.out.println(jdbcUserDao.findById(15));
-        System.out.println(jdbcUserDao.update(new User(15, "username2", "1234", "email123", "Vasya", User.ROLE.USER, 18,
-                178, 67.0, User.LIFE_ACTIVITY.NORMAL , 2500 )));
+        System.out.println(jdbcUserDao.update(new Profile(15, "username2", "1234", "email123", "Vasya", Profile.ROLE.USER, 18,
+                178, 67.0, Profile.LIFE_ACTIVITY.NORMAL , 2500 )));
         System.out.println(jdbcUserDao.findById(15));
 
         System.out.println(jdbcUserDao.delete(15));*/

@@ -158,7 +158,7 @@ public class User implements Cloneable{
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Profile{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +

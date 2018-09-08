@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Locale;
 
-public class User implements Command {
+public class Profile implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         UserService userService = new UserService();
@@ -34,6 +34,6 @@ public class User implements Command {
 
         }
 
-        return "/WEB-INF/jsp/user/user_page.jsp";
+        return "/WEB-INF/jsp/user/userPage.jsp";
     }
 }

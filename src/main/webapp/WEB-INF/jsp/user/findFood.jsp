@@ -34,7 +34,7 @@
         <div class="logo"><fmt:message key="find.food.header"/></div>
         <!-- Main Form -->
         <div class="login-form-1">
-            <form id="login-form" class="text-left" action="${pageContext.request.contextPath}/app/findFoodByName" method="post">
+            <form id="login-form" class="text-left" action="${pageContext.request.contextPath}/user/findFoodByName" method="post">
                 <div class="login-form-main-message"></div>
                 <div class="main-login-form">
                     <div class="login-group">
@@ -73,7 +73,7 @@
         </c:if>
         <c:forEach items="${requestScope.foods}" var="food" >
             <div style="margin:30px 0px; height: 1px; background:gray;"></div>
-            <form method="post" action="${pageContext.request.contextPath}/app/addFoodToDailyRecord">
+            <form method="post" action="${pageContext.request.contextPath}/user/addFoodToDailyRecord">
                 <div class="row">
 
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.name}</div>

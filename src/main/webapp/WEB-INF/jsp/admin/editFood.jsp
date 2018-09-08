@@ -29,7 +29,7 @@
         <div class="logo"> <fmt:message key="edit.food.header"/></div>
         <!-- Main Form -->
         <div class="login-form-1">
-            <form id="login-form" class="text-left" action="${pageContext.request.contextPath}/app/editFood" method="post">
+            <form id="login-form" class="text-left" action="${pageContext.request.contextPath}/admin/editFood" method="post">
                 <div class="login-form-main-message"></div>
                 <div class="main-login-form">
                     <div class="login-group">

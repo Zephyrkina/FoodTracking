@@ -80,7 +80,7 @@
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.fats}</div>
                     <div class="col-1 col-sm-1 col-md-1 col-lg-1">${food.proteins}</div>
                     <div class="col-1 col-sm-1 col-md-1 col-lg-1">
-                    <form method="post" action="${pageContext.request.contextPath}/app/editFood">
+                    <form method="post" action="${pageContext.request.contextPath}/admin/editFood">
 
                         <input type="hidden" name="food_id" value="${food.id}">
 
@@ -99,7 +99,7 @@
                     </form>
                     </div>
                     <div class="col-1 col-sm-1 col-md-1 col-lg-1">
-                    <form method="post" action="${pageContext.request.contextPath}/app/deleteFood">
+                    <form method="post" action="${pageContext.request.contextPath}/admin/deleteFood">
                         <input type="hidden" name="food_id" value="${food.id}">
                         <input type="hidden" name="current_page" value="${currentPage}">
                         <input type="hidden" name="no_of_pages" value="${noOfPages}">
@@ -114,7 +114,7 @@
         <ul class="pagination">
             <c:if test="${currentPage != 1}">
                 <li class="page-item"><a class="page-link"
-                                         href="showAllFood?recordsPerPage=${recordsPerPage}&currentPage=${currentPage-1}"><fmt:message key="previous.page"/></a>
+                                         href="/admin/showAllFood?recordsPerPage=${recordsPerPage}&currentPage=${currentPage-1}"><fmt:message key="previous.page"/></a>
                 </li>
             </c:if>
 
@@ -127,7 +127,7 @@
                     </c:when>
                     <c:otherwise>
                         <li class="page-item"><a class="page-link"
-                                                 href="showAllFood?recordsPerPage=${recordsPerPage}&currentPage=${i}">${i}</a>
+                                                 href="/admin/showAllFood?recordsPerPage=${recordsPerPage}&currentPage=${i}">${i}</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -135,7 +135,7 @@
 
             <c:if test="${currentPage lt noOfPages}">
                 <li class="page-item"><a class="page-link"
-                                         href="showAllFood?recordsPerPage=${recordsPerPage}&currentPage=${currentPage+1}"><fmt:message key="next.page"/></a>
+                                         href="/admin/showAllFood?recordsPerPage=${recordsPerPage}&currentPage=${currentPage+1}"><fmt:message key="next.page"/></a>
                 </li>
             </c:if>
         </ul>

@@ -73,9 +73,9 @@ public class UserService {
         }
     }
 
-    public void checkPasswordCorrect(String password) {
+    public void checkPasswordCorrect(String login, String password) {
         try (UserDao userDao = daoFactory.createUserDao()) {
-            userDao.checkPasswordCorrect(password);
+            userDao.checkPasswordCorrect(login, password);
 
         }
     }

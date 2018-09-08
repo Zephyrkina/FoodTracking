@@ -29,7 +29,7 @@
         <div class="logo">register</div>
         <!-- Main Form -->
         <div class="login-form-1">
-            <form id="register-form" class="text-left" action="${pageContext.request.contextPath}/app/registration" method="post">
+            <form id="register-form" class="text-left" action="${pageContext.request.contextPath}/guest/registration" method="post">
                 <div class="login-form-main-message"></div>
                 <div class="main-login-form">
                     <div class="login-group">
@@ -104,7 +104,7 @@
                     <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
                 </div>
                 <div class="etc-login-form">
-                    <p>already have an account? <a href="${pageContext.request.contextPath}/app/login">login here</a></p>
+                    <p>already have an account? <a href="${pageContext.request.contextPath}/guest/login">login here</a></p>
                 </div>
             </form>
         </div>
