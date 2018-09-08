@@ -4,7 +4,7 @@ import ua.training.model.dao.implement.JDBCDaoFactory;
 import ua.training.model.entity.DailyRecord;
 
 public abstract class DaoFactory {
-    private static DaoFactory daoFactory;
+    private static volatile DaoFactory daoFactory;
 
     public abstract UserDao createUserDao();
     public abstract FoodDao createFoodDao();
@@ -14,8 +14,7 @@ public abstract class DaoFactory {
         if( daoFactory == null ){
             synchronized (DaoFactory.class){
                 if(daoFactory==null){
-                    DaoFactory temp = new JDBCDaoFactory();
-                    daoFactory = temp;
+                    daoFactory = new JDBCDaoFactory();
                 }
             }
         }
