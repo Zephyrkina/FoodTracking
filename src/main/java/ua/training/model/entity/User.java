@@ -1,6 +1,8 @@
 package ua.training.model.entity;
 
-public class User {
+import java.util.Objects;
+
+public class User implements Cloneable{
     private int id;
     private String login;
     private String password;
@@ -39,6 +41,31 @@ public class User {
         this.weight = weight;
         this.activity = activity;
         this.calorieNorm = calorieNorm;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                age == user.age &&
+                height == user.height &&
+                Double.compare(user.weight, weight) == 0 &&
+                calorieNorm == user.calorieNorm &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(name, user.name) &&
+                role == user.role &&
+                activity == user.activity;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, login, password, email, name, role, age, height, weight, activity, calorieNorm);
     }
 
     public int getId() {

@@ -4,13 +4,13 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SecurityConfig {
-    public static String ROLE_USER = "USER";
-    public static String ROLE_ADMIN = "ADMIN";
-    public static String ROLE_GUEST = "GUEST";
+    private static String ROLE_USER = "USER";
+    private static String ROLE_ADMIN = "ADMIN";
+    private static String ROLE_GUEST = "GUEST";
 
     //TODO make something with this class
 
-    private static final Map<String, List<String>> roleAccessConfig = new ConcurrentHashMap<>();
+    private static final Map<String, List<String>> roleAccessConfig = new HashMap<>();
 
     static {
         init();

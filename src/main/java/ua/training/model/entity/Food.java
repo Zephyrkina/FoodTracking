@@ -1,5 +1,7 @@
 package ua.training.model.entity;
 
+import java.util.Objects;
+
 public class Food {
     private int id;
     private String name;
@@ -9,13 +11,8 @@ public class Food {
     private int proteins;
     private int quantity;
 
-    //TODO overrride hash and equals??
-
-
-
     public Food() {
     }
-
 
     public Food(int id, String name, int calories, int carbohydrates, int fats, int proteins, int quantity) {
         this.id = id;
@@ -26,6 +23,26 @@ public class Food {
         this.proteins = proteins;
         this.quantity = quantity;
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Food food = (Food) o;
+        return id == food.id &&
+                calories == food.calories &&
+                carbohydrates == food.carbohydrates &&
+                fats == food.fats &&
+                proteins == food.proteins &&
+                quantity == food.quantity &&
+                Objects.equals(name, food.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, calories, carbohydrates, fats, proteins, quantity);
     }
 
     public int getId() {

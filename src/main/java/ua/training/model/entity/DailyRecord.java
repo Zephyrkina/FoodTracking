@@ -2,10 +2,7 @@ package ua.training.model.entity;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DailyRecord {
     int id;
@@ -29,6 +26,24 @@ public class DailyRecord {
         this.userId = userId;
         this.totalCalories = totalCalories;
         this.consumedFood = consumedFood;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DailyRecord that = (DailyRecord) o;
+        return id == that.id &&
+                userId == that.userId &&
+                totalCalories == that.totalCalories &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(consumedFood, that.consumedFood);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, date, userId, totalCalories, consumedFood);
     }
 
     public int getId() {
