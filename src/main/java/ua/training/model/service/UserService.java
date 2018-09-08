@@ -51,6 +51,13 @@ public class UserService {
         }
     }
 
+    public void deleteUser(User user){
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            userDao.delete(user.getId());
+
+        }
+    }
+
     public void checkUniqueLoginEmail(String login, String email){
         try (UserDao userDao = daoFactory.createUserDao()) {
             userDao.checkUniqueLoginEmail(login, email);
@@ -64,8 +71,7 @@ public class UserService {
         try (UserDao userDao = daoFactory.createUserDao()) {
             userDao.checkLoginExists(login);
         }
-
-        }
+    }
 
     public void checkPasswordCorrect(String password) {
         try (UserDao userDao = daoFactory.createUserDao()) {
@@ -78,11 +84,15 @@ public class UserService {
     public List<User> findAllUsers() {
         List<User> users = new ArrayList<>();
         try (UserDao dao = daoFactory.createUserDao()) {
-            users =  dao.findAll();
-        } catch (Exception e) {
-            e.printStackTrace();
+            users = dao.findAll();
         }
         return users;
+    }
+
+    public User findUserById(int userId) {
+        try (UserDao userDao = daoFactory.createUserDao()) {
+            return userDao.findById(userId);
+        }
     }
 
 }
