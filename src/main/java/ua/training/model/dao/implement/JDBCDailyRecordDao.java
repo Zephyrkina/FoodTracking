@@ -73,12 +73,9 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
             preparedStatement.setInt(1, userId);
             preparedStatement.setDate(2, Date.valueOf(date));
 
-            try ( ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    record_id = resultSet.getInt("id");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                record_id = resultSet.getInt("id");
             }
 
         } catch (SQLException e) {
@@ -102,9 +99,6 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
         String sql4 = "insert into record (name_en, quantity, calories, carbs, proteins, fats, diary_id) values (?, ?, ?, ?, ?, ?, ?)";
         String sql5 = "delete from daily_record where id = ?";
 
-
-        //TODO extract anything possible in methods
-
         try (PreparedStatement getAllStatement = connection.prepareStatement(sql1);
              PreparedStatement createFoodDiaryDayRecordStatement = connection.prepareStatement(sql2);
              PreparedStatement getIdStatement = connection.prepareStatement(sql3);
@@ -113,6 +107,7 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
              PreparedStatement deleteTemporaryRecordStatement = connection.prepareStatement(sql5)){
 
             connection.setAutoCommit(false);
+            //TODO set isolation level
 
             DailyRecordMapper dailyRecordMapper = new DailyRecordMapper();
             FoodMapper foodMapper = new FoodMapper();

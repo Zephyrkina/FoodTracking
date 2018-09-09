@@ -53,6 +53,7 @@ public class EditFood implements Command {
                 return "/WEB-INF/jsp/admin/editFood.jsp";
             }
         }
+
         FoodDTO food = new FoodDTOBuilder()
                 .setId(id)
                 .setNameEn(nameEn)

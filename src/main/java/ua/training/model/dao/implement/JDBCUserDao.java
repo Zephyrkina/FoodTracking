@@ -16,9 +16,7 @@ import java.util.List;
 
 public class JDBCUserDao implements UserDao {
     private Connection connection;
-
-    //TODO add resultset in try-with-res
-
+    
     public JDBCUserDao(Connection connection) {
         this.connection = connection;
     }
@@ -172,13 +170,9 @@ public class JDBCUserDao implements UserDao {
             preparedStatement.setString(1, userLogin);
             preparedStatement.setString(2, userPassword);
 
-            try ( ResultSet resultSet = preparedStatement.executeQuery()) {
-                resultSet.next();
-
-                role = User.ROLE.valueOf((resultSet.getString("role")).toUpperCase());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            role = User.ROLE.valueOf((resultSet.getString("role")).toUpperCase());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -196,12 +190,9 @@ public class JDBCUserDao implements UserDao {
 
             preparedStatement.setString(1, userLogin);
 
-            try ( ResultSet resultSet = preparedStatement.executeQuery()) {
-                resultSet.next();
-                userId = resultSet.getInt("id");
-                } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            userId = resultSet.getInt("id");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -209,7 +200,6 @@ public class JDBCUserDao implements UserDao {
         return userId;
     }
 
-    //TODO  try to remove many try
     @Override
     public void checkUniqueLoginEmail(String userLogin, String email) {
         String sql1 = "select * from `user` where login = ?";
@@ -220,22 +210,14 @@ public class JDBCUserDao implements UserDao {
 
             preparedStatement1.setString(1, userLogin);
 
-            try ( ResultSet resultSet = preparedStatement1.executeQuery()) {
-                if( resultSet.next()){
-                    throw new NotUniqueLoginException();
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
+            ResultSet resultSet = preparedStatement1.executeQuery();
+            if( resultSet.next()){
+                throw new NotUniqueLoginException();
             }
 
-            try ( ResultSet resultSet = preparedStatement2.executeQuery()) {
-                if(resultSet.next()){
-                    throw new NotUniqueEmailException();
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
+            resultSet = preparedStatement2.executeQuery();
+            if(resultSet.next()){
+                throw new NotUniqueEmailException();
             }
 
         } catch (SQLException e) {
@@ -250,13 +232,11 @@ public class JDBCUserDao implements UserDao {
         try (PreparedStatement preparedStatement1 = connection.prepareStatement(sql1))
         {
             preparedStatement1.setString(1, userLogin);
-            try ( ResultSet resultSet = preparedStatement1.executeQuery()) {
-                if(! resultSet.next()){
-                    throw new ItemNotFoundException();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            ResultSet resultSet = preparedStatement1.executeQuery();
+            if(! resultSet.next()){
+                throw new ItemNotFoundException();
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -288,13 +268,11 @@ public class JDBCUserDao implements UserDao {
         try (PreparedStatement preparedStatement1 = connection.prepareStatement(sql1))
         {
             preparedStatement1.setInt(1, userId);
-            try ( ResultSet resultSet = preparedStatement1.executeQuery()) {
-                resultSet.next();
-                calorie_norm = resultSet.getInt("calorie_norm");
+            ResultSet resultSet = preparedStatement1.executeQuery();
+            resultSet.next();
+            calorie_norm = resultSet.getInt("calorie_norm");
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
