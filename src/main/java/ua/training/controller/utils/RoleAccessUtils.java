@@ -7,9 +7,7 @@ public class RoleAccessUtils {
     private static String ROLE_USER = "USER";
     private static String ROLE_ADMIN = "ADMIN";
     private static String ROLE_GUEST = "GUEST";
-
-    //TODO make something with this class
-
+    
     private static final Map<String, List<String>> roleAccessConfig = new HashMap<>();
 
     static {

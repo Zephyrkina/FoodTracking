@@ -15,7 +15,7 @@ public class InputDataUtils {
         request.setAttribute(parameter, inputData);
         if (! inputData.matches(regex)) {
             request.setAttribute("wrong_"+parameter, new ErrorMessageManager(locale).getProperty("wrong." + parseString(parameter)));
-            return "0";  //TODO remove return null
+            return "0";
         }
         return inputData;
     }

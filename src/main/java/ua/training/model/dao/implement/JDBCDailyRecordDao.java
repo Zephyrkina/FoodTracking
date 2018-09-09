@@ -109,7 +109,6 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
 
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-            //TODO set isolation level
 
             DailyRecordMapper dailyRecordMapper = new DailyRecordMapper();
             FoodMapper foodMapper = new FoodMapper();
