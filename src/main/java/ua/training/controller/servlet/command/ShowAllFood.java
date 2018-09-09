@@ -7,7 +7,7 @@ import ua.training.model.service.FoodService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -20,7 +20,7 @@ public class ShowAllFood implements Command {
 
         FoodService foodService = new FoodService();
         List<FoodDTO> foodList;
-        List<Food> foods = new ArrayList<>();
+        List<Food> foods = new LinkedList<>();
 
 
         int rows = foodService.getNumberOfRows();

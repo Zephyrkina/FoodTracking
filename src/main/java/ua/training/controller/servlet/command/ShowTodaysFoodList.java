@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -23,7 +24,7 @@ public class ShowTodaysFoodList implements Command {
                     .showTodaysFoodList(new UserService()
                             .getUserIdByLogin((String)request.getSession().getAttribute("login")), LocalDate.now());
 
-            List<Food> foods = new ArrayList<>();
+            List<Food> foods = new LinkedList<>();
 
             for(FoodDTO dto : foodList) {
                 foods.add(dto.convertToLocalizatedFood((Locale) request.getSession().getAttribute("locale")));

@@ -10,10 +10,7 @@ import ua.training.model.service.resourse.manager.RegexManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class FindFoodByName implements Command{
     @Override
@@ -55,7 +52,7 @@ public class FindFoodByName implements Command{
             return "/WEB-INF/jsp/user/findFood.jsp";
         }
 
-        List<Food> foods = new ArrayList<>();
+        List<Food> foods = new LinkedList<>();
         foods.add(foodDTO.convertToLocalizatedFood(locale));
 
         request.setAttribute("foods", foods);
