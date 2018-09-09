@@ -22,9 +22,4 @@ public class DailyRecordMapper implements ObjectMapper<DailyRecord> {
         return dailyRecord;
     }
 
-    @Override
-    public DailyRecord makeUnique(Map<Integer, DailyRecord> cache, DailyRecord record) {
-        cache.putIfAbsent(record.getId(), record);
-        return cache.get(record.getId());
-    }
 }

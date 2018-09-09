@@ -25,10 +25,4 @@ public class FoodDTOMapper implements ObjectMapper<FoodDTO> {
         return food;
     }
 
-    @Override
-    public FoodDTO makeUnique(Map<Integer, FoodDTO> cache, FoodDTO food) {
-        cache.putIfAbsent(food.getId(), food);
-        return cache.get(food.getId());
-
-    }
 }

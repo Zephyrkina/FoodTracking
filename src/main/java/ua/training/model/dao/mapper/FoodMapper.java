@@ -22,11 +22,4 @@ public class FoodMapper implements ObjectMapper<Food> {
         return food;
     }
 
-    @Override
-    public Food makeUnique(Map<Integer, Food> cache, Food food) {
-        cache.putIfAbsent(food.getId(), food);
-        return cache.get(food.getId());
-
-    }
-
 }
