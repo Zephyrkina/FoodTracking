@@ -1,6 +1,5 @@
 package ua.training.controller.servlet.command;
 
-import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.service.FoodService;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,7 +1,5 @@
 package ua.training.controller.servlet.command;
 
-import ua.training.controller.servlet.command.Command;
-
 import javax.servlet.http.HttpServletRequest;
 
 public class CommandFactory {

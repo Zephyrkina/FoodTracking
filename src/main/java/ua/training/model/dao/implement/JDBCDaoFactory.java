@@ -4,7 +4,6 @@ import ua.training.model.dao.DailyRecordDao;
 import ua.training.model.dao.DaoFactory;
 import ua.training.model.dao.FoodDao;
 import ua.training.model.dao.UserDao;
-import ua.training.model.entity.DailyRecord;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

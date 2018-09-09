@@ -1,10 +1,8 @@
 package ua.training.controller.servlet.command;
 
-import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.service.DailyRecordService;
 import ua.training.model.service.UserService;
 import ua.training.model.service.resourse.manager.ErrorMessageManager;
-import ua.training.model.service.resourse.manager.RegexManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

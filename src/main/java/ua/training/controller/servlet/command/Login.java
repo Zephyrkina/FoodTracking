@@ -1,12 +1,8 @@
 package ua.training.controller.servlet.command;
 
-import ua.training.controller.servlet.Servlet;
 import ua.training.controller.utils.InputDataUtils;
-import ua.training.model.entity.DailyRecord;
 import ua.training.model.entity.User;
-import ua.training.model.exception.ExceededCalorieNormException;
 import ua.training.model.exception.ItemNotFoundException;
-import ua.training.model.service.DailyRecordService;
 import ua.training.model.service.UserService;
 import ua.training.model.service.resourse.manager.ErrorMessageManager;
 import ua.training.model.service.resourse.manager.RegexManager;
@@ -18,10 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Enumeration;
 import java.util.Locale;
-import java.util.logging.Logger;
 
 public class Login implements Command{
     static final org.apache.logging.log4j.Logger loginLogger = LogManager.getLogger(Login.class);

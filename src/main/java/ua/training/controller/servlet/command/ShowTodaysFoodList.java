@@ -4,7 +4,6 @@ import ua.training.model.dto.FoodDTO;
 import ua.training.model.entity.Food;
 import ua.training.model.exception.FoodListIsEmptyException;
 import ua.training.model.service.DailyRecordService;
-import ua.training.model.service.FoodService;
 import ua.training.model.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;

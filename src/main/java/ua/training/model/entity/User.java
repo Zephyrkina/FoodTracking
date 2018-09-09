@@ -172,5 +172,6 @@ public class User implements Cloneable{
                 ", calorieNorm=" + calorieNorm +
                 '}';
     }
+
 }
 

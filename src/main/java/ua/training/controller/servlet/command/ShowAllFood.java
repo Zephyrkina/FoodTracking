@@ -2,10 +2,7 @@ package ua.training.controller.servlet.command;
 
 import ua.training.model.dto.FoodDTO;
 import ua.training.model.entity.Food;
-import ua.training.model.exception.ItemNotFoundException;
-import ua.training.model.service.DailyRecordService;
 import ua.training.model.service.FoodService;
-import ua.training.model.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,8 +15,8 @@ public class ShowAllFood implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        int currentPage = request.getParameter("currentPage") == null ? 1 :  Integer.valueOf(request.getParameter("currentPage"));
-        int recordsPerPage = request.getParameter("recordsPerPage") == null ? 5 :  Integer.valueOf(request.getParameter("recordsPerPage"));
+        int currentPage = request.getParameter("currentPage") == null ? 1 : Integer.valueOf(request.getParameter("currentPage"));
+        int recordsPerPage = request.getParameter("recordsPerPage") == null ? 5 : Integer.valueOf(request.getParameter("recordsPerPage"));
 
         FoodService foodService = new FoodService();
         List<FoodDTO> foodList;

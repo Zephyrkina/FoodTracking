@@ -1,10 +1,7 @@
 package ua.training.controller.servlet.command;
 
-import com.sun.javafx.scene.input.InputEventUtils;
 import ua.training.controller.utils.InputDataUtils;
-import ua.training.model.exception.ExceededCalorieNormException;
 import ua.training.model.service.DailyRecordService;
-import ua.training.model.service.FoodService;
 import ua.training.model.service.UserService;
 import ua.training.model.service.resourse.manager.RegexManager;
 
@@ -12,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Locale;
 
 public class AddFoodToDailyRecord implements Command {

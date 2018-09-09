@@ -5,8 +5,6 @@ import ua.training.model.dao.mapper.FoodDTOMapper;
 import ua.training.model.dto.FoodDTO;
 import ua.training.model.exception.ItemNotFoundException;
 import ua.training.model.dao.FoodDao;
-import ua.training.model.dao.mapper.FoodMapper;
-import ua.training.model.entity.Food;
 
 import java.sql.*;
 import java.util.ArrayList;

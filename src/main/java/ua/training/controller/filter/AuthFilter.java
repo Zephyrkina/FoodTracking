@@ -1,7 +1,6 @@
 package ua.training.controller.filter;
 
 import org.apache.logging.log4j.LogManager;
-import ua.training.controller.servlet.command.Login;
 import ua.training.controller.utils.SecurityUtils;
 import ua.training.model.entity.User;
 
@@ -10,9 +9,6 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-import java.util.Set;
-import org.apache.logging.log4j.*;
 
 
 @WebFilter("/*")
@@ -43,9 +39,10 @@ public class AuthFilter implements Filter {
         }
 
         //TODO try to remove double if
+        SecurityUtils securityUtils = new SecurityUtils();
 
-        if (isSecurityPage(request.getRequestURI())) {
-            boolean hasPermission = hasPermission(request.getRequestURI(), request.getSession().getAttribute("role").toString());
+        if (securityUtils.isSecurityPage(request.getRequestURI())) {
+            boolean hasPermission = securityUtils.hasPermission(request.getRequestURI(), request.getSession().getAttribute("role").toString());
             if (!hasPermission) {
                 log.warn("Unauthorized access attempt");
                 request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
@@ -60,40 +57,4 @@ public class AuthFilter implements Filter {
 
     }
 
-    private boolean isSecurityPage(String urlPattern) {
-
-        Set<String> roles = SecurityUtils.getAllAppRoles();
-        for (String role : roles) {
-            List<String> urlPatterns = SecurityUtils.getUrlPatternsForRole(role);
-
-            if (urlPatterns != null ) {
-                for (String patterns : urlPatterns) {
-                    if (urlPattern.contains(patterns)){
-                       return true;
-                    }
-
-                }
-            }
-        }
-        return false;
-    }
-
-    private boolean hasPermission(String urlPattern, String userRole) {
-        Set<String> allRoles = SecurityUtils.getAllAppRoles();
-        for(String role : allRoles) {
-            if(!role.equals(userRole)){
-                continue;
-            }
-            List<String> urlPatterns = SecurityUtils.getUrlPatternsForRole(role);
-            if (urlPatterns != null ) {
-                for (String patterns : urlPatterns) {
-                    if (urlPattern.contains(patterns)){
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
 }

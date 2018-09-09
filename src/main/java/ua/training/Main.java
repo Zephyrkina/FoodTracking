@@ -6,13 +6,26 @@ import ua.training.model.dao.DaoFactory;
 import ua.training.model.dao.implement.JDBCDaoFactory;
 import ua.training.model.entity.User;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 
 public class Main {
-    static final Logger rootLogger = LogManager.getRootLogger();
+   /* static final Logger rootLogger = LogManager.getRootLogger();
     static final Logger userLogger = LogManager.getLogger(User.class);
-
+*/
     public static void main(String[] args) {
-        User user = new User();
+
+        /*Iterator<String> listIterator = list.iterator();
+
+        list.remove("2");
+        while (listIterator.hasNext()){
+            System.out.println(listIterator.next());
+        }*/
+
+
+      /*  User user = new User();
         user.setName("Anakin");
 
         userLogger.info(user.toString());
@@ -31,7 +44,7 @@ public class Main {
         } catch (NullPointerException ex) {
             userLogger.error("error message: " + ex.getMessage());
             userLogger.fatal("fatal error message: " + ex.getMessage());
-        }
+        }*/
 
 /*
         JDBCDaoFactory jdbcDaoFactory = new JDBCDaoFactory();
@@ -73,4 +86,5 @@ public class Main {
 
 
     }
+
 }

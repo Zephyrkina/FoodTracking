@@ -3,7 +3,6 @@ package ua.training.controller.servlet.command;
 import ua.training.model.exception.ItemNotFoundException;
 import ua.training.model.exception.OperationFailedException;
 import ua.training.model.service.DailyRecordService;
-import ua.training.model.service.FoodService;
 import ua.training.model.service.UserService;
 import ua.training.model.service.resourse.manager.ErrorMessageManager;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Locale;
 
 public class SavePreviousRecords implements Command {
