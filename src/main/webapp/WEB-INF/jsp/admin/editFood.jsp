@@ -27,7 +27,6 @@
 <div class="container main__login__part">
     <div class="text-center " style="padding:50px 0">
         <div class="logo"> <fmt:message key="edit.food.header"/></div>
-        <!-- Main Form -->
         <div class="login-form-1">
             <form id="login-form" class="text-left" action="${pageContext.request.contextPath}/admin/editFood" method="post">
                 <div class="login-form-main-message"></div>
@@ -35,10 +34,17 @@
                     <div class="login-group">
                         <input type="hidden" name="food_id" value="${param.food_id}">
                         <div class="form-group">
-                            <label for="own_foodname" class="sr-only"><fmt:message key="food.name"/></label>
-                            <input type="text" name="food_name" value="${param.food_name}" placeholder="<fmt:message key="food.name"/>" class="form-control" id="own_foodname" >
+                            <label for="own_foodname_en" class="sr-only"><fmt:message key="food.name.en"/></label>
+                            <input type="text" name="food_name_en" value="${param.food_name_en}" placeholder="<fmt:message key="food.name.en"/>" class="form-control" id="own_foodname_en" >
                         </div>
-                        <div class="error-alert">${wrong_food_name}</div>
+                        <div class="error-alert">${wrong_food_name_en}</div>
+                        <div class="error-alert">${requestScope.foodAlreadyExists} </div>
+
+                        <div class="form-group">
+                            <label for="own_foodname_ua" class="sr-only"><fmt:message key="food.name.ua"/></label>
+                            <input type="text" name="food_name_ua" value="${param.food_name_ua}" placeholder="<fmt:message key="food.name.ua"/>" class="form-control" id="own_foodname_ua" >
+                        </div>
+                        <div class="error-alert">${wrong_food_name_ua}</div>
                         <div class="error-alert">${requestScope.foodAlreadyExists} </div>
 
                         <div class="form-group">
@@ -76,7 +82,6 @@
 
             </form>
         </div>
-        <!-- end:Main Form -->
     </div>
 
 

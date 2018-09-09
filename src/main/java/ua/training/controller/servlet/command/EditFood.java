@@ -28,17 +28,8 @@ public class EditFood implements Command {
 
         InputDataUtils inputDataUtils = new InputDataUtils();
 
-        String nameEn = null;
-        String nameUa = null;
-
-        if(locale.getLanguage().equals("uk")){
-            nameUa = inputDataUtils.readCorrectData(request, "food_name", regexManager.getProperty("name"));
-        }
-        if(locale.getLanguage().equals("en")){
-            nameEn = inputDataUtils.readCorrectData(request, "food_name", regexManager.getProperty("name"));
-
-        }
-
+        String nameUa = inputDataUtils.readCorrectData(request, "food_name_ua", regexManager.getProperty("own.name.ua"));
+        String nameEn = inputDataUtils.readCorrectData(request, "food_name_en", regexManager.getProperty("own.name.en"));
         int id = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_id", regexManager.getProperty("int.numbers")));
         int calories = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_calories", regexManager.getProperty("int.numbers")));
         int carbs = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_carbs", regexManager.getProperty("int.numbers")));

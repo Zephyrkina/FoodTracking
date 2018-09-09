@@ -16,7 +16,7 @@ import java.util.List;
 
 public class JDBCUserDao implements UserDao {
     private Connection connection;
-    
+
     public JDBCUserDao(Connection connection) {
         this.connection = connection;
     }

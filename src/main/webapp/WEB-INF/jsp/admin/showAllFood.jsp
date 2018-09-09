@@ -60,7 +60,8 @@
             <c:if test="${requestScope.foodList != null }">
                 <div class="row">
                     <div class="col-1 col-sm-1 col-md-1 col-lg-1"><fmt:message key="food.table.id"/></div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.name"/></div>
+                    <div class="col-2 col-sm-1 col-md-1 col-lg-1"><fmt:message key="food.table.name"/></div>
+                    <div class="col-2 col-sm-1 col-md-1 col-lg-1"><fmt:message key="food.table.name"/></div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.calories"/></div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.carbs"/></div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2"><fmt:message key="food.table.fats"/></div>
@@ -74,7 +75,9 @@
             <c:forEach items="${foodList}" var="food">
                 <div class="row">
                     <div class="col-1 col-sm-1 col-md-1 col-lg-1">${food.id}</div>
-                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.name}</div>
+                    <div class="col-2 col-sm-2 col-md-1 col-lg-1">${food.nameEn}</div>
+                    <div class="col-2 col-sm-2 col-md-1 col-lg-1">${food.nameUa}</div>
+
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.calories}</div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.carbohydrates}</div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-2">${food.fats}</div>
@@ -84,7 +87,8 @@
 
                         <input type="hidden" name="food_id" value="${food.id}">
 
-                        <input type="hidden" name="food_name" value="${food.name}">
+                        <input type="hidden" name="food_name_en" value="${food.nameEn}">
+                        <input type="hidden" name="food_name_ua" value="${food.nameUa}">
                         <input type="hidden" name="food_calories" value="${food.calories}">
                         <input type="hidden" name="food_carbs" value="${food.carbohydrates}">
                         <input type="hidden" name="food_fats" value="${food.fats}">

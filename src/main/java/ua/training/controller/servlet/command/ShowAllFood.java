@@ -20,8 +20,6 @@ public class ShowAllFood implements Command {
 
         FoodService foodService = new FoodService();
         List<FoodDTO> foodList;
-        List<Food> foods = new LinkedList<>();
-
 
         int rows = foodService.getNumberOfRows();
         int amountOfPages = rows / recordsPerPage;
@@ -34,11 +32,8 @@ public class ShowAllFood implements Command {
 
         foodList = foodService.findAllFood(currentPage, recordsPerPage);
 
-        for(FoodDTO dto : foodList) {
-            foods.add(dto.convertToLocalizatedFood((Locale) request.getSession().getAttribute("locale")));
-        }
 
-        request.setAttribute("foodList", foods);
+        request.setAttribute("foodList", foodList);
         request.setAttribute("noOfPages", amountOfPages);
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("recordsPerPage", recordsPerPage);
