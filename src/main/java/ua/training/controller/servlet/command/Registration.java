@@ -1,5 +1,6 @@
 package ua.training.controller.servlet.command;
 
+import org.apache.logging.log4j.LogManager;
 import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.entity.User;
 import ua.training.model.builder.UserBuilder;
@@ -15,6 +16,8 @@ import java.util.Enumeration;
 import java.util.Locale;
 
 public class Registration implements Command {
+    static final org.apache.logging.log4j.Logger log = LogManager.getLogger(Registration.class);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         RegexManager regexManager = new RegexManager((Locale) request.getSession().getAttribute("locale"));
@@ -77,6 +80,7 @@ public class Registration implements Command {
                 .build();
 
         userService.createUser(user);
+        log.info("New user have been registered, login: " + login);
 
         request.getSession().setAttribute("login", login);
         request.getSession().setAttribute("role", role.toString());

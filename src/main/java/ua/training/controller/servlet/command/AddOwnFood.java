@@ -1,5 +1,7 @@
 package ua.training.controller.servlet.command;
 
+import org.apache.logging.log4j.LogManager;
+import ua.training.controller.filter.AuthFilter;
 import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.builder.FoodDTOBuilder;
 import ua.training.model.dto.FoodDTO;
@@ -15,14 +17,15 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Locale;
 
+
 public class AddOwnFood implements Command{
+    static final org.apache.logging.log4j.Logger log = LogManager.getLogger(AddOwnFood.class);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         RegexManager regexManager = new RegexManager((Locale) request.getSession().getAttribute("locale"));
         InputDataUtils inputDataUtils = new InputDataUtils();
-
-        //TODO think about replacing arraylists by linkedlists
 
         if (request.getParameter("own_food_name_en") == null
                 && request.getParameter("own_food_name_ua") == null
@@ -63,6 +66,7 @@ public class AddOwnFood implements Command{
 
         try {
             new FoodService().addOwnFoodToDB(food, new UserService().getUserIdByLogin((String)request.getSession().getAttribute("login")));
+            log.info("Added new user's food to database: " + food.toString() + ", user: " +  new UserService().getUserIdByLogin((String)request.getSession().getAttribute("login")));
         } catch (ItemAlreadyExists e) {
             request.setAttribute("foodAlreadyExists", new ErrorMessageManager((Locale) request.getSession().getAttribute("locale")).getProperty("food.already.exist"));
             return "/WEB-INF/jsp/user/addOwnFood.jsp";

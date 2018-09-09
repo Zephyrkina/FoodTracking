@@ -7,6 +7,6 @@ import java.io.IOException;
 public class EmptyCommand  implements Command{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        return "/index.jsp";
+        return "/WEB-INF/jsp/error.jsp";
     }
 }

@@ -1,5 +1,6 @@
 package ua.training.controller.servlet.command;
 
+import org.apache.logging.log4j.LogManager;
 import ua.training.controller.utils.InputDataUtils;
 import ua.training.model.dto.FoodDTO;
 import ua.training.model.builder.FoodDTOBuilder;
@@ -13,6 +14,8 @@ import java.util.Enumeration;
 import java.util.Locale;
 
 public class EditFood implements Command {
+    static final org.apache.logging.log4j.Logger log = LogManager.getLogger(EditFood.class);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Locale locale = (Locale) request.getSession().getAttribute("locale");
@@ -62,6 +65,8 @@ public class EditFood implements Command {
 
 
         new FoodService().editFood(food);
+        log.info("Food was edited: " + food.toString());
+
 
         return "/admin/showAllFood?currentPage="+ Integer.parseInt(request.getParameter("current_page"))
                 +"&recordsPerPage=" + Integer.parseInt(request.getParameter("records_per_page"));

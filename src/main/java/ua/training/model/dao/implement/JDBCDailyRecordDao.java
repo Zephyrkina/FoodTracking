@@ -21,11 +21,6 @@ import java.util.Map;
 public class JDBCDailyRecordDao implements DailyRecordDao {
     private Connection connection;
 
-    //TODO add mapper
-
-    //TODO made user_id in daily record unique
-
-
     public JDBCDailyRecordDao(Connection connection) {
         this.connection = connection;
     }

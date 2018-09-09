@@ -1,5 +1,7 @@
 package ua.training.model.dao.implement;
 
+import org.apache.logging.log4j.LogManager;
+import ua.training.controller.servlet.command.AddOwnFood;
 import ua.training.model.dao.DailyRecordDao;
 import ua.training.model.dao.DaoFactory;
 import ua.training.model.dao.FoodDao;
@@ -12,7 +14,10 @@ import java.sql.SQLException;
 public class JDBCDaoFactory extends DaoFactory{
 
     private DataSource dataSource = ConnectionPoolHolder.getDataSource();
-    
+
+    static final org.apache.logging.log4j.Logger log = LogManager.getLogger(JDBCDaoFactory.class);
+
+
     public UserDao createUserDao() {
         return new JDBCUserDao(getConnection());
     }
@@ -27,6 +32,7 @@ public class JDBCDaoFactory extends DaoFactory{
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
+            log.error("Database connection failed");
             //TODO remove e and add logger
             throw new RuntimeException(e);
         }

@@ -15,8 +15,6 @@ public class User implements Cloneable{
     private LIFE_ACTIVITY activity;
     private int calorieNorm;
 
-    //TODO overrride hash and equals??
-
     public enum LIFE_ACTIVITY  {
         LOW, NORMAL, HIGH
     }

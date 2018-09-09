@@ -23,12 +23,9 @@ public class AuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
-
         final HttpServletRequest request = (HttpServletRequest) servletRequest;
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-
-        System.out.println("session  in do filter: " + request.getSession().getId());
         String role =  (String) request.getSession().getAttribute("role");
 
         if (role == null) {
@@ -38,7 +35,6 @@ public class AuthFilter implements Filter {
             return;
         }
 
-        //TODO try to remove double if
         SecurityUtils securityUtils = new SecurityUtils();
 
         if (securityUtils.isSecurityPage(request.getRequestURI())) {
