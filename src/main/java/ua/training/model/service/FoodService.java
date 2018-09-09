@@ -12,9 +12,6 @@ import java.util.List;
 public class FoodService {
     DaoFactory daoFactory = DaoFactory.getInstance();
 
-    //TODO parse name en/ name ua
-
-
     public int addOwnFoodToDB(FoodDTO food, int userId) {
         try (FoodDao foodDao = daoFactory.createFoodDao()) {
             try {

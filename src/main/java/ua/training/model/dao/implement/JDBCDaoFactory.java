@@ -33,8 +33,7 @@ public class JDBCDaoFactory extends DaoFactory{
             return dataSource.getConnection();
         } catch (SQLException e) {
             log.error("Database connection failed");
-            //TODO remove e and add logger
-            throw new RuntimeException(e);
+            throw new RuntimeException();
         }
     }
 }

@@ -19,14 +19,13 @@ public class EditFood implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Locale locale = (Locale) request.getSession().getAttribute("locale");
-
         RegexManager regexManager = new RegexManager(locale);
+        InputDataUtils inputDataUtils = new InputDataUtils();
 
         if(request.getParameter("toEditPage").equals("yes")){
             return "/WEB-INF/jsp/admin/editFood.jsp";
         }
 
-        InputDataUtils inputDataUtils = new InputDataUtils();
 
         String nameUa = inputDataUtils.readCorrectData(request, "food_name_ua", regexManager.getProperty("own.name.ua"));
         String nameEn = inputDataUtils.readCorrectData(request, "food_name_en", regexManager.getProperty("own.name.en"));
@@ -36,13 +35,9 @@ public class EditFood implements Command {
         int fats = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_fats", regexManager.getProperty("int.numbers")));
         int proteins = Integer.parseInt(inputDataUtils.readCorrectData(request, "food_proteins", regexManager.getProperty("int.numbers")));
 
-        Enumeration<String> requestAttributeNames = request.getAttributeNames();
 
-        while(requestAttributeNames.hasMoreElements()){
-            String attrName = requestAttributeNames.nextElement();
-            if (attrName.contains("wrong")){
-                return "/WEB-INF/jsp/admin/editFood.jsp";
-            }
+        if (inputDataUtils.checkWrongInput(request)) {
+            return "/WEB-INF/jsp/admin/editFood.jsp";
         }
 
         FoodDTO food = new FoodDTOBuilder()

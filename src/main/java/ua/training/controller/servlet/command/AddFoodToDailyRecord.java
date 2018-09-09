@@ -12,9 +12,6 @@ import java.time.LocalDate;
 import java.util.Locale;
 
 public class AddFoodToDailyRecord implements Command {
-    //TODO private static final green string
-    //TODO global interf contanrs
-
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {

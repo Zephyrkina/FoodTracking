@@ -24,16 +24,7 @@ public class Registration implements Command {
         InputDataUtils inputDataUtils = new InputDataUtils();
         UserService userService = new UserService();
 
-        if( request.getParameter("user_name") == null
-                && request.getParameter("user_login") == null
-                && request.getParameter("user_email") == null
-                && request.getParameter("user_password") == null
-                && request.getParameter("user_password_repeat") == null
-                && request.getParameter("user_age") == null
-                && request.getParameter("user_height") == null
-                && request.getParameter("user_weight") == null ){
-            return "/WEB-INF/jsp/registration.jsp";
-        }
+        if (checkEmptyParameters(request)) return "/WEB-INF/jsp/registration.jsp";
 
         String name_en = inputDataUtils.readCorrectData(request, "user_name", regexManager.getProperty("name"));
         String login = inputDataUtils.readCorrectData(request, "user_login", regexManager.getProperty("login"));
@@ -54,14 +45,10 @@ public class Registration implements Command {
             request.setAttribute("notUniqueEmail", "Email is already in use. Choose another one.");
         }
 
-        Enumeration<String> requestAttributeNames = request.getAttributeNames();
-
-        while(requestAttributeNames.hasMoreElements()){
-            String attrName = requestAttributeNames.nextElement();
-            if (attrName.contains("wrong")){
-                return "/WEB-INF/jsp/registration.jsp";
-            }
+        if (inputDataUtils.checkWrongInput(request)) {
+            return "/WEB-INF/jsp/registration.jsp";
         }
+
 
         int calorieNorm = userService.calculateCalorieNorm(age, height, weight);
         User.ROLE role = User.ROLE.USER;
@@ -87,6 +74,21 @@ public class Registration implements Command {
         request.getServletContext().setAttribute(login, request.getSession());
 
 
-        return "/WEB-INF/jsp/index.jsp";
+        return "/user/profile";
         }
+
+
+    private boolean checkEmptyParameters(HttpServletRequest request) {
+        if( request.getParameter("user_name") == null
+                && request.getParameter("user_login") == null
+                && request.getParameter("user_email") == null
+                && request.getParameter("user_password") == null
+                && request.getParameter("user_password_repeat") == null
+                && request.getParameter("user_age") == null
+                && request.getParameter("user_height") == null
+                && request.getParameter("user_weight") == null ){
+            return true;
+        }
+        return false;
+    }
 }

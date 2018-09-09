@@ -19,6 +19,7 @@ public class FindFoodByName implements Command{
 
         RegexManager regexManager = new RegexManager(locale);
         InputDataUtils inputDataUtils = new InputDataUtils();
+        FoodDTO foodDTO;
 
         if (request.getParameter("search_food_name") == null) {
             return "/WEB-INF/jsp/user/findFood.jsp";
@@ -34,16 +35,10 @@ public class FindFoodByName implements Command{
             nameEn = inputDataUtils.readCorrectData(request, "search_food_name", regexManager.getProperty("name"));
         }
 
-        Enumeration<String> requestAttributeNames = request.getAttributeNames();
-
-        while(requestAttributeNames.hasMoreElements()){
-            String attrName = requestAttributeNames.nextElement();
-            if (attrName.contains("wrong")){
-                return "/WEB-INF/jsp/user/findFood.jsp";
-            }
+        if (inputDataUtils.checkWrongInput(request)) {
+            return "/WEB-INF/jsp/user/findFood.jsp";
         }
 
-        FoodDTO foodDTO;
 
         try {
             foodDTO = new FoodService().findFoodByName(nameEn, nameUa);

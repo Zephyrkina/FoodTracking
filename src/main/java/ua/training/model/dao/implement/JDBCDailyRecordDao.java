@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class JDBCDailyRecordDao implements DailyRecordDao {
     private Connection connection;
 
@@ -107,12 +108,11 @@ public class JDBCDailyRecordDao implements DailyRecordDao {
              PreparedStatement deleteTemporaryRecordStatement = connection.prepareStatement(sql5)){
 
             connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             //TODO set isolation level
 
             DailyRecordMapper dailyRecordMapper = new DailyRecordMapper();
             FoodMapper foodMapper = new FoodMapper();
-
-//-----------------------first query----------------------------------------------------------
 
             getAllStatement.setInt(1, userId);
             getAllStatement.setInt(2, dailyRecordId);

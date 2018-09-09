@@ -23,21 +23,12 @@ public class AddOwnFood implements Command{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
         RegexManager regexManager = new RegexManager((Locale) request.getSession().getAttribute("locale"));
         InputDataUtils inputDataUtils = new InputDataUtils();
 
-        if (request.getParameter("own_food_name_en") == null
-                && request.getParameter("own_food_name_ua") == null
-                && request.getParameter("own_food_calories") == null
-                && request.getParameter("own_food_carbs") == null
-                && request.getParameter("own_food_fats") == null
-                && request.getParameter("own_food_proteins") == null ) {
-          return "/WEB-INF/jsp/user/addOwnFood.jsp";
-
+        if (checkEmptyParameters(request)) {
+            return "/WEB-INF/jsp/user/addOwnFood.jsp";
         }
-
-
 
         String nameEn = inputDataUtils.readCorrectData(request, "own_food_name_en", regexManager.getProperty("own.name.en"));
         String nameUa = inputDataUtils.readCorrectData(request, "own_food_name_ua", regexManager.getProperty("own.name.ua"));
@@ -46,13 +37,8 @@ public class AddOwnFood implements Command{
         int fats = Integer.parseInt(inputDataUtils.readCorrectData(request, "own_food_fats", regexManager.getProperty("int.numbers")));
         int proteins = Integer.parseInt(inputDataUtils.readCorrectData(request, "own_food_proteins", regexManager.getProperty("int.numbers")));
 
-        Enumeration<String> requestAttributeNames = request.getAttributeNames();
-
-        while(requestAttributeNames.hasMoreElements()){
-            String attrName = requestAttributeNames.nextElement();
-            if (attrName.contains("wrong")){
-                return "/WEB-INF/jsp/user/addOwnFood.jsp";
-            }
+        if (inputDataUtils.checkWrongInput(request)) {
+            return "/WEB-INF/jsp/user/addOwnFood.jsp";
         }
 
         FoodDTO food = new FoodDTOBuilder()
@@ -74,5 +60,19 @@ public class AddOwnFood implements Command{
 
         return "/WEB-INF/jsp/user/userPage.jsp";
 
+    }
+
+
+    private boolean checkEmptyParameters(HttpServletRequest request) {
+        if (request.getParameter("own_food_name_en") == null
+                && request.getParameter("own_food_name_ua") == null
+                && request.getParameter("own_food_calories") == null
+                && request.getParameter("own_food_carbs") == null
+                && request.getParameter("own_food_fats") == null
+                && request.getParameter("own_food_proteins") == null ) {
+            return true;
+
+        }
+        return false;
     }
 }

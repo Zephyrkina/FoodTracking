@@ -3,6 +3,7 @@ package ua.training.controller.utils;
 import ua.training.model.service.resourse.manager.ErrorMessageManager;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 import java.util.Locale;
 
 public class InputDataUtils {
@@ -23,5 +24,17 @@ public class InputDataUtils {
         str = str.replaceAll("_",".");
         return str;
 
+    }
+
+    public boolean checkWrongInput(HttpServletRequest request) {
+        Enumeration<String> requestAttributeNames = request.getAttributeNames();
+
+        while(requestAttributeNames.hasMoreElements()){
+            String attrName = requestAttributeNames.nextElement();
+            if (attrName.contains("wrong")){
+                return true;
+            }
+        }
+        return false;
     }
 }

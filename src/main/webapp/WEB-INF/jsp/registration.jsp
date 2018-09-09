@@ -38,7 +38,7 @@
 
                         <div class="form-group">
                             <label for="reg_username" class="sr-only">Username</label>
-                            <input type="text" name="user_name" value="${user_name}" class="form-control" id="reg_username" placeholder="username">
+                            <input type="text" name="user_name" value="${user_name}" class="form-control" id="reg_username" placeholder="name">
                         </div>
 
                         <div class="error-alert">${wrong_user_name}</div>

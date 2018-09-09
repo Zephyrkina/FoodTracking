@@ -209,6 +209,8 @@ public class JDBCUserDao implements UserDao {
              PreparedStatement preparedStatement2 = connection.prepareStatement(sql2)){
 
             preparedStatement1.setString(1, userLogin);
+            preparedStatement2.setString(1, email);
+
 
             ResultSet resultSet = preparedStatement1.executeQuery();
             if( resultSet.next()){

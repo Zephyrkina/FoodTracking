@@ -15,10 +15,6 @@ public class Servlet extends HttpServlet {
     private Command command;
     private CommandFactory commandFactory;
 
-
-    //TODO rewrite annotations in xml
-    //TODO replace app by user/admin
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);

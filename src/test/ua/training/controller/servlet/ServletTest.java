@@ -15,7 +15,7 @@ public class ServletTest {
 
 
     @Test
-    public void changeLanguageTest() throws ServletException, IOException {
+    public void returnIndexJspWhenChangeLanguageTest() throws ServletException, IOException {
 
         String path = "/index.jsp";
         String uri = "/user/changeLanguage";
@@ -28,7 +28,6 @@ public class ServletTest {
 
         when(request.getRequestURI()).thenReturn(uri);
         when(request.getRequestDispatcher(path)).thenReturn(dispatcher);
-
         servlet.doGet(request, response);
 
         verify(request, times(1)).getRequestDispatcher(path);
