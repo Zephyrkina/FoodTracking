@@ -15,7 +15,7 @@ public class JDBCDaoFactory extends DaoFactory{
 
     private DataSource dataSource = ConnectionPoolHolder.getDataSource();
 
-    static final org.apache.logging.log4j.Logger log = LogManager.getLogger(JDBCDaoFactory.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(JDBCDaoFactory.class);
 
 
     public UserDao createUserDao() {

@@ -19,7 +19,7 @@ public class ShowAllFood implements Command {
         int recordsPerPage = request.getParameter("recordsPerPage") == null ? 5 : Integer.valueOf(request.getParameter("recordsPerPage"));
 
         FoodService foodService = new FoodService();
-        List<FoodDTO> foodList;
+
 
         int rows = foodService.getNumberOfRows();
         int amountOfPages = rows / recordsPerPage;
@@ -30,7 +30,7 @@ public class ShowAllFood implements Command {
             currentPage = amountOfPages;
         }
 
-        foodList = foodService.findAllFood(currentPage, recordsPerPage);
+        List<FoodDTO> foodList = foodService.findAllFood(currentPage, recordsPerPage);
 
 
         request.setAttribute("foodList", foodList);

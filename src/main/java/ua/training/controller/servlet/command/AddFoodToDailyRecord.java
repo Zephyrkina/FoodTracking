@@ -15,7 +15,7 @@ public class AddFoodToDailyRecord implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        RegexManager regexManager = new RegexManager((Locale) request.getSession().getAttribute("locale"));
+        RegexManager regexManager = new RegexManager(Locale.class.cast(request.getSession().getAttribute("locale")));
         InputDataUtils inputDataUtils = new InputDataUtils();
 
         int userId = new UserService().getUserIdByLogin((String)request.getSession().getAttribute("login"));

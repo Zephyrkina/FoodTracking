@@ -11,7 +11,7 @@ public class UserServiceTest {
     User user;
 
     @Before
-    public void init() {
+    public void setUp() {
         userService = new UserService();
         user = new UserBuilder()
                 .setName("name1")
@@ -23,7 +23,7 @@ public class UserServiceTest {
     }
 
     @After
-    public void destroy() {
+    public void tearDown() {
         userService.deleteUser(user);
     }
 

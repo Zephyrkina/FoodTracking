@@ -16,6 +16,7 @@ import java.util.Locale;
 
 public class DailyRecordService {
     DaoFactory daoFactory = DaoFactory.getInstance();
+    //TODO set instanse in construct
 
 
     public void savePreviousRecords(int userId, LocalDate date) {

@@ -68,6 +68,7 @@ public enum CommandEnum {
     };
 
 
+
     Command command;
 
     public Command getCurrentCommand() {
